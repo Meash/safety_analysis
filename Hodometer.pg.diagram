@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraphDslDiagram dslVersion="1.0.0.0" Id="5b8e18d6-8e5f-4e84-a0e3-0e312a758f2e" absoluteBounds="0, 0, 11, 8.5" name="Hodometer">
+  <programGraphMoniker Id="0931e47b-d36c-4412-bc22-203a65e421d9" />
+  <nestedChildShapes>
+    <initialStateShape Id="77fb0d50-205f-488d-9068-d8c33bb15d42" absoluteBounds="3.75, 3, 0.125, 0.125">
+      <initialNodeMoniker name="/0931e47b-d36c-4412-bc22-203a65e421d9/InitialNode1" />
+    </initialStateShape>
+    <stateShape Id="08242b0d-882e-4ade-a6bd-3b870b629e6c" absoluteBounds="4.875, 2.875, 1, 0.5">
+      <stateMoniker name="/0931e47b-d36c-4412-bc22-203a65e421d9/Messen" />
+    </stateShape>
+    <transitionConnector Id="85599e57-da6f-4163-8a25-312ddffd1895" edgePoints="[(3.875 : 3.0625); (4.875 : 3.0625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <transitionMoniker Id="82b31b67-ebec-478f-9bcd-f670172f19fb" />
+      <relativeChildShapes />
+      <nodes>
+        <initialStateShapeMoniker Id="77fb0d50-205f-488d-9068-d8c33bb15d42" />
+        <stateShapeMoniker Id="08242b0d-882e-4ade-a6bd-3b870b629e6c" />
+      </nodes>
+    </transitionConnector>
+  </nestedChildShapes>
+</programGraphDslDiagram>

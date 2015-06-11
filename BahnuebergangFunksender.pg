@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="bb58c7c5-e45b-431f-85a2-f4d69b8095af" name="BahnuebergangFunksender" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="e6eeac1b-e86f-4d9f-86fa-78a052883c46" name="InitialNode1">
+      <successors>
+        <transition Id="8296aac3-b88d-4d4b-b254-d9dd94366308">
+          <stateMoniker name="/bb58c7c5-e45b-431f-85a2-f4d69b8095af/Wartend" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="30021519-0998-41c3-a21c-bcc56501ae68" name="Wartend">
+      <successors>
+        <transition Id="50cce472-a84e-4586-9c5c-27d1e357f152" guard="Bahnuebergang == ZustandsAnfrageAngekommen" label="Bahnuebergang == ZustandsAnfrageAngekommen">
+          <stateMoniker name="/bb58c7c5-e45b-431f-85a2-f4d69b8095af/SendeBestaetigungsNachricht" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="ae036d8b-3f07-4e79-b2df-df60e44f87de" name="BestaetigungsNachrichtGesendet">
+      <successors>
+        <transition Id="40a059ca-0f09-423a-8409-85a06cff2874">
+          <stateMoniker name="/bb58c7c5-e45b-431f-85a2-f4d69b8095af/Wartend" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="3c3d6219-0d80-487a-84e0-be0b0e99abb5" name="SendeBestaetigungsNachricht">
+      <successors>
+        <transition Id="af828f24-c834-49e6-96d1-0c32722c33ab">
+          <stateMoniker name="/bb58c7c5-e45b-431f-85a2-f4d69b8095af/BestaetigungsNachrichtGesendet" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="1d4f498e-4602-482a-941e-c7aadee83c34">
+      <importedVariable Id="a9e9dff5-5449-4f7e-bbda-99d3d961b5c2" name="Bahnuebergang" range="Ungesichert, Sichern, Gesichert, Entsichern, ZugFahrtUeberSensor, ZustandsAnfrageAngekommen, SicherungsBestaetigungVersendet" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="27c3f9d8-017d-473e-b6d4-60909a4bf826" name="ZugFunkempfaenger" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="8a8a3684-0e68-49ad-816d-a536bccd1ec3" name="InitialNode1">
+      <successors>
+        <transition Id="4b2687f5-a84a-42a4-804a-51c3087ce685">
+          <stateMoniker name="/27c3f9d8-017d-473e-b6d4-60909a4bf826/Wartend" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="c0181d50-5294-4b7a-b7f2-e2d0213bcd48" name="Wartend">
+      <successors>
+        <transition Id="5f064ad2-ae41-45a2-bc90-3ef626a01513">
+          <stateMoniker name="/27c3f9d8-017d-473e-b6d4-60909a4bf826/SicherungsBestaetigungErhalten" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="785b0891-746c-421b-9ac7-ab80e46dafed" name="SicherungsBestaetigungErhalten">
+      <successors>
+        <transition Id="003d4907-080d-418c-9e1e-c9ae2d6531ac">
+          <stateMoniker name="/27c3f9d8-017d-473e-b6d4-60909a4bf826/Wartend" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+</programGraph>

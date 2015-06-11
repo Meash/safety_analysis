@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="0931e47b-d36c-4412-bc22-203a65e421d9" name="Hodometer" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="ca521a79-d248-4c6e-b41a-e52edfe521cc" name="InitialNode1">
+      <successors>
+        <transition Id="82b31b67-ebec-478f-9bcd-f670172f19fb" guard="v == 100" label="v == 100">
+          <stateMoniker name="/0931e47b-d36c-4412-bc22-203a65e421d9/Messen" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="8111dc7a-6096-492c-ac12-d730199dbb97" name="Messen" />
+  </states>
+  <variables>
+    <programGraphHasVariables Id="8eea3ec5-92a4-4430-9abc-5d7c27f97b72">
+      <variable Id="f39accfa-c7ea-4f6e-8e02-104d19316103" name="v" range="0..160" />
+    </programGraphHasVariables>
+  </variables>
+</programGraph>

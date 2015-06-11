@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="469936e9-c106-495f-839f-09ce70297bbc" name="Schrankensteuerung" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="7cdaac21-a5c5-45e3-b91e-ceb8ae2f3278" name="InitialNode1">
+      <successors>
+        <transition Id="f9b0c051-6671-4dc9-abdd-d5f528c3f5da">
+          <stateMoniker name="/469936e9-c106-495f-839f-09ce70297bbc/Aus" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="9c3b9d8c-037c-4ed3-8cfc-08352bf40a2b" name="Aus">
+      <successors>
+        <transition Id="dd95f42c-3cbf-4647-8684-036f7c6c51a9" guard="Bahnuebergang == Entsichern &amp;&amp; Schranke != Offen" label="Bahnuebergang == Entsichern &amp;&amp; Schranke != Offen">
+          <stateMoniker name="/469936e9-c106-495f-839f-09ce70297bbc/Oeffnen" />
+        </transition>
+        <transition Id="16538640-1907-4d04-be2d-d8107d8b3a95" guard="Bahnuebergang == Sichern &amp;&amp; Schranke != Geschlossen" label="Bahnuebergang == Sichern &amp;&amp; Schranke != Geschlossen">
+          <stateMoniker name="/469936e9-c106-495f-839f-09ce70297bbc/Schliessen" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="3fed474f-4df5-489e-929e-4bad8806843a" name="Oeffnen">
+      <successors>
+        <transition Id="7a0e04fb-815f-489d-b282-2906ec038fe4" guard="Schranke == Offen" label="Schranke == Offen">
+          <stateMoniker name="/469936e9-c106-495f-839f-09ce70297bbc/Aus" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="03c284f7-6139-4169-a95e-48861e7e5ff2" name="Schliessen">
+      <successors>
+        <transition Id="68140d3b-0008-4970-86ab-51f9faaf124a" guard="Schranke == Geschlossen" label="Schranke == Geschlossen">
+          <stateMoniker name="/469936e9-c106-495f-839f-09ce70297bbc/Aus" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="9f5271d1-183f-4fd3-86e1-8c7794539a1c">
+      <importedVariable Id="d13370f3-2f06-433f-9e9f-b27ed22921e0" name="Schranke" range="Offen, Geschlossen, Schliessend, Oeffnend" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="bcda29c1-3e5a-45cd-8000-9b73d64a3710">
+      <importedVariable Id="e8c62398-29cd-4e84-9904-0becab9e1724" name="Bahnuebergang" range="Ungesichert, Sichern, Gesichert, Entsichern" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>

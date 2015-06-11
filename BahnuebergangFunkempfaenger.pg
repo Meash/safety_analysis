@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="47c72841-801e-490d-be92-09a046b8d5e3" name="BahnuebergangFunkempfaenger" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="10672199-0527-4752-8941-b1195723a386" name="InitialNode1">
+      <successors>
+        <transition Id="d644ec81-8253-4357-a21b-d24cdf91bc0d">
+          <stateMoniker name="/47c72841-801e-490d-be92-09a046b8d5e3/Wartend" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="ecc4c84a-4e54-4af2-ab1e-cf5f8bb2716d" name="Wartend">
+      <successors>
+        <transition Id="4afde0fc-9279-489c-954a-567f6867b212" guard="ZugFunksender==SicherungsAnweisungGesendet" label="ZugFunksender==SicherungsAnweisungGesendet">
+          <stateMoniker name="/47c72841-801e-490d-be92-09a046b8d5e3/SicherungsAnweisungAngekommen" />
+        </transition>
+        <transition Id="9a33cb54-e5f3-4646-bd48-8fcc430cd042" guard="ZugFunksender==AnfrageGesendet" label="ZugFunksender==AnfrageGesendet">
+          <stateMoniker name="/47c72841-801e-490d-be92-09a046b8d5e3/ZustandsAnfrageAngekommen" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="06c2d56f-40d3-4c50-a7aa-bd02cb3d834e" name="SicherungsAnweisungAngekommen">
+      <successors>
+        <transition Id="47d2e029-2bb6-4036-b2aa-cf372bd3480a">
+          <stateMoniker name="/47c72841-801e-490d-be92-09a046b8d5e3/Wartend" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="1547a40c-94d1-49b5-a70b-6ad50e17344b" name="ZustandsAnfrageAngekommen">
+      <successors>
+        <transition Id="b7eb2b0c-4025-49ef-8dfd-f7b68c51f9e2">
+          <stateMoniker name="/47c72841-801e-490d-be92-09a046b8d5e3/Wartend" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="d0278ead-41ec-46f9-ad2c-9fe664c0bd2c">
+      <importedVariable Id="aa35942d-2163-4567-a524-73cfd259ec57" name="ZugFunksender" range="Wartend, SicherungsAnweisungGesendet, AnfrageGesendet" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>

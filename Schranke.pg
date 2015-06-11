@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="53e3d013-1a56-42e2-9408-6866766b1094" name="Schranke" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="eaf02713-ad07-476b-913e-e295fc1aab0f" name="InitialNode1">
+      <successors>
+        <transition Id="2c676d00-eecd-40d9-ba4f-b46cf258c812" guard="Winkel==90" label="Winkel==90">
+          <stateMoniker name="/53e3d013-1a56-42e2-9408-6866766b1094/_" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="1ff5b864-7cd8-4259-9583-b0865e63636b" name="_">
+      <successors>
+        <transition Id="d67633ef-140b-476a-a58d-a1c01766156a" action="Winkel := Winkel + DeltaWinkel" label="// Winkel := Winkel + DeltaWinkel" precondition="Winkel + DeltaWinkel &lt;= 2 &amp;&amp; Winkel + DeltaWinkel &gt;= 0">
+          <stateMoniker name="/53e3d013-1a56-42e2-9408-6866766b1094/_" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+  <variables>
+    <programGraphHasVariables Id="8bddcba4-28a3-4c36-95f0-6d7dad7b77eb">
+      <variable Id="7764bbf2-5af0-4e27-88a3-c41664f7b3eb" name="Winkel" range="0..2" />
+    </programGraphHasVariables>
+  </variables>
+  <comments>
+    <programGraphHasComments Id="59da563e-528e-4165-b0ee-d2197620da70">
+      <comment Id="b80e85cb-f7d6-4ea7-8970-cfc4c8d7921b" text="Schranke im offenen Zustand: 2, Schranke in der Bewegung: 1, Schranke geschlossen: 1" />
+    </programGraphHasComments>
+  </comments>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="af3955d8-129f-4de0-97b1-bf5f053e3314">
+      <importedVariable Id="31557ec0-2504-4051-9130-df150e97b854" name="Schrankenmotor.DeltaWinkel" range="-1..1" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>

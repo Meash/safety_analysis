@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="3b302720-4d94-4525-ad5d-b5bd13f9b9ff" name="Bahnuebergang" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="b8330c9a-a0ee-43be-a464-ba82200a8309" name="InitialNode1">
+      <successors>
+        <transition Id="02d02bee-2fca-491b-bee3-195a3c531b8a">
+          <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/Ungesichert" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="a87a98d0-f7c9-44f5-8701-adacd0b5df60" name="Ungesichert">
+      <successors>
+        <transition Id="3dd9c320-f538-42d3-bbea-d04e8bbf0ce9" guard="BahnuebergangFunkempfaenger == SicherungsAnweisungAngekommen" label="BahnuebergangFunkempfaenger == SicherungsAnweisungAngekommen">
+          <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/Sichern" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="928b9b25-70f3-47d3-b4eb-b971bff64041" name="Sichern">
+      <successors>
+        <transition Id="2a0299e2-7a37-4a88-8529-a340c913c37d" guard="Schranke == Geschlossen" label="Schranke == Geschlossen">
+          <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/Gesichert" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="485230a8-6e9d-43f8-8032-bb943a846ad7" name="Gesichert">
+      <successors>
+        <transition Id="93d153c1-ea86-428c-b3a0-f96bc23b975f" guard="BahnuebergangFunkempfaenger==ZustandsAnfrageAngekommen" label="BahnuebergangFunkempfaenger==ZustandsAnfrageAngekommen">
+          <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/ZustandsAnfrageAngekommen" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="5353116d-da7f-49b9-8be6-edb9e21c2bd5" name="Entsichern">
+      <successors>
+        <transition Id="0c4a0d05-bb77-4809-bb84-918a4122e706" guard="Schranke == Offen" label="Schranke == Offen">
+          <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/Ungesichert" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="d447f3c9-0e9c-4e45-a0d1-fd01b181ad53" name="ZugFahrtUeberSensor">
+      <successors>
+        <transition Id="ed0a4278-a784-4ab3-8885-75c6b13698d9" guard="Sensor==KeinZug" label="Sensor==KeinZug">
+          <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/Entsichern" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="a67b4f20-f080-4072-831c-7fc66d7d4b3c" name="ZustandsAnfrageAngekommen">
+      <successors>
+        <transition Id="67affd57-3dee-44f7-8512-b1feb476a464" guard="BahnuebergangFunksender==BestaetigungsNachrichtGesendet" label="BahnuebergangFunksender==BestaetigungsNachrichtGesendet">
+          <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/SicherungsBestaetigungVersendet" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="134df30b-3cb0-428a-8893-4fb2fc527284" name="SicherungsBestaetigungVersendet">
+      <successors>
+        <transition Id="f4ff74e4-2088-4883-b774-ca761f1afe50" guard="Sensor==ZugFaehrtDurch" label="Sensor==ZugFaehrtDurch">
+          <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/ZugFahrtUeberSensor" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="78968b8e-cd6d-447d-828d-c36cbdde56b6">
+      <importedVariable Id="48215f61-963c-488d-bfb6-35c2a3036eb4" name="Schranke" range="Offen, Geschlossen, Schliessend, Oeffnend" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="0d1abe70-3421-4975-a6c9-91bdbd55293b">
+      <importedVariable Id="80509911-2251-4cf3-94b3-195d0122dd61" name="BahnuebergangFunkempfaenger" range="Wartend, SicherungsAnweisungAngekommen, ZustandsAnfrageAngekommen" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="e89bcc7e-3b52-46d8-aa72-abbc98f734b4">
+      <importedVariable Id="2408f3ad-4c13-4783-a50d-748b9ad51f24" name="Sensor" range="KeinZug, ZugFaehrtDurch" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="5e3f3582-f367-4168-967b-f408fabe5294">
+      <importedVariable Id="e9c97961-f716-4faa-bc4e-a937e0c8379a" name="BahnuebergangFunksender" range="Wartend, BestaetigungsNachrichtGesendet, SendeBestaetigungsNachricht" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>

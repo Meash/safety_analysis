@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="53e3d013-1a56-42e2-9408-6866766b1094" name="Schrankensensor" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="eaf02713-ad07-476b-913e-e295fc1aab0f" name="InitialNode1">
+      <successors>
+        <transition Id="2c676d00-eecd-40d9-ba4f-b46cf258c812">
+          <stateMoniker name="/53e3d013-1a56-42e2-9408-6866766b1094/Offen" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="1ff5b864-7cd8-4259-9583-b0865e63636b" name="Offen">
+      <successors>
+        <transition Id="836128c7-bb03-4a73-b804-c139db317295" guard="Winkel &lt; 2" label="Winkel &lt; 2">
+          <stateMoniker name="/53e3d013-1a56-42e2-9408-6866766b1094/InDerBewegung" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="923979b8-4e28-487e-8799-a627f84ac36f" name="Geschlossen">
+      <successors>
+        <transition Id="e1f98cc4-186f-48f1-955c-dcd05c2c30d1" guard="Winkel &gt; 0" label="Winkel &gt; 0">
+          <stateMoniker name="/53e3d013-1a56-42e2-9408-6866766b1094/InDerBewegung" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="773af05e-609f-4b4d-838b-89112d1a405f" name="InDerBewegung">
+      <successors>
+        <transition Id="056640d7-096a-4ff3-9b73-7ddc08d5bc2a" guard="Winkel == 0" label="Winkel == 0">
+          <stateMoniker name="/53e3d013-1a56-42e2-9408-6866766b1094/Geschlossen" />
+        </transition>
+        <transition Id="ab931f58-d42e-4489-9abd-56e4f969a633" guard="Winkel == 2" label="Winkel == 2">
+          <stateMoniker name="/53e3d013-1a56-42e2-9408-6866766b1094/Offen" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+  <macros>
+    <programGraphHasMacros Id="edd24c6f-fa43-4659-b042-a6330f590256">
+      <macro Id="710ccc27-cd1e-4997-a410-ce8f7a11bb76" name="Winkelgeschwindigkeit" body="1" />
+    </programGraphHasMacros>
+  </macros>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="841467af-a457-445a-ac38-9879ab05e197">
+      <importedVariable Id="60f41d0e-1cd8-4f84-b6e9-dd78147646b8" name="Schranke.Winkel" range="0..90" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>
