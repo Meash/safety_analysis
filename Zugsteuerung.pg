@@ -3,20 +3,42 @@
   <states>
     <initialNode Id="a63c328a-4b56-40cb-a6fc-cbbb2c309726" name="InitialNode1">
       <successors>
-        <transition Id="71bc4c5c-b2da-4e1b-b060-43dd6d99ea8d">
+        <transition Id="71bc4c5c-b2da-4e1b-b060-43dd6d99ea8d" guard="BahnuebergangGesichert == 0" label="BahnuebergangGesichert == 0">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/Fahren" />
         </transition>
       </successors>
     </initialNode>
     <state Id="86813711-8391-45f3-9af9-ba8ed78d5d55" name="Fahren">
       <successors>
-        <transition Id="414d1154-21af-4656-a594-9463ad5a0120" guard="Zughodometer == AnfragepunktErreicht &amp;&amp; ZugFunkempfaenger != SicherungsBestaetigungErhalten" label="Zughodometer == AnfragepunktErreicht &amp;&amp; ZugFunkempfaenger != SicherungsBestaetigungErhalten">
+        <transition Id="414d1154-21af-4656-a594-9463ad5a0120" guard="ZughodometerPos == AnfragepunktErreicht &amp;&amp; BahnuebergangGesichert == 0 &amp;&amp; ZugFunkempfaenger != SicherungsBestaetigungErhalten " label="ZughodometerPos == AnfragepunktErreicht &amp;&amp; BahnuebergangGesichert == 0 &amp;&amp; ZugFunkempfaenger != SicherungsBestaetigungErhalten ">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/Zwangsbremsung" />
+        </transition>
+        <transition Id="520cc779-a9e1-4241-a101-ec59be7115e1" guard="ZugFunkempfaenger == SicherungsBestaetigungErhalten" action="BahnuebergangGesichert := 1" label="ZugFunkempfaenger == SicherungsBestaetigungErhalten // BahnuebergangGesichert := 1" precondition="1 &lt;= 1">
+          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/Fahren" />
+        </transition>
+        <transition Id="ce6f3cc5-6624-44e1-b1a4-65a21447e742" guard="ZughodometerPos == SensorpunktErreicht" action="BahnuebergangGesichert := 0" label="ZughodometerPos == SensorpunktErreicht // BahnuebergangGesichert := 0" precondition="0 &gt;= 0">
+          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/Fahren" />
         </transition>
       </successors>
     </state>
     <state Id="a42a9c18-a4e9-4739-b906-dafee8764983" name="Zwangsbremsung" />
   </states>
+  <variables>
+    <programGraphHasVariables Id="8847004e-4c41-4c98-9b3d-b79b6636df42">
+      <variable Id="599bc13a-fb82-474e-afe0-20c2ac328d99" name="BahnuebergangGesichert" range="0..1" />
+    </programGraphHasVariables>
+  </variables>
+  <comments>
+    <programGraphHasComments Id="862a6212-d48d-4aaf-a91e-06ebbeca22ac">
+      <comment Id="849de69c-4250-4253-ac4d-a57a496184d7" text="Merken, dass Bahnuebergang gesichert ist" />
+    </programGraphHasComments>
+    <programGraphHasComments Id="560b4175-8028-4d8c-8e3a-ce94b8bcca01">
+      <comment Id="b390e1a0-15e8-4a55-986f-91d581d3dfe8" text="Funkempfaenger nochmal pruefen, da die Bestaetigung genau jetzt ankommen koennte" />
+    </programGraphHasComments>
+    <programGraphHasComments Id="7554bbcd-7b7b-4b34-9e86-308c3759718a">
+      <comment Id="dedad866-64e6-47d8-840f-f85172a2b966" text="Zuruecksetzen fuer naechsten Bahnuebergang" />
+    </programGraphHasComments>
+  </comments>
   <macros>
     <programGraphHasMacros Id="f8583c99-1e05-43bb-8098-2fe705f9416b">
       <macro Id="01ea6f13-17be-432f-983c-e2887fa09829" name="_EP" body="_AP - v * (_t + _c)" />
@@ -57,7 +79,7 @@
   </macros>
   <importedVariables>
     <programGraphHasImportedVariables Id="1535d126-cc23-43f0-b0bf-073934413494">
-      <importedVariable Id="4c206f11-6999-4329-9029-89981e3eb0a5" name="Zughodometer" range="AufFreierStrecke, EinschaltpunktErreicht, AnfragepunktErreicht, GefahrenpunktErreicht, BremseinsatzpunktErreicht, Ende, SensorpunktErreicht" />
+      <importedVariable Id="4c206f11-6999-4329-9029-89981e3eb0a5" name="ZughodometerPos" range="AufFreierStrecke, EinschaltpunktErreicht, AnfragepunktErreicht, GefahrenpunktErreicht, BremseinsatzpunktErreicht, Ende, SensorpunktErreicht" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="2429806e-ea22-4b03-b51a-3cc02bc4c54a">
       <importedVariable Id="9a5c723b-a0b4-4a0a-b9d3-183fb0f99103" name="ZugFunkempfaenger" range="Wartend, SicherungsBestaetigungErhalten" />
