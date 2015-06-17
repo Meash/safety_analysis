@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="e28d0bc5-b160-46b5-b76d-de9238a3230a" name="Zugmotor" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="4cfc7932-eae5-4d1b-97e2-8a7a272f102c" name="InitialNode1">
+      <successors>
+        <transition Id="257ea561-b9e7-4f74-a913-99320f35db22">
+          <stateMoniker name="/e28d0bc5-b160-46b5-b76d-de9238a3230a/Aus" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="369d03b7-0080-4323-9037-03bafdf7cf22" name="Aus">
+      <successors>
+        <transition Id="32a0c604-06d9-4cab-a256-9bdfa086234b" guard="Zugsteuerung == Fahren &amp;&amp; v &lt; Zielgeschwindigkeit" action="Antriebswirkung := 2" label="Zugsteuerung == Fahren &amp;&amp; v &lt; Zielgeschwindigkeit // Antriebswirkung := 2" precondition="2 &lt;= 2">
+          <stateMoniker name="/e28d0bc5-b160-46b5-b76d-de9238a3230a/Beschleunigen" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="a2a6663d-726d-4e49-90de-0079060bb6cd" name="Beschleunigen">
+      <successors>
+        <transition Id="e6612b6a-619e-4242-8b26-36471c5eb63c" guard="Zugsteuerung == Zwangsbremsung" action="Antriebswirkung := 0" label="Zugsteuerung == Zwangsbremsung // Antriebswirkung := 0" precondition="0 &gt;= 0">
+          <stateMoniker name="/e28d0bc5-b160-46b5-b76d-de9238a3230a/Aus" />
+        </transition>
+        <transition Id="001ebb1c-b14f-4fac-adac-5ad7d893c721" guard="Zugsteuerung == Fahren &amp;&amp; v == Zielgeschwindigkeit" action="Antriebswirkung := 1" label="Zugsteuerung == Fahren &amp;&amp; v == Zielgeschwindigkeit // Antriebswirkung := 1" precondition="1 &gt;= 0 &amp;&amp; 1 &lt;= 2">
+          <stateMoniker name="/e28d0bc5-b160-46b5-b76d-de9238a3230a/GeschwindigkeitHalten" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="83eb3de3-47a8-4013-9b8b-d3e059c05d05" name="GeschwindigkeitHalten">
+      <successors>
+        <transition Id="84be55f1-749e-473f-ab17-972fa9946239" guard="Zugsteuerung == Zwangsbremsung" action="Antriebswirkung := 0" label="Zugsteuerung == Zwangsbremsung // Antriebswirkung := 0" precondition="0 &gt;= 0">
+          <stateMoniker name="/e28d0bc5-b160-46b5-b76d-de9238a3230a/Aus" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+  <variables>
+    <programGraphHasVariables Id="a4a88b8f-8914-4477-a896-0f5fef253cb5">
+      <variable Id="54e4ae45-f707-497a-a1fc-be11b823004f" name="Antriebswirkung" range="0..2" />
+    </programGraphHasVariables>
+  </variables>
+  <comments>
+    <programGraphHasComments Id="5c12b18d-31aa-4f7c-917f-02a9c4640015">
+      <comment Id="55e58701-05c0-4473-9380-efc0d070ec98" text="Der Geschwindigkeitsverlust durch Reibung ist 1, die Antriebswirkung muss dementsprechend &gt; 1 sein, in diesem Fall wurde 2 gewählt. Wählt man eine Zahl größer als 2, müsste man den zusätzlichen Fall einführen, dass die Geschwindigkeit des Zuges bereits weniger als die Antriebswirkung - Reibungsverlust unter der Zielgeschwindigkeit liegt." />
+    </programGraphHasComments>
+  </comments>
+  <macros>
+    <programGraphHasMacros Id="d542158a-ea0f-49b4-b0d4-ee24a42ffe45">
+      <macro Id="e8a7daae-5ba0-4ecf-bd53-802a37b24503" name="Zielgeschwindigkeit" body="160" />
+    </programGraphHasMacros>
+  </macros>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="5313501a-f0c6-4dde-9ec0-d2d6cc33b9b6">
+      <importedVariable Id="52fbf55b-e172-4db4-8a49-e27f467bcb9b" name="Zugsteuerung" range="Fahren, Zwangsbremsung" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="28d123f9-f3d8-41fa-a4ec-b33a7bf15bf0">
+      <importedVariable Id="3254f92f-4b1f-4c06-b6f7-41b0a39913fd" name="Zuggeschwindigkeit.v" range="0..1" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>

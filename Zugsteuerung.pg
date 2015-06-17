@@ -3,66 +3,20 @@
   <states>
     <initialNode Id="a63c328a-4b56-40cb-a6fc-cbbb2c309726" name="InitialNode1">
       <successors>
-        <transition Id="71bc4c5c-b2da-4e1b-b060-43dd6d99ea8d" guard="Position == -10000" label="Position == -10000">
-          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AufFreierStrecke" />
+        <transition Id="71bc4c5c-b2da-4e1b-b060-43dd6d99ea8d">
+          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/Fahren" />
         </transition>
       </successors>
     </initialNode>
-    <state Id="86813711-8391-45f3-9af9-ba8ed78d5d55" name="AufFreierStrecke">
+    <state Id="86813711-8391-45f3-9af9-ba8ed78d5d55" name="Fahren">
       <successors>
-        <transition Id="b01a5bbf-9ebc-4051-941b-47524a7eee26" guard="Position &gt;= _EP" action="_Fahren" label="Position &gt;= _EP // _Fahren" precondition="_PreFahren">
-          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/EinschaltpunktErreicht" />
-        </transition>
-        <transition Id="ac127002-948f-486e-8398-a6d66a55e46e" guard="Position &lt; _EP" action="_Fahren" label="Position &lt; _EP // _Fahren" precondition="_PreFahren">
-          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AufFreierStrecke" />
-        </transition>
-      </successors>
-    </state>
-    <state Id="6b29ffb6-0387-4f6a-96e5-0651ca5e0fb6" name="EinschaltpunktErreicht">
-      <successors>
-        <transition Id="6ba61925-5df1-4eef-a568-f4552f2423e8" guard="Position &gt;= _AP" action="_Fahren" label="Position &gt;= _AP // _Fahren" precondition="_PreFahren">
-          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AnfragepunktErreicht" />
-        </transition>
-        <transition Id="5b3cd13a-7327-42d1-95be-5035764bf014" guard="Position &lt; _AP" action="_Fahren" label="Position &lt; _AP // _Fahren" precondition="_PreFahren">
-          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/EinschaltpunktErreicht" />
-        </transition>
-      </successors>
-    </state>
-    <state Id="210dbee4-3e53-4aba-bd27-9f5a86335336" name="AnfragepunktErreicht">
-      <successors>
-        <transition Id="8e0c3257-721f-473d-b714-aec796651fac" guard="Position &gt;= _BEP &amp;&amp; ZugFunkempfaenger != SicherungsBestaetigungErhalten" action="_Fahren" label="Position &gt;= _BEP &amp;&amp; ZugFunkempfaenger != SicherungsBestaetigungErhalten // _Fahren" precondition="_PreFahren">
+        <transition Id="414d1154-21af-4656-a594-9463ad5a0120" guard="Zughodometer == AnfragepunktErreicht &amp;&amp; ZugFunkempfaenger != SicherungsBestaetigungErhalten" label="Zughodometer == AnfragepunktErreicht &amp;&amp; ZugFunkempfaenger != SicherungsBestaetigungErhalten">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/Zwangsbremsung" />
-        </transition>
-        <transition Id="8f0143e5-ec95-4e56-b576-52eb33524f4c" guard="Position &lt; _BEP" action="_Fahren" label="Position &lt; _BEP // _Fahren" precondition="_PreFahren">
-          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AnfragepunktErreicht" />
-        </transition>
-        <transition Id="0d7fdb94-fc58-4bf0-be7b-e7243d197ab7" guard="ZugFunkempfaenger == SicherungsBestaetigungErhalten" action="_Fahren" label="ZugFunkempfaenger == SicherungsBestaetigungErhalten // _Fahren" precondition="_PreFahren">
-          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/SicherungsBestaetigungAngekommen" />
         </transition>
       </successors>
     </state>
     <state Id="a42a9c18-a4e9-4739-b906-dafee8764983" name="Zwangsbremsung" />
-    <state Id="bf80a76f-982f-4051-861e-3f8189026f0b" name="FaehrtUeberSensorpunkt">
-      <successors>
-        <transition Id="1c0bcf61-b02d-415c-9d16-c14b90722dcd">
-          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/Ende" />
-        </transition>
-      </successors>
-    </state>
-    <state Id="8fe520b9-015d-4353-ba60-a47e30bac2a3" name="SicherungsBestaetigungAngekommen">
-      <successors>
-        <transition Id="e4984ffd-17ad-4062-be23-f6d1d20fb02a" guard="Position &gt;= _SP" label="Position &gt;= _SP">
-          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/FaehrtUeberSensorpunkt" />
-        </transition>
-      </successors>
-    </state>
-    <state Id="963b959a-69c8-47bd-8e0f-ababc50569e2" name="Ende" />
   </states>
-  <variables>
-    <programGraphHasVariables Id="fd76164e-0c79-41e5-94a3-955a9305e5f3">
-      <variable Id="00645e92-a698-4f4a-96b7-84cd3b05c193" name="Position" range="-10000..10000" />
-    </programGraphHasVariables>
-  </variables>
   <macros>
     <programGraphHasMacros Id="f8583c99-1e05-43bb-8098-2fe705f9416b">
       <macro Id="01ea6f13-17be-432f-983c-e2887fa09829" name="_EP" body="_AP - v * (_t + _c)" />
@@ -95,7 +49,7 @@
       <macro Id="b9247054-eb1e-490b-b667-4a4aa48dff91" name="_Fahren" body="Position := Position + DeltaPos" />
     </programGraphHasMacros>
     <programGraphHasMacros Id="8dce5c5c-d6e1-45c8-be63-cc27e25a22b7">
-      <macro Id="748ab70a-b9eb-41f1-ae6f-7107bcdcdcd6" name="_PreFahren" body="Position &lt;= 10000 - DeltaPos" />
+      <macro Id="748ab70a-b9eb-41f1-ae6f-7107bcdcdcd6" name="_PreFahren" body="Position &lt;= 100 - DeltaPos" />
     </programGraphHasMacros>
     <programGraphHasMacros Id="371fcf9d-1238-418b-b434-167683910563">
       <macro Id="c58d1851-7655-465f-b3b6-3d323f7bc42a" name="DeltaPos" body="v / (36 / 10)" />
@@ -103,7 +57,7 @@
   </macros>
   <importedVariables>
     <programGraphHasImportedVariables Id="1535d126-cc23-43f0-b0bf-073934413494">
-      <importedVariable Id="4c206f11-6999-4329-9029-89981e3eb0a5" name="Hodometer.v" range="0..160" />
+      <importedVariable Id="4c206f11-6999-4329-9029-89981e3eb0a5" name="Zughodometer" range="AufFreierStrecke, EinschaltpunktErreicht, AnfragepunktErreicht, GefahrenpunktErreicht, BremseinsatzpunktErreicht, Ende, SensorpunktErreicht" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="2429806e-ea22-4b03-b51a-3cc02bc4c54a">
       <importedVariable Id="9a5c723b-a0b4-4a0a-b9d3-183fb0f99103" name="ZugFunkempfaenger" range="Wartend, SicherungsBestaetigungErhalten" />

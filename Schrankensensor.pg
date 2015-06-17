@@ -40,7 +40,7 @@
   </macros>
   <importedVariables>
     <programGraphHasImportedVariables Id="841467af-a457-445a-ac38-9879ab05e197">
-      <importedVariable Id="60f41d0e-1cd8-4f84-b6e9-dd78147646b8" name="Schranke.Winkel" range="0..90" />
+      <importedVariable Id="60f41d0e-1cd8-4f84-b6e9-dd78147646b8" name="Schranke.Winkel" range="0..2" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

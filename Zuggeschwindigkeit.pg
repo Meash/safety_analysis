@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="288248bd-3e03-4eda-a54d-6d89134c2093" name="Zuggeschwindigkeit" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="a63c328a-4b56-40cb-a6fc-cbbb2c309726" name="InitialNode1">
+      <successors>
+        <transition Id="71bc4c5c-b2da-4e1b-b060-43dd6d99ea8d" guard="v == 1" label="v == 1">
+          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/_" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="86813711-8391-45f3-9af9-ba8ed78d5d55" name="_">
+      <successors>
+        <transition Id="ac127002-948f-486e-8398-a6d66a55e46e" guard="v &gt; 0" action="v := v + Antriebswirkung + Bremswirkung + Reibungswirkung" label="v &gt; 0 // v := v + Antriebswirkung + Bremswirkung + Reibungswirkung" precondition="v + Antriebswirkung + Bremswirkung + Reibungswirkung &lt;= 1 &amp;&amp; v + Antriebswirkung + Bremswirkung + Reibungswirkung &gt;= 0">
+          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/_" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+  <variables>
+    <programGraphHasVariables Id="2bdbc1c9-983e-4a9f-aba9-be969ca1ff8e">
+      <variable Id="5e9654e6-172f-4a9b-948b-f75205773433" name="v" range="0..1" />
+    </programGraphHasVariables>
+  </variables>
+  <macros>
+    <programGraphHasMacros Id="8dce5c5c-d6e1-45c8-be63-cc27e25a22b7">
+      <macro Id="748ab70a-b9eb-41f1-ae6f-7107bcdcdcd6" name="Reibungswirkung" body="-1" />
+    </programGraphHasMacros>
+  </macros>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="998ab777-7791-4a38-a9fa-ffa59d4e204a">
+      <importedVariable Id="7089c5f2-2b92-42fa-9955-83cd55fddeaf" name="Zugmotor.Antriebswirkung" range="0..2" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="08ac223c-0f58-4d02-9482-14c0f15636ce">
+      <importedVariable Id="ff1a7603-227b-48cd-8b1f-18e0f7e3b828" name="Zugbremse.Bremswirkung" range="-1..0" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>

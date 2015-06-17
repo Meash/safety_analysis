@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="288248bd-3e03-4eda-a54d-6d89134c2093" name="Zugposition" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="a63c328a-4b56-40cb-a6fc-cbbb2c309726" name="InitialNode1">
+      <successors>
+        <transition Id="71bc4c5c-b2da-4e1b-b060-43dd6d99ea8d" guard="Position == -100" label="Position == -100">
+          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/_" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="86813711-8391-45f3-9af9-ba8ed78d5d55" name="_">
+      <successors>
+        <transition Id="ac127002-948f-486e-8398-a6d66a55e46e" action="Position := Position + v" label="// Position := Position + v" precondition="Position + v &lt;= 100 &amp;&amp; Position + v &gt;= -100">
+          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/_" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+  <variables>
+    <programGraphHasVariables Id="fd76164e-0c79-41e5-94a3-955a9305e5f3">
+      <variable Id="00645e92-a698-4f4a-96b7-84cd3b05c193" name="Position" range="-100..100" />
+    </programGraphHasVariables>
+  </variables>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="d45ec324-4102-4999-93cf-4a719a66d1c2">
+      <importedVariable Id="5176b7ba-d4ce-4f67-a1a1-e9321b5150df" name="Zuggeschwindigkeit.v" range="0..1" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>
