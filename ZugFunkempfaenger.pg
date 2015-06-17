@@ -10,7 +10,7 @@
     </initialNode>
     <state Id="c0181d50-5294-4b7a-b7f2-e2d0213bcd48" name="Wartend">
       <successors>
-        <transition Id="5f064ad2-ae41-45a2-bc90-3ef626a01513">
+        <transition Id="5f064ad2-ae41-45a2-bc90-3ef626a01513" guard="BahnuebergangFunksender == BestaetigungsNachrichtGesendet" label="BahnuebergangFunksender == BestaetigungsNachrichtGesendet">
           <stateMoniker name="/27c3f9d8-017d-473e-b6d4-60909a4bf826/SicherungsBestaetigungErhalten" />
         </transition>
       </successors>
@@ -23,4 +23,9 @@
       </successors>
     </state>
   </states>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="8c175170-85db-4598-ab17-d5c287e326d9">
+      <importedVariable Id="f71dfb18-76cd-4978-8caa-a5e3a094ec23" name="BahnuebergangFunksender" range="Wartend, BestaetigungsNachrichtGesendet, SendeBestaetigungsNachricht" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
 </programGraph>
