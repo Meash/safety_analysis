@@ -86,7 +86,7 @@
       <importedVariable Id="8bddb3a2-2937-4d37-99e0-16c0a1b53516" name="Zugposition.Position" range="-100..100" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="0d32b0c0-89e5-44b5-b0d9-f9074f4a4acd">
-      <importedVariable Id="409133ee-a570-4eb0-85c2-2cf0a1effde4" name="Zuggeschwindigkeit.v" range="0..1" />
+      <importedVariable Id="409133ee-a570-4eb0-85c2-2cf0a1effde4" name="ZughodometerV.v" range="0..1" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

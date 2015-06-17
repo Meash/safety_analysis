@@ -10,7 +10,7 @@
     </initialNode>
     <state Id="86813711-8391-45f3-9af9-ba8ed78d5d55" name="_">
       <successors>
-        <transition Id="ac127002-948f-486e-8398-a6d66a55e46e" action="Position := Position + v" label="// Position := Position + v" precondition="Position + v &lt;= 100 &amp;&amp; Position + v &gt;= -100">
+        <transition Id="ac127002-948f-486e-8398-a6d66a55e46e" action="Position := Position + vReal" label="// Position := Position + vReal" precondition="Position + vReal &lt;= 100 &amp;&amp; Position + vReal &gt;= -100">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/_" />
         </transition>
       </successors>
@@ -23,7 +23,7 @@
   </variables>
   <importedVariables>
     <programGraphHasImportedVariables Id="d45ec324-4102-4999-93cf-4a719a66d1c2">
-      <importedVariable Id="5176b7ba-d4ce-4f67-a1a1-e9321b5150df" name="Zuggeschwindigkeit.v" range="0..1" />
+      <importedVariable Id="5176b7ba-d4ce-4f67-a1a1-e9321b5150df" name="Zuggeschwindigkeit.vReal" range="0..1" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

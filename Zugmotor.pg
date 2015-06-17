@@ -53,7 +53,7 @@
       <importedVariable Id="52fbf55b-e172-4db4-8a49-e27f467bcb9b" name="Zugsteuerung" range="Fahren, Zwangsbremsung" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="28d123f9-f3d8-41fa-a4ec-b33a7bf15bf0">
-      <importedVariable Id="3254f92f-4b1f-4c06-b6f7-41b0a39913fd" name="Zuggeschwindigkeit.v" range="0..1" />
+      <importedVariable Id="3254f92f-4b1f-4c06-b6f7-41b0a39913fd" name="ZughodometerV.v" range="0..1" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

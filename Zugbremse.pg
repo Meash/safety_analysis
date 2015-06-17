@@ -10,18 +10,12 @@
     </initialNode>
     <state Id="c7e1664c-22ba-49c2-9ca3-1fd2cde4c473" name="NichtBremsend">
       <successors>
-        <transition Id="bcc3fd85-2a91-4cbd-9a39-f2785d8c3a7f" guard="Zugsteuerung == Zwangsbremsung &amp;&amp; v &gt; 0" action="Bremswirkung := -1" label="Zugsteuerung == Zwangsbremsung &amp;&amp; v &gt; 0 // Bremswirkung := -1" precondition="-1 &gt;= -1">
+        <transition Id="bcc3fd85-2a91-4cbd-9a39-f2785d8c3a7f" guard="Zugsteuerung == Zwangsbremsung" action="Bremswirkung := -1" label="Zugsteuerung == Zwangsbremsung // Bremswirkung := -1" precondition="-1 &gt;= -1">
           <stateMoniker name="/0304e74b-a749-46bc-baa8-dcc327f9be5c/Bremsend" />
         </transition>
       </successors>
     </state>
-    <state Id="08b82379-0f42-4031-b0f4-835a1215f935" name="Bremsend">
-      <successors>
-        <transition Id="fae71069-ffa2-4f54-874c-588741852cbc" guard="v == 0" action="Bremswirkung := 0" label="v == 0 // Bremswirkung := 0" precondition="0 &lt;= 0">
-          <stateMoniker name="/0304e74b-a749-46bc-baa8-dcc327f9be5c/NichtBremsend" />
-        </transition>
-      </successors>
-    </state>
+    <state Id="08b82379-0f42-4031-b0f4-835a1215f935" name="Bremsend" />
   </states>
   <variables>
     <programGraphHasVariables Id="10852c17-d551-4d34-8b83-754d6c4009fd">
@@ -31,9 +25,6 @@
   <importedVariables>
     <programGraphHasImportedVariables Id="b1e3b883-d176-4b25-b1ea-2c6c733167cf">
       <importedVariable Id="cd0fa2b4-612e-44be-b726-a9b7e76468c7" name="Zugsteuerung" range="Fahren, Zwangsbremsung" />
-    </programGraphHasImportedVariables>
-    <programGraphHasImportedVariables Id="1e7cfd29-d2d6-484a-b126-398a592e1f98">
-      <importedVariable Id="2d7051ea-8594-4b53-af96-eed088834f72" name="Zuggeschwindigkeit.v" range="0..1" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>
