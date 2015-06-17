@@ -25,7 +25,7 @@
   </states>
   <macros>
     <programGraphHasMacros Id="56f212c5-d739-4679-911e-8735ea70c1b6">
-      <macro Id="b94772f5-2c29-404a-9be3-fec9a65818c6" name="SP" body="100" />
+      <macro Id="b94772f5-2c29-404a-9be3-fec9a65818c6" name="SP" body="25" />
     </programGraphHasMacros>
     <programGraphHasMacros Id="ba0b62c2-8503-4567-aebe-ec99bb55c937">
       <macro Id="5013a17a-ff22-41d3-8af1-26adf8ff641f" name="Messweite" body="50" />
