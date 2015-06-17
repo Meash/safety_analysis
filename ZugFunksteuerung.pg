@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="e9a61c51-ad65-41c0-bc7d-ba13db01c9a0" name="ZugFunksender" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="e9a61c51-ad65-41c0-bc7d-ba13db01c9a0" name="ZugFunksteuerung" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
   <states>
     <initialNode Id="b732e7d9-b1a6-4a97-8a69-65e7828e2295" name="InitialNode1">
       <successors>
@@ -10,22 +10,22 @@
     </initialNode>
     <state Id="814bfba5-102b-4abe-bd5e-62535a2a0f6d" name="Wartend">
       <successors>
-        <transition Id="fe72d7fe-1eaf-4fca-bd29-c4e8e5643304" guard="ZugFunksteuerung == SendeSicherungsAnweisung" label="ZugFunksteuerung == SendeSicherungsAnweisung">
-          <stateMoniker name="/e9a61c51-ad65-41c0-bc7d-ba13db01c9a0/SicherungsAnweisungGesendet" />
+        <transition Id="fe72d7fe-1eaf-4fca-bd29-c4e8e5643304" guard="ZughodometerPos==EinschaltpunktErreicht" label="ZughodometerPos==EinschaltpunktErreicht">
+          <stateMoniker name="/e9a61c51-ad65-41c0-bc7d-ba13db01c9a0/SendeSicherungsAnweisung" />
         </transition>
-        <transition Id="fae65b11-9f26-4eb5-8336-73b1fd063bb0" guard="ZugFunksteuerung == SendeAnfrage" label="ZugFunksteuerung == SendeAnfrage">
-          <stateMoniker name="/e9a61c51-ad65-41c0-bc7d-ba13db01c9a0/AnfrageGesendet" />
+        <transition Id="fae65b11-9f26-4eb5-8336-73b1fd063bb0" guard="ZughodometerPos==AnfragepunktErreicht" label="ZughodometerPos==AnfragepunktErreicht">
+          <stateMoniker name="/e9a61c51-ad65-41c0-bc7d-ba13db01c9a0/SendeAnfrage" />
         </transition>
       </successors>
     </state>
-    <state Id="1ceed679-e378-4e07-841b-5262c45edd6f" name="SicherungsAnweisungGesendet">
+    <state Id="1ceed679-e378-4e07-841b-5262c45edd6f" name="SendeSicherungsAnweisung">
       <successors>
         <transition Id="fc00c5eb-c15e-4955-926e-64e9d243fb91">
           <stateMoniker name="/e9a61c51-ad65-41c0-bc7d-ba13db01c9a0/Wartend" />
         </transition>
       </successors>
     </state>
-    <state Id="cc1d7d5d-6557-4cef-b9bc-bd8069420840" name="AnfrageGesendet">
+    <state Id="cc1d7d5d-6557-4cef-b9bc-bd8069420840" name="SendeAnfrage">
       <successors>
         <transition Id="f5c1b2d9-f095-4ed1-aec4-94fd4fa2d791">
           <stateMoniker name="/e9a61c51-ad65-41c0-bc7d-ba13db01c9a0/Wartend" />
@@ -35,7 +35,7 @@
   </states>
   <importedVariables>
     <programGraphHasImportedVariables Id="795827d2-73b2-4e62-9af9-b820cb706168">
-      <importedVariable Id="b7090aef-b0a1-4118-86a5-9bcf41c925ee" name="ZugFunksteuerung" range="Wartend, SendeSicherungsAnweisung, SendeAnfrage" />
+      <importedVariable Id="b7090aef-b0a1-4118-86a5-9bcf41c925ee" name="ZughodometerPos" range="AufFreierStrecke, EinschaltpunktErreicht, AnfragepunktErreicht, GefahrenpunktErreicht, BremseinsatzpunktErreicht, Ende, SensorpunktErreicht" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>
