@@ -39,44 +39,6 @@
       <comment Id="dedad866-64e6-47d8-840f-f85172a2b966" text="Zuruecksetzen fuer naechsten Bahnuebergang" />
     </programGraphHasComments>
   </comments>
-  <macros>
-    <programGraphHasMacros Id="f8583c99-1e05-43bb-8098-2fe705f9416b">
-      <macro Id="01ea6f13-17be-432f-983c-e2887fa09829" name="_EP" body="_AP - v * (_t + _c)" />
-    </programGraphHasMacros>
-    <programGraphHasMacros Id="70b8f385-c0ae-4e55-bf9c-db5050e5ee64">
-      <macro Id="5958b145-d51c-40ad-a392-a3a741170cfa" name="_AP" body="_BEP - 2 * _c * v" />
-    </programGraphHasMacros>
-    <programGraphHasMacros Id="c399aed7-0090-4d09-969c-c00da5309ed6">
-      <macro Id="bf1c40bd-73d1-41cf-9f83-d7b088f9387e" name="_BEP" body="_GP - _z - ((v * v) / ( 2 * _a))" />
-    </programGraphHasMacros>
-    <programGraphHasMacros Id="8edc5e72-1607-4c08-af95-a1660f7b8dbc">
-      <macro Id="97a349d0-1a49-49db-80cd-2a9a512c4994" name="_SP" body="_GP + 100" />
-    </programGraphHasMacros>
-    <programGraphHasMacros Id="84c44bb0-cd01-4a24-9b21-153a89973a84">
-      <macro Id="2b6bd770-eed9-4792-a085-f1f4ddf6fe35" name="_GP" body="0" />
-    </programGraphHasMacros>
-    <programGraphHasMacros Id="da6fa6df-6784-4b97-b348-e69eca8abaec">
-      <macro Id="fe5cf02b-ce9c-4989-b515-d42e16cd6770" name="_z" body="5" />
-    </programGraphHasMacros>
-    <programGraphHasMacros Id="0e78626c-16cf-4e8e-824a-e121b15be7a7">
-      <macro Id="329d042b-562c-4950-a609-be94efc89c5a" name="_c" body="0" />
-    </programGraphHasMacros>
-    <programGraphHasMacros Id="e5bffbab-de6f-410e-b2f4-c857033c4b2f">
-      <macro Id="d104ef3f-7063-4ab0-b187-09e3481ee622" name="_t" body="90 / 1 + 25" />
-    </programGraphHasMacros>
-    <programGraphHasMacros Id="3ba0531d-5297-47ed-bf14-63a7db879728">
-      <macro Id="c57623b4-b20b-4d41-9167-e2c86d7ede03" name="_a" body="2" />
-    </programGraphHasMacros>
-    <programGraphHasMacros Id="03dcc2b9-f1a6-4db1-898f-bc271d448f7c">
-      <macro Id="b9247054-eb1e-490b-b667-4a4aa48dff91" name="_Fahren" body="Position := Position + DeltaPos" />
-    </programGraphHasMacros>
-    <programGraphHasMacros Id="8dce5c5c-d6e1-45c8-be63-cc27e25a22b7">
-      <macro Id="748ab70a-b9eb-41f1-ae6f-7107bcdcdcd6" name="_PreFahren" body="Position &lt;= 100 - DeltaPos" />
-    </programGraphHasMacros>
-    <programGraphHasMacros Id="371fcf9d-1238-418b-b434-167683910563">
-      <macro Id="c58d1851-7655-465f-b3b6-3d323f7bc42a" name="DeltaPos" body="v / (36 / 10)" />
-    </programGraphHasMacros>
-  </macros>
   <importedVariables>
     <programGraphHasImportedVariables Id="1535d126-cc23-43f0-b0bf-073934413494">
       <importedVariable Id="4c206f11-6999-4329-9029-89981e3eb0a5" name="ZughodometerPos" range="AufFreierStrecke, EinschaltpunktErreicht, AnfragepunktErreicht, GefahrenpunktErreicht, BremseinsatzpunktErreicht, Ende, SensorpunktErreicht" />
