@@ -31,8 +31,8 @@
     </state>
     <state Id="bf80a76f-982f-4051-861e-3f8189026f0b" name="GefahrenpunktErreicht">
       <successors>
-        <transition Id="69edd35a-5234-4a04-9411-1a8f99baa898" guard="Position &gt;= _SP" label="Position &gt;= _SP">
-          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/SensorpunktErreicht" />
+        <transition Id="c396dd8e-3472-434f-b2ab-4d879682550b">
+          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/Ende" />
         </transition>
       </successors>
     </state>
@@ -44,13 +44,6 @@
       </successors>
     </state>
     <state Id="963b959a-69c8-47bd-8e0f-ababc50569e2" name="Ende" />
-    <state Id="2452543f-8086-4eae-ad57-6d1379cbc0c7" name="SensorpunktErreicht">
-      <successors>
-        <transition Id="d52ee5e5-d448-436b-80ba-d74edef10395">
-          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/Ende" />
-        </transition>
-      </successors>
-    </state>
   </states>
   <macros>
     <programGraphHasMacros Id="f8583c99-1e05-43bb-8098-2fe705f9416b">
@@ -61,9 +54,6 @@
     </programGraphHasMacros>
     <programGraphHasMacros Id="c399aed7-0090-4d09-969c-c00da5309ed6">
       <macro Id="bf1c40bd-73d1-41cf-9f83-d7b088f9387e" name="_BEP" body="_GP - _z - ((v * v) / ( 2 * _a))" />
-    </programGraphHasMacros>
-    <programGraphHasMacros Id="8edc5e72-1607-4c08-af95-a1660f7b8dbc">
-      <macro Id="97a349d0-1a49-49db-80cd-2a9a512c4994" name="_SP" body="_GP + 100" />
     </programGraphHasMacros>
     <programGraphHasMacros Id="84c44bb0-cd01-4a24-9b21-153a89973a84">
       <macro Id="2b6bd770-eed9-4792-a085-f1f4ddf6fe35" name="_GP" body="0" />
