@@ -10,14 +10,14 @@
     </initialNode>
     <state Id="7bf4aab5-4a88-4906-98ed-8218381bd939" name="KeinZug">
       <successors>
-        <transition Id="0e454b00-167b-489d-88e0-05f1bc4fd3a3" guard="Position &gt;= SP &amp;&amp; Position &lt;= SP - Messweite" label="Position &gt;= SP &amp;&amp; Position &lt;= SP - Messweite">
+        <transition Id="0e454b00-167b-489d-88e0-05f1bc4fd3a3" guard="PositionReal &gt;= SP &amp;&amp; PositionReal &lt;= SP - Messweite" label="PositionReal &gt;= SP &amp;&amp; PositionReal &lt;= SP - Messweite">
           <stateMoniker name="/70f13bd9-d24b-4138-a7e5-f8982969ee0d/ZugFaehrtDurch" />
         </transition>
       </successors>
     </state>
     <state Id="a6aa818b-9f05-463d-9092-0881823d914f" name="ZugFaehrtDurch">
       <successors>
-        <transition Id="ba4a6c44-249d-451f-87b9-36593757bf1f" guard="Position &lt; SP || Position &gt; SP + Messweite" label="Position &lt; SP || Position &gt; SP + Messweite">
+        <transition Id="ba4a6c44-249d-451f-87b9-36593757bf1f" guard="PositionReal &lt; SP || PositionReal &gt; SP + Messweite" label="PositionReal &lt; SP || PositionReal &gt; SP + Messweite">
           <stateMoniker name="/70f13bd9-d24b-4138-a7e5-f8982969ee0d/KeinZug" />
         </transition>
       </successors>
@@ -25,15 +25,15 @@
   </states>
   <macros>
     <programGraphHasMacros Id="56f212c5-d739-4679-911e-8735ea70c1b6">
-      <macro Id="b94772f5-2c29-404a-9be3-fec9a65818c6" name="SP" body="25" />
+      <macro Id="b94772f5-2c29-404a-9be3-fec9a65818c6" name="SP" body="35" />
     </programGraphHasMacros>
     <programGraphHasMacros Id="ba0b62c2-8503-4567-aebe-ec99bb55c937">
-      <macro Id="5013a17a-ff22-41d3-8af1-26adf8ff641f" name="Messweite" body="50" />
+      <macro Id="5013a17a-ff22-41d3-8af1-26adf8ff641f" name="Messweite" body="10" />
     </programGraphHasMacros>
   </macros>
   <importedVariables>
     <programGraphHasImportedVariables Id="7630a6c1-858f-463b-978c-8bbddfc5c038">
-      <importedVariable Id="a696361b-69f2-400b-8957-249afa960c86" name="Zugposition.Position" range="-100..100" />
+      <importedVariable Id="a696361b-69f2-400b-8957-249afa960c86" name="Zugposition.PositionReal" range="-200..100" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

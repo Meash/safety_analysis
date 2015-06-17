@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="288248bd-3e03-4eda-a54d-6d89134c2093" name="ZughodometerPos" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="288248bd-3e03-4eda-a54d-6d89134c2093" name="Zugpositionsbestimmung" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
   <states>
     <initialNode Id="a63c328a-4b56-40cb-a6fc-cbbb2c309726" name="InitialNode1">
       <successors>
@@ -62,21 +62,21 @@
       <macro Id="fe5cf02b-ce9c-4989-b515-d42e16cd6770" name="_z" body="5" />
     </programGraphHasMacros>
     <programGraphHasMacros Id="0e78626c-16cf-4e8e-824a-e121b15be7a7">
-      <macro Id="329d042b-562c-4950-a609-be94efc89c5a" name="_c" body="0" />
+      <macro Id="329d042b-562c-4950-a609-be94efc89c5a" name="_c" body="1" />
     </programGraphHasMacros>
     <programGraphHasMacros Id="e5bffbab-de6f-410e-b2f4-c857033c4b2f">
       <macro Id="d104ef3f-7063-4ab0-b187-09e3481ee622" name="_t" body="2 / 1" />
     </programGraphHasMacros>
     <programGraphHasMacros Id="3ba0531d-5297-47ed-bf14-63a7db879728">
-      <macro Id="c57623b4-b20b-4d41-9167-e2c86d7ede03" name="_a" body="2" />
+      <macro Id="c57623b4-b20b-4d41-9167-e2c86d7ede03" name="_a" body="1" />
     </programGraphHasMacros>
   </macros>
   <importedVariables>
     <programGraphHasImportedVariables Id="3185a34f-706a-40fc-aa50-cca2570fb6ac">
-      <importedVariable Id="8bddb3a2-2937-4d37-99e0-16c0a1b53516" name="Zugposition.Position" range="-100..100" />
+      <importedVariable Id="8bddb3a2-2937-4d37-99e0-16c0a1b53516" name="Zughodometer.Position" range="-200..100" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="0d32b0c0-89e5-44b5-b0d9-f9074f4a4acd">
-      <importedVariable Id="409133ee-a570-4eb0-85c2-2cf0a1effde4" name="ZughodometerV.v" range="0..1" />
+      <importedVariable Id="409133ee-a570-4eb0-85c2-2cf0a1effde4" name="Zughodometer.v" range="0..5" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

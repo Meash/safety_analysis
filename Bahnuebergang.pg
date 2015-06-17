@@ -17,7 +17,7 @@
     </state>
     <state Id="928b9b25-70f3-47d3-b4eb-b971bff64041" name="Sichern">
       <successors>
-        <transition Id="2a0299e2-7a37-4a88-8529-a340c913c37d" guard="Schranke == Geschlossen" label="Schranke == Geschlossen">
+        <transition Id="2a0299e2-7a37-4a88-8529-a340c913c37d" guard="Schrankensensor == Geschlossen" label="Schrankensensor == Geschlossen">
           <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/Gesichert" />
         </transition>
       </successors>
@@ -31,7 +31,7 @@
     </state>
     <state Id="5353116d-da7f-49b9-8be6-edb9e21c2bd5" name="Entsichern">
       <successors>
-        <transition Id="0c4a0d05-bb77-4809-bb84-918a4122e706" guard="Schranke == Offen" label="Schranke == Offen">
+        <transition Id="0c4a0d05-bb77-4809-bb84-918a4122e706" guard="Schrankensensor == Offen" label="Schrankensensor == Offen">
           <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/Ungesichert" />
         </transition>
       </successors>
@@ -60,7 +60,7 @@
   </states>
   <importedVariables>
     <programGraphHasImportedVariables Id="78968b8e-cd6d-447d-828d-c36cbdde56b6">
-      <importedVariable Id="48215f61-963c-488d-bfb6-35c2a3036eb4" name="Schranke" range="_" />
+      <importedVariable Id="48215f61-963c-488d-bfb6-35c2a3036eb4" name="Schrankensensor" range="Offen, Geschlossen, InDerBewegung" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="0d1abe70-3421-4975-a6c9-91bdbd55293b">
       <importedVariable Id="80509911-2251-4cf3-94b3-195d0122dd61" name="BahnuebergangFunkempfaenger" range="Wartend, SicherungsAnweisungAngekommen, ZustandsAnfrageAngekommen" />
