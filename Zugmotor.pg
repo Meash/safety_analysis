@@ -3,8 +3,8 @@
   <states>
     <initialNode Id="4cfc7932-eae5-4d1b-97e2-8a7a272f102c" name="InitialNode1">
       <successors>
-        <transition Id="257ea561-b9e7-4f74-a913-99320f35db22">
-          <stateMoniker name="/e28d0bc5-b160-46b5-b76d-de9238a3230a/Aus" />
+        <transition Id="8aff1483-4ba9-41a7-a1b3-0e1e6fe2392d">
+          <stateMoniker name="/e28d0bc5-b160-46b5-b76d-de9238a3230a/GeschwindigkeitHalten" />
         </transition>
       </successors>
     </initialNode>
