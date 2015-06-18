@@ -13,6 +13,9 @@
         <transition Id="32a0c604-06d9-4cab-a256-9bdfa086234b" guard="Zugsteuerung == Fahren &amp;&amp; v &lt; Zielgeschwindigkeit" action="Antriebswirkung := 2" label="Zugsteuerung == Fahren &amp;&amp; v &lt; Zielgeschwindigkeit // Antriebswirkung := 2" precondition="2 &lt;= 2">
           <stateMoniker name="/e28d0bc5-b160-46b5-b76d-de9238a3230a/Beschleunigen" />
         </transition>
+        <transition Id="1210b0d2-1a88-49d5-bb2a-7cd09ede0394" guard="Zugsteuerung == Fahren &amp;&amp; v == Zielgeschwindigkeit" action="Antriebswirkung := 1" label="Zugsteuerung == Fahren &amp;&amp; v == Zielgeschwindigkeit // Antriebswirkung := 1" precondition="1 &gt;= 0 &amp;&amp; 1 &lt;= 2">
+          <stateMoniker name="/e28d0bc5-b160-46b5-b76d-de9238a3230a/GeschwindigkeitHalten" />
+        </transition>
       </successors>
     </state>
     <state Id="a2a6663d-726d-4e49-90de-0079060bb6cd" name="Beschleunigen">
@@ -29,6 +32,9 @@
       <successors>
         <transition Id="84be55f1-749e-473f-ab17-972fa9946239" guard="Zugsteuerung == Zwangsbremsung" action="Antriebswirkung := 0" label="Zugsteuerung == Zwangsbremsung // Antriebswirkung := 0" precondition="0 &gt;= 0">
           <stateMoniker name="/e28d0bc5-b160-46b5-b76d-de9238a3230a/Aus" />
+        </transition>
+        <transition Id="8b434bd8-7a64-4982-9a31-77663f5ed37d" guard="Zugsteuerung == Fahren &amp;&amp; v &lt; Zielgeschwindigkeit" action="Antriebswirkung := 2" label="Zugsteuerung == Fahren &amp;&amp; v &lt; Zielgeschwindigkeit // Antriebswirkung := 2" precondition="2 &lt;= 2 &amp;&amp; 2 &gt;= 0">
+          <stateMoniker name="/e28d0bc5-b160-46b5-b76d-de9238a3230a/Beschleunigen" />
         </transition>
       </successors>
     </state>
