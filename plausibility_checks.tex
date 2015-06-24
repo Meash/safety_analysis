@@ -5,15 +5,17 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage[LGRgreek]{mathastext}
-\begin{document}
+
+
 \title{Adäquatheit der Modellierung des Sollverhaltens des FFBs ohne Störungen}
+\date{\vspace{-5ex}} % blank date without spacing
 
 
-\newcommand{\AF}{\ AF\ }
-\newcommand{\AG}{\ AG\ }
-\newcommand{\AU}{\ AU\ }
-\newcommand{\EF}{\ EF\ }
-\newcommand{\EU}{\ EU\ }
+\newcommand{\AF}{\ \textbf{AF}\ }
+\newcommand{\AG}{\ \textbf{AG}\ }
+\newcommand{\AU}{\ \textbf{AU}\ }
+\newcommand{\EF}{\ \textbf{EF}\ }
+\newcommand{\EU}{\ \textbf{EU}\ }
 \newcommand{\myeq}[1]{%
 % 1: content
 \begin{equation}
@@ -24,11 +26,16 @@
 }
 
 
+\begin{document}
+
+\maketitle
+
 
 \section{Safety} 
-\begin{equation}
-\neg \AF (Zugposition.PositionReal = 0 \land \neg (Bahnuebergang = Gesichert))
-\end{equation}
+\myeq{
+&\neg \EF (Zugposition.PositionReal = 0 \land \neg (Bahnuebergang = Gesichert)) \\
+&\AG (Zugposition.PositionReal = 0 \Rightarrow Bahnuebergang = Gesichert)
+}
 \myeq{
 \AG Zugposition.&PositionReal = 0 \\
 	& \Rightarrow Bahnuebergang = Gesichert \\
@@ -38,7 +45,7 @@
 \section{Bahnuebergang}
 \myeq{
 \AG (&Bahnuebergang = Gesichert \\
-	& \Rightarrow \EF Bahnuebergang = Ungesichert)
+	& \Rightarrow \AF Bahnuebergang = Ungesichert)
 }
 
 \subsection{Schranke}
@@ -50,13 +57,13 @@
 \end{equation}
 
 \myeq{
-\AG (&Schranke.Winkel = 2 \\
-	& \Rightarrow Schrankenmotor = DrehrichtungSchliessend \\
+\AG (&Schranke.Winkel = 2 \Rightarrow \\
+	& \AF Schrankenmotor = DrehrichtungSchliessend \\
 	& \AU Schranke.Winkel = 0)
 }
 \myeq{
-\AG (&Schranke.Winkel = 0 \\
-	& \Rightarrow Schrankenmotor = DrehrichtungOeffnend \\
+\AG (&Schranke.Winkel = 0 \Rightarrow \\
+	& \AF Schrankenmotor = DrehrichtungOeffnend \\
 	& \AU Schranke.Winkel = 2)
 }
 
@@ -64,31 +71,31 @@
 \myeq{
 \EF (&Zugposition.PositionReal >= SP \\
 	& \land Zugposition.PositionReal <= SP + Messweite) \\
-	& \EF Sensor = ZugFaehrtDurch \EF Sensor = KeinZug
+	& \Rightarrow Sensor = ZugFaehrtDurch \AU Sensor = KeinZug
 }
 
 
 \section{Funk}
 \myeq{
 \EF &ZugFunksender = SicherungsanweisungGesendet \\
-	&\Rightarrow \EF BahnuebergangFunkempfaenger \\
+	&\Rightarrow \AF BahnuebergangFunkempfaenger \\
     &= SicherungsAnweisungAngekommen
 }
 \myeq{
 \EF &ZugFunksender = AnfrageGesendet \\
-	&\Rightarrow \EF BahnuebergangFunkempfaenger \\
+	&\Rightarrow \AF BahnuebergangFunkempfaenger \\
     &= ZustandsAnfrageAngekommen
 }
 \myeq{
 \EF &BahnuebergangFunksender = BestaetigungsNachrichtGesendet \\
-	&\Rightarrow \EF ZugFunkempfaenger = SicherungsBestaetigungErhalten
+	&\Rightarrow \AF ZugFunkempfaenger = SicherungsBestaetigungErhalten 
 }
 
 
 \section{Zug}
 \subsection{Bremse}
 \begin{equation}
-\AG (Zugbremse = Bremsend \Rightarrow \EF Zuggeschwindigkeit.vReal = 0)
+\AG (Zugbremse = Bremsend \Rightarrow \AF Zuggeschwindigkeit.vReal = 0)
 \end{equation}
 
 \subsection{Zugposition}
@@ -103,7 +110,7 @@
 
 \subsection{Zugsteuerung}
 \myeq{
-\AG (&Zugpositionsbestimmung = AnfragepunktErreicht \\
+\AG (&Zugpositionsbestimmung = BremseinsatzpunktErreicht \\
 	& \land \neg Bahnuebergang = Gesichert \\
     & \Rightarrow Zugsteuerung = Zwangsbremsung)
 }

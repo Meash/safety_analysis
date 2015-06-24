@@ -10,7 +10,7 @@
     </initialNode>
     <state Id="86813711-8391-45f3-9af9-ba8ed78d5d55" name="Fahren">
       <successors>
-        <transition Id="414d1154-21af-4656-a594-9463ad5a0120" guard="Zugpositionsbestimmung == AnfragepunktErreicht &amp;&amp; BahnuebergangGesichert == 0 &amp;&amp; ZugFunkempfaenger != SicherungsBestaetigungErhalten " label="Zugpositionsbestimmung == AnfragepunktErreicht &amp;&amp; BahnuebergangGesichert == 0 &amp;&amp; ZugFunkempfaenger != SicherungsBestaetigungErhalten ">
+        <transition Id="414d1154-21af-4656-a594-9463ad5a0120" guard="Zugpositionsbestimmung == BremseinsatzpunktErreicht &amp;&amp; BahnuebergangGesichert == 0 &amp;&amp; ZugFunkempfaenger != SicherungsBestaetigungErhalten " label="Zugpositionsbestimmung == BremseinsatzpunktErreicht &amp;&amp; BahnuebergangGesichert == 0 &amp;&amp; ZugFunkempfaenger != SicherungsBestaetigungErhalten ">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/Zwangsbremsung" />
         </transition>
         <transition Id="520cc779-a9e1-4241-a101-ec59be7115e1" guard="ZugFunkempfaenger == SicherungsBestaetigungErhalten" action="BahnuebergangGesichert := 1" label="ZugFunkempfaenger == SicherungsBestaetigungErhalten // BahnuebergangGesichert := 1" precondition="1 &lt;= 1">
