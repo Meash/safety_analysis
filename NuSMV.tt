@@ -1,0 +1,50 @@
+﻿<#@ template inherits="Safety.ProgramGraphDsl.ProgramGraphTransformation" hostspecific="true" #>
+<#@ output encoding="us-ascii" extension=".smv" #>
+<#@ assembly Name="Safety.ProgramGraphDsl.dll" #>
+
+<#=  TransformToNuSMV() #>
+
+DEFINE 
+	SP := 35;
+	SchrankeZu := v.V_Winkel = 0;
+	SchrankeOffen := v.V_Winkel = 2;
+	ZugAmGefahrenpunkt := v.V_PositionReal >= 0 & v.V_PositionReal <= v.V_vReal;
+	ZugAmSensorpunkt := v.V_PositionReal >= SP & v.V_PositionReal <= v.V_vReal;
+
+
+-- Safety
+CTLSPEC AG (ZugAmGefahrenpunkt -> SchrankeZu)
+CTLSPEC AG (ZugAmGefahrenpunkt -> (SchrankeZu AU ZugAmSensorpunkt))
+
+
+-- Bahnuebergang
+CTLSPEC AG (v.V_Bahnuebergang = L_Gesichert -> AF v.V_Bahnuebergang = L_Ungesichert)
+
+---- Schranke
+------ Schrankensensor
+CTLSPEC AG (SchrankeZu -> v.V_Schrankensensor = L_Geschlossen)
+CTLSPEC AG (SchrankeOffen -> v.V_Schrankensensor = L_Offen)
+
+------ Schrankenmotor
+CTLSPEC AG (SchrankeOffen -> AF v.V_Schrankenmotor = L_DrehrichtungSchliessend AU SchrankeZu)
+CTLSPEC AG (SchrankeZu -> AF v.V_Schrankenmotor = L_DrehrichtungOeffnend AU SchrankeOffen)
+
+---- Sensor
+CTLSPEC EF (ZugAmSensorpunkt -> v.v_Sensor = L_ZugFaehrtDurch AU v.V_Sensor = L_KeinZug)
+
+
+-- Funk
+CTLSPEC EF v.V_ZugFunksender = L_SicherungsanweisungGesendet -> AF v.V_BahnuebergangFunkempfaenger = L_SicherungsAnweisungAngekommen
+CTLSPEC EF v.V_ZugFunksender = L_AnfrageGesendet -> AF v.V_BahnuebergangFunkempfaenger = L_ZustandsAnfrageAngekommen
+CTLSPEC EF v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet -> AF v.V_ZugFunkempfaenger = L_SicherungsBestaetigungErhalten
+
+
+-- Zug
+---- Bremse
+CTLSPEC AG (v.V_Zugbremse = L_Bremsend -> AF v.V_vReal = 0)
+
+---- Zugpositionsbestimmung
+CTLSPEC v.V_Zugpositionsbestimmung = L_AufFreierStrecke AU v.V_Zugpositionsbestimmung = L_EinschaltpunktErreicht AU v.V_Zugpositionsbestimmung = L_AnfragepunktErreicht AU v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht EU v.V_Zugpositionsbestimmung = L_GefahrenpunktErreicht AU v.V_Zugpositionsbestimmung = L_Ende
+
+---- Zugsteuerung
+CTLSPEC AG (v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht & not v.V_Bahnuebergang = L_Gesichert -> v.V_Zugsteuerung = L_Zwangsbremsung)
