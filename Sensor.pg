@@ -10,7 +10,7 @@
     </initialNode>
     <state Id="7bf4aab5-4a88-4906-98ed-8218381bd939" name="KeinZug">
       <successors>
-        <transition Id="0e454b00-167b-489d-88e0-05f1bc4fd3a3" guard="PositionReal &gt;= SP &amp;&amp; PositionReal &lt;= SP - Messweite" label="PositionReal &gt;= SP &amp;&amp; PositionReal &lt;= SP - Messweite">
+        <transition Id="0e454b00-167b-489d-88e0-05f1bc4fd3a3" guard="PositionReal &gt;= SP &amp;&amp; PositionReal &lt;= SP + Messweite" label="PositionReal &gt;= SP &amp;&amp; PositionReal &lt;= SP + Messweite">
           <stateMoniker name="/70f13bd9-d24b-4138-a7e5-f8982969ee0d/ZugFaehrtDurch" />
         </transition>
       </successors>

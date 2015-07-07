@@ -5,11 +5,12 @@
 <#=  TransformToNuSMV() #>
 
 DEFINE 
+	GP := 0;
 	SP := 35;
 	SchrankeZu := v.V_Winkel = 0;
 	SchrankeOffen := v.V_Winkel = 2;
-	ZugAmGefahrenpunkt := v.V_PositionReal >= 0 & v.V_PositionReal <= v.V_vReal;
-	ZugAmSensorpunkt := v.V_PositionReal >= SP & v.V_PositionReal <= v.V_vReal;
+	ZugAmGefahrenpunkt := v.V_PositionReal >= GP & v.V_PositionReal < GP + v.V_vReal; -- Interval
+	ZugAmSensorpunkt := v.V_PositionReal >= SP & v.V_PositionReal < SP + v.V_vReal; -- Interval
 
 
 -- Safety
@@ -18,16 +19,12 @@ CTLSPEC AG (ZugAmGefahrenpunkt -> A [SchrankeZu U ZugAmSensorpunkt])
 
 
 -- Bahnuebergang
-CTLSPEC AG (v.V_Bahnuebergang = L_Gesichert -> AF v.V_Bahnuebergang = L_Ungesichert)
+CTLSPEC AG (SchrankeZu -> AF SchrankeOffen)
 
 ---- Schranke
 ------ Schrankensensor
-CTLSPEC AG (SchrankeZu -> v.V_Schrankensensor = L_Geschlossen)
-CTLSPEC AG (SchrankeOffen -> v.V_Schrankensensor = L_Offen)
-
------- Schrankenmotor
-CTLSPEC AG (SchrankeOffen -> A [AF v.V_Schrankenmotor = L_DrehrichtungSchliessend U SchrankeZu])
-CTLSPEC AG (SchrankeZu -> A [AF v.V_Schrankenmotor = L_DrehrichtungOeffnend U SchrankeOffen])
+CTLSPEC AG (SchrankeZu -> AX v.V_Schrankensensor = L_Geschlossen) -- X due to state machine timing
+CTLSPEC AG (SchrankeOffen -> AX v.V_Schrankensensor = L_Offen)
 
 ---- Sensor
 CTLSPEC EF (ZugAmSensorpunkt -> A [v.V_Sensor = L_ZugFaehrtDurch U v.V_Sensor = L_KeinZug])
@@ -47,7 +44,7 @@ CTLSPEC EF v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet
 CTLSPEC AG (v.V_Zugbremse = L_Bremsend -> AF v.V_vReal = 0)
 
 ---- Zugpositionsbestimmung
-CTLSPEC A [v.V_Zugpositionsbestimmung = L_AufFreierStrecke 
+CTLSPEC A [v.V_Zugpositionsbestimmung = L_AufFreierStrecke
 		U A [v.V_Zugpositionsbestimmung = L_EinschaltpunktErreicht 
 		U A [v.V_Zugpositionsbestimmung = L_AnfragepunktErreicht 
 		U E [v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht 
@@ -55,5 +52,6 @@ CTLSPEC A [v.V_Zugpositionsbestimmung = L_AufFreierStrecke
 		U v.V_Zugpositionsbestimmung = L_Ende]]]]]
 
 ---- Zugsteuerung
-CTLSPEC AG (v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht 
-			& v.V_Bahnuebergang != L_Gesichert -> v.V_Zugsteuerung = L_Zwangsbremsung)
+CTLSPEC AG ((v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht 
+			& SchrankeOffen)
+			-> AX v.V_Zugsteuerung = L_Zwangsbremsung)
