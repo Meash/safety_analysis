@@ -1,0 +1,57 @@
+﻿<#@ template inherits="Safety.ProgramGraphDsl.ProgramGraphTransformation" hostspecific="true" #>
+<#@ output encoding="us-ascii" extension=".smv" #>
+<#@ assembly Name="Safety.ProgramGraphDsl.dll" #>
+
+<#=  TransformToNuSMV() #>
+
+DEFINE 
+	GP := 0;
+	SP := 35;
+	SchrankeZu := v.V_Winkel = 0;
+	SchrankeOffen := v.V_Winkel = 2;
+	ZugAmGefahrenpunkt := v.V_PositionReal >= GP & v.V_PositionReal < GP + v.V_vReal; -- Interval
+	ZugAmSensorpunkt := v.V_PositionReal >= SP & v.V_PositionReal < SP + v.V_vReal; -- Interval
+
+
+-- Safety
+CTLSPEC AG (ZugAmGefahrenpunkt -> SchrankeZu)
+CTLSPEC AG (ZugAmGefahrenpunkt -> A [SchrankeZu U ZugAmSensorpunkt])
+
+
+-- Bahnuebergang
+CTLSPEC AG (SchrankeZu -> AF SchrankeOffen)
+
+---- Schranke
+------ Schrankensensor
+CTLSPEC AG (SchrankeZu -> AX v.V_Schrankensensor = L_Geschlossen) -- X due to state machine timing
+CTLSPEC AG (SchrankeOffen -> AX v.V_Schrankensensor = L_Offen)
+
+---- Sensor
+CTLSPEC EF (ZugAmSensorpunkt -> A [v.V_Sensor = L_ZugFaehrtDurch U v.V_Sensor = L_KeinZug])
+
+
+-- Funk
+CTLSPEC EF v.V_ZugFunksender = L_SicherungsAnweisungGesendet 
+		-> AF v.V_BahnuebergangFunkempfaenger = L_SicherungsAnweisungAngekommen
+CTLSPEC EF v.V_ZugFunksender = L_AnfrageGesendet 
+		-> AF v.V_BahnuebergangFunkempfaenger = L_ZustandsAnfrageAngekommen
+CTLSPEC EF v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet 
+		-> AF v.V_ZugFunkempfaenger = L_SicherungsBestaetigungErhalten
+
+
+-- Zug
+---- Bremse
+CTLSPEC AG (v.V_Zugbremse = L_Bremsend -> AF v.V_vReal = 0)
+
+---- Zugpositionsbestimmung
+CTLSPEC A [v.V_Zugpositionsbestimmung = L_AufFreierStrecke
+		U A [v.V_Zugpositionsbestimmung = L_EinschaltpunktErreicht 
+		U A [v.V_Zugpositionsbestimmung = L_AnfragepunktErreicht 
+		U E [v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht 
+		U A [v.V_Zugpositionsbestimmung = L_GefahrenpunktErreicht 
+		U v.V_Zugpositionsbestimmung = L_Ende]]]]]
+
+---- Zugsteuerung
+CTLSPEC AG ((v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht 
+			& SchrankeOffen)
+			-> AX v.V_Zugsteuerung = L_Zwangsbremsung)
