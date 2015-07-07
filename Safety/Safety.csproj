@@ -45,6 +45,93 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Bahnuebergang.pg" />
+    <None Include="Bahnuebergang.pg.diagram">
+      <DependentUpon>Bahnuebergang.pg</DependentUpon>
+    </None>
+    <None Include="BahnuebergangFunkempfaenger.pg" />
+    <None Include="BahnuebergangFunkempfaenger.pg.diagram">
+      <DependentUpon>BahnuebergangFunkempfaenger.pg</DependentUpon>
+    </None>
+    <None Include="BahnuebergangFunksender.pg" />
+    <None Include="BahnuebergangFunksender.pg.diagram">
+      <DependentUpon>BahnuebergangFunksender.pg</DependentUpon>
+    </None>
+    <None Include="NuSMV.smv">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NuSMV.tt</DependentUpon>
+    </None>
+    <None Include="NuSMV.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>NuSMV.smv</LastGenOutput>
+    </None>
+    <None Include="Schranke.pg" />
+    <None Include="Schranke.pg.diagram">
+      <DependentUpon>Schranke.pg</DependentUpon>
+    </None>
+    <None Include="Schrankenmotor.pg" />
+    <None Include="Schrankenmotor.pg.diagram">
+      <DependentUpon>Schrankenmotor.pg</DependentUpon>
+    </None>
+    <None Include="Schrankensensor.pg" />
+    <None Include="Schrankensensor.pg.diagram">
+      <DependentUpon>Schrankensensor.pg</DependentUpon>
+    </None>
+    <None Include="Schrankensteuerung.pg" />
+    <None Include="Schrankensteuerung.pg.diagram">
+      <DependentUpon>Schrankensteuerung.pg</DependentUpon>
+    </None>
+    <None Include="Sensor.pg" />
+    <None Include="Sensor.pg.diagram">
+      <DependentUpon>Sensor.pg</DependentUpon>
+    </None>
+    <None Include="Zugbremse.pg" />
+    <None Include="Zugbremse.pg.diagram">
+      <DependentUpon>Zugbremse.pg</DependentUpon>
+    </None>
+    <None Include="ZugFunkempfaenger.pg" />
+    <None Include="ZugFunkempfaenger.pg.diagram">
+      <DependentUpon>ZugFunkempfaenger.pg</DependentUpon>
+    </None>
+    <None Include="ZugFunksender.pg" />
+    <None Include="ZugFunksender.pg.diagram">
+      <DependentUpon>ZugFunksender.pg</DependentUpon>
+    </None>
+    <None Include="ZugFunksteuerung.pg" />
+    <None Include="ZugFunksteuerung.pg.diagram">
+      <DependentUpon>ZugFunksteuerung.pg</DependentUpon>
+    </None>
+    <None Include="Zuggeschwindigkeit.pg" />
+    <None Include="Zuggeschwindigkeit.pg.diagram">
+      <DependentUpon>Zuggeschwindigkeit.pg</DependentUpon>
+    </None>
+    <None Include="Zughodometer.pg" />
+    <None Include="Zughodometer.pg.diagram">
+      <DependentUpon>Zughodometer.pg</DependentUpon>
+    </None>
+    <None Include="Zugmotor.pg" />
+    <None Include="Zugmotor.pg.diagram">
+      <DependentUpon>Zugmotor.pg</DependentUpon>
+    </None>
+    <None Include="Zugposition.pg" />
+    <None Include="Zugposition.pg.diagram">
+      <DependentUpon>Zugposition.pg</DependentUpon>
+    </None>
+    <None Include="Zugpositionsbestimmung.pg" />
+    <None Include="Zugpositionsbestimmung.pg.diagram">
+      <DependentUpon>Zugpositionsbestimmung.pg</DependentUpon>
+    </None>
+    <None Include="Zugsteuerung.pg" />
+    <None Include="Zugsteuerung.pg.diagram">
+      <DependentUpon>Zugsteuerung.pg</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
