@@ -86,6 +86,10 @@
     <None Include="Sensor.pg.diagram">
       <DependentUpon>Sensor.pg</DependentUpon>
     </None>
+    <None Include="Zugbremse_Fehler.pg" />
+    <None Include="Zugbremse_Fehler.pg.diagram">
+      <DependentUpon>Zugbremse_Fehler.pg</DependentUpon>
+    </None>
     <None Include="Zugbremse.pg" />
     <None Include="Zugbremse.pg.diagram">
       <DependentUpon>Zugbremse.pg</DependentUpon>
