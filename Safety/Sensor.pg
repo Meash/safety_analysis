@@ -13,11 +13,14 @@
         <transition Id="0e454b00-167b-489d-88e0-05f1bc4fd3a3" guard="PositionReal &gt;= SP &amp;&amp; PositionReal &lt;= SP + Messweite" label="PositionReal &gt;= SP &amp;&amp; PositionReal &lt;= SP + Messweite">
           <stateMoniker name="/70f13bd9-d24b-4138-a7e5-f8982969ee0d/ZugFaehrtDurch" />
         </transition>
+        <transition Id="9d49167d-1e07-4d7c-8b71-d85a6cac248e" guard="Sensor_Fehler == Yes" label="Sensor_Fehler == Yes">
+          <stateMoniker name="/70f13bd9-d24b-4138-a7e5-f8982969ee0d/ZugFaehrtDurch" />
+        </transition>
       </successors>
     </state>
     <state Id="a6aa818b-9f05-463d-9092-0881823d914f" name="ZugFaehrtDurch">
       <successors>
-        <transition Id="ba4a6c44-249d-451f-87b9-36593757bf1f" guard="PositionReal &lt; SP || PositionReal &gt; SP + Messweite" label="PositionReal &lt; SP || PositionReal &gt; SP + Messweite">
+        <transition Id="ba4a6c44-249d-451f-87b9-36593757bf1f" guard="(PositionReal &lt; SP || PositionReal &gt; SP + Messweite) &amp;&amp; Sensor_Fehler == No" label="(PositionReal &lt; SP || PositionReal &gt; SP + Messweite) &amp;&amp; Sensor_Fehler == No">
           <stateMoniker name="/70f13bd9-d24b-4138-a7e5-f8982969ee0d/KeinZug" />
         </transition>
       </successors>
@@ -34,6 +37,9 @@
   <importedVariables>
     <programGraphHasImportedVariables Id="7630a6c1-858f-463b-978c-8bbddfc5c038">
       <importedVariable Id="a696361b-69f2-400b-8957-249afa960c86" name="Zugposition.PositionReal" range="-200..100" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="5039e6e8-ecd0-4989-adb6-9cdb9af8c5a7">
+      <importedVariable Id="90016be4-4f09-44ee-bf0f-47d612699607" name="Sensor_Fehler" range="No, Yes" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>
