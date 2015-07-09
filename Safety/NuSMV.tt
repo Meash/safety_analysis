@@ -11,6 +11,7 @@ DEFINE
 	SchrankeOffen := v.V_Winkel = 2;
 	ZugAmGefahrenpunkt := v.V_PositionReal >= GP & v.V_PositionReal < GP + v.V_vReal; -- Interval
 	ZugAmSensorpunkt := v.V_PositionReal >= SP & v.V_PositionReal < SP + v.V_vReal; -- Interval
+	KeinFehler := (v.V_Sensor_Fehler = L_No & v.V_BahnuebergangFunksender_Fehler = L_No & v.V_Zugbremse_Fehler = L_No);
 
 
 -- Safety
@@ -44,12 +45,20 @@ CTLSPEC EF v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet
 CTLSPEC AG (v.V_Zugbremse = L_Bremsend -> AF v.V_vReal = 0)
 
 ---- Zugpositionsbestimmung
-CTLSPEC A [v.V_Zugpositionsbestimmung = L_AufFreierStrecke
-		U A [v.V_Zugpositionsbestimmung = L_EinschaltpunktErreicht 
-		U A [v.V_Zugpositionsbestimmung = L_AnfragepunktErreicht 
-		U E [v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht 
-		U A [v.V_Zugpositionsbestimmung = L_GefahrenpunktErreicht 
-		U v.V_Zugpositionsbestimmung = L_Ende]]]]]
+LTLSPEC G KeinFehler
+		-> (v.V_Zugpositionsbestimmung = L_AufFreierStrecke
+		& X F (v.V_Zugpositionsbestimmung = L_EinschaltpunktErreicht 
+		& X F (v.V_Zugpositionsbestimmung = L_AnfragepunktErreicht 
+		& X F (v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht 
+		& X F (v.V_Zugpositionsbestimmung = L_GefahrenpunktErreicht 
+		& X F v.V_Zugpositionsbestimmung = L_Ende))))
+		-- nur eine Reihenfolge
+		& v.V_Zugpositionsbestimmung = L_AufFreierStrecke
+		U (v.V_Zugpositionsbestimmung = L_EinschaltpunktErreicht 
+		U (v.V_Zugpositionsbestimmung = L_AnfragepunktErreicht 
+		U (v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht 
+		U (v.V_Zugpositionsbestimmung = L_GefahrenpunktErreicht 
+		U v.V_Zugpositionsbestimmung = L_Ende)))))
 
 ---- Zugsteuerung
 CTLSPEC AG ((v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht 
