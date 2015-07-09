@@ -74,6 +74,10 @@
     <None Include="Schranke.pg.diagram">
       <DependentUpon>Schranke.pg</DependentUpon>
     </None>
+    <None Include="Schrankenmotor_Fehler.pg" />
+    <None Include="Schrankenmotor_Fehler.pg.diagram">
+      <DependentUpon>Schrankenmotor_Fehler.pg</DependentUpon>
+    </None>
     <None Include="Schrankenmotor.pg" />
     <None Include="Schrankenmotor.pg.diagram">
       <DependentUpon>Schrankenmotor.pg</DependentUpon>

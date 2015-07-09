@@ -11,9 +11,12 @@ DEFINE
 	SchrankeOffen := v.V_Winkel = 2;
 	ZugAmGefahrenpunkt := v.V_PositionReal >= GP & v.V_PositionReal < GP + v.V_vReal; -- Interval
 	ZugAmSensorpunkt := v.V_PositionReal >= SP & v.V_PositionReal < SP + v.V_vReal; -- Interval
-	KeinFehler := (v.V_Sensor_Fehler = L_No & v.V_BahnuebergangFunksender_Fehler = L_No & v.V_Zugbremse_Fehler = L_No);
+	KeinFehler := (v.V_Sensor_Fehler = L_No 
+				& v.V_BahnuebergangFunksender_Fehler = L_No 
+				& v.V_Zugbremse_Fehler = L_No
+				& v.V_Schrankenmotor_Fehler = L_No);
 
-
+	
 -- Safety
 LTLSPEC G KeinFehler -> (ZugAmGefahrenpunkt -> SchrankeZu)
 LTLSPEC G KeinFehler -> (ZugAmGefahrenpunkt -> (SchrankeZu U ZugAmSensorpunkt))

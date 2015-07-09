@@ -10,24 +10,24 @@
     </initialNode>
     <state Id="8af79138-69be-4846-9b73-204de02f0ca7" name="DrehrichtungSchliessend">
       <successors>
-        <transition Id="a19fbbbf-52df-458a-abe0-4539f749fa9c" guard="Schrankensteuerung==Aus" action="DeltaWinkel := 0" label="Schrankensteuerung==Aus // DeltaWinkel := 0" precondition="0 &gt;= -1 &amp;&amp; 0 &lt;= 1">
+        <transition Id="a19fbbbf-52df-458a-abe0-4539f749fa9c" guard="Schrankensteuerung==Aus || Schrankenmotor_Fehler == Yes" action="DeltaWinkel := 0" label="Schrankensteuerung==Aus || Schrankenmotor_Fehler == Yes // DeltaWinkel := 0" precondition="true">
           <stateMoniker name="/f9adf3ee-5dc7-42c6-8de5-de6ecf08e397/Aus" />
         </transition>
       </successors>
     </state>
     <state Id="34a93ca5-4ca5-4370-8e76-3c198c6e549a" name="Aus">
       <successors>
-        <transition Id="b55ebe3b-8b75-452a-b590-3bff3d74c175" guard="Schrankensteuerung==Schliessen" action="DeltaWinkel := -1" label="Schrankensteuerung==Schliessen // DeltaWinkel := -1" precondition="-1 &gt;= -1 &amp;&amp; -1 &lt;= 1">
+        <transition Id="b55ebe3b-8b75-452a-b590-3bff3d74c175" guard="Schrankensteuerung==Schliessen &amp;&amp; Schrankenmotor_Fehler == No" action="DeltaWinkel := -1" label="Schrankensteuerung==Schliessen &amp;&amp; Schrankenmotor_Fehler == No // DeltaWinkel := -1" precondition="true">
           <stateMoniker name="/f9adf3ee-5dc7-42c6-8de5-de6ecf08e397/DrehrichtungSchliessend" />
         </transition>
-        <transition Id="53058c2c-bf7a-4e22-b429-c11050c17ba0" guard="Schrankensteuerung==Oeffnen" action="DeltaWinkel := 1" label="Schrankensteuerung==Oeffnen // DeltaWinkel := 1" precondition="1 &gt;= -1 &amp;&amp; 1 &lt;= 1">
+        <transition Id="53058c2c-bf7a-4e22-b429-c11050c17ba0" guard="Schrankensteuerung==Oeffnen &amp;&amp; Schrankenmotor_Fehler == No" action="DeltaWinkel := 1" label="Schrankensteuerung==Oeffnen &amp;&amp; Schrankenmotor_Fehler == No // DeltaWinkel := 1" precondition="true">
           <stateMoniker name="/f9adf3ee-5dc7-42c6-8de5-de6ecf08e397/DrehrichtungOeffnend" />
         </transition>
       </successors>
     </state>
     <state Id="87ed2af1-f2ce-40af-86cf-a5c2e97a3407" name="DrehrichtungOeffnend">
       <successors>
-        <transition Id="91896b27-97a8-495d-8b12-efaaf368d853" guard="Schrankensteuerung==Aus" action="DeltaWinkel := 0" label="Schrankensteuerung==Aus // DeltaWinkel := 0" precondition="0 &gt;= -1 &amp;&amp; 0 &lt;= 1">
+        <transition Id="91896b27-97a8-495d-8b12-efaaf368d853" guard="Schrankensteuerung==Aus || Schrankenmotor_Fehler == Yes" action="DeltaWinkel := 0" label="Schrankensteuerung==Aus || Schrankenmotor_Fehler == Yes // DeltaWinkel := 0" precondition="true">
           <stateMoniker name="/f9adf3ee-5dc7-42c6-8de5-de6ecf08e397/Aus" />
         </transition>
       </successors>
@@ -41,6 +41,9 @@
   <importedVariables>
     <programGraphHasImportedVariables Id="8d6a2f5e-6ea4-4351-adb1-00687a551994">
       <importedVariable Id="40e3a49e-f326-43ee-97be-15718846fc17" name="Schrankensteuerung" range="Aus, Oeffnen, Schliessen" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="fea93ef3-95a9-4b1d-ad81-335c989e44b2">
+      <importedVariable Id="a1068028-6c98-4dd6-ab4a-f2b8c59c4f84" name="Schrankenmotor_Fehler" range="No, Yes" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

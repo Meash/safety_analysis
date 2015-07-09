@@ -13,6 +13,7 @@ MODULE _VARS
 		V_DeltaWinkel : -1..1;
 		V_Schrankenmotor : {L_DrehrichtungSchliessend, L_Aus, L_DrehrichtungOeffnend};
 		V_Schrankensteuerung : {L_Aus, L_Oeffnen, L_Schliessen};
+		V_Schrankenmotor_Fehler : {L_No, L_Yes};
 		V_PositionReal : -200..100;
 		V_Sensor_Fehler : {L_No, L_Yes};
 		V_Zugbremse : {L_NichtBremsend, L_Bremsend};
@@ -85,13 +86,20 @@ MODULE _P_Schrankenmotor(v)
 	INIT
 		(v.V_Schrankenmotor = L_Aus) & (TRUE)
 	TRANS
-		 ( v.V_Schrankenmotor = L_DrehrichtungSchliessend & next(v.V_Schrankenmotor) = L_Aus & ((v.V_Schrankensteuerung = L_Aus) & ((0 >= -1) & (0 <= 1))) & (next(v.V_DeltaWinkel) = 0))  |
-		 ( v.V_Schrankenmotor = L_Aus & next(v.V_Schrankenmotor) = L_DrehrichtungSchliessend & ((v.V_Schrankensteuerung = L_Schliessen) & ((-1 >= -1) & (-1 <= 1))) & (next(v.V_DeltaWinkel) = -1))  |
-		 ( v.V_Schrankenmotor = L_Aus & next(v.V_Schrankenmotor) = L_DrehrichtungOeffnend & ((v.V_Schrankensteuerung = L_Oeffnen) & ((1 >= -1) & (1 <= 1))) & (next(v.V_DeltaWinkel) = 1))  |
-		 ( v.V_Schrankenmotor = L_DrehrichtungOeffnend & next(v.V_Schrankenmotor) = L_Aus & ((v.V_Schrankensteuerung = L_Aus) & ((0 >= -1) & (0 <= 1))) & (next(v.V_DeltaWinkel) = 0))  |
-		 ( v.V_Schrankenmotor = L_DrehrichtungSchliessend & next(v.V_Schrankenmotor) = L_DrehrichtungSchliessend & !((v.V_Schrankensteuerung = L_Aus) & ((0 >= -1) & (0 <= 1))) & (next(v.V_DeltaWinkel) = v.V_DeltaWinkel))  |
-		 ( v.V_Schrankenmotor = L_Aus & next(v.V_Schrankenmotor) = L_Aus & (!((v.V_Schrankensteuerung = L_Schliessen) & ((-1 >= -1) & (-1 <= 1))) & !((v.V_Schrankensteuerung = L_Oeffnen) & ((1 >= -1) & (1 <= 1)))) & (next(v.V_DeltaWinkel) = v.V_DeltaWinkel))  |
-		 ( v.V_Schrankenmotor = L_DrehrichtungOeffnend & next(v.V_Schrankenmotor) = L_DrehrichtungOeffnend & !((v.V_Schrankensteuerung = L_Aus) & ((0 >= -1) & (0 <= 1))) & (next(v.V_DeltaWinkel) = v.V_DeltaWinkel));
+		 ( v.V_Schrankenmotor = L_DrehrichtungSchliessend & next(v.V_Schrankenmotor) = L_Aus & ((v.V_Schrankensteuerung = L_Aus) | (v.V_Schrankenmotor_Fehler = L_Yes)) & (next(v.V_DeltaWinkel) = 0))  |
+		 ( v.V_Schrankenmotor = L_Aus & next(v.V_Schrankenmotor) = L_DrehrichtungSchliessend & ((v.V_Schrankensteuerung = L_Schliessen) & (v.V_Schrankenmotor_Fehler = L_No)) & (next(v.V_DeltaWinkel) = -1))  |
+		 ( v.V_Schrankenmotor = L_Aus & next(v.V_Schrankenmotor) = L_DrehrichtungOeffnend & ((v.V_Schrankensteuerung = L_Oeffnen) & (v.V_Schrankenmotor_Fehler = L_No)) & (next(v.V_DeltaWinkel) = 1))  |
+		 ( v.V_Schrankenmotor = L_DrehrichtungOeffnend & next(v.V_Schrankenmotor) = L_Aus & ((v.V_Schrankensteuerung = L_Aus) | (v.V_Schrankenmotor_Fehler = L_Yes)) & (next(v.V_DeltaWinkel) = 0))  |
+		 ( v.V_Schrankenmotor = L_DrehrichtungSchliessend & next(v.V_Schrankenmotor) = L_DrehrichtungSchliessend & !((v.V_Schrankensteuerung = L_Aus) | (v.V_Schrankenmotor_Fehler = L_Yes)) & (next(v.V_DeltaWinkel) = v.V_DeltaWinkel))  |
+		 ( v.V_Schrankenmotor = L_Aus & next(v.V_Schrankenmotor) = L_Aus & (!((v.V_Schrankensteuerung = L_Schliessen) & (v.V_Schrankenmotor_Fehler = L_No)) & !((v.V_Schrankensteuerung = L_Oeffnen) & (v.V_Schrankenmotor_Fehler = L_No))) & (next(v.V_DeltaWinkel) = v.V_DeltaWinkel))  |
+		 ( v.V_Schrankenmotor = L_DrehrichtungOeffnend & next(v.V_Schrankenmotor) = L_DrehrichtungOeffnend & !((v.V_Schrankensteuerung = L_Aus) | (v.V_Schrankenmotor_Fehler = L_Yes)) & (next(v.V_DeltaWinkel) = v.V_DeltaWinkel));
+MODULE _P_Schrankenmotor_Fehler(v)
+	INIT
+		(v.V_Schrankenmotor_Fehler = L_No) & (TRUE)
+	TRANS
+		 ( v.V_Schrankenmotor_Fehler = L_No & next(v.V_Schrankenmotor_Fehler) = L_Yes & TRUE & (TRUE))  |
+		 ( v.V_Schrankenmotor_Fehler = L_No & next(v.V_Schrankenmotor_Fehler) = L_No & TRUE & (TRUE))  |
+		 ( v.V_Schrankenmotor_Fehler = L_Yes & next(v.V_Schrankenmotor_Fehler) = L_Yes & TRUE & (TRUE));
 MODULE _P_Schrankensensor(v)
 	INIT
 		(v.V_Schrankensensor = L_Offen) & (TRUE)
@@ -242,6 +250,7 @@ MODULE main
 		p_BahnuebergangFunksender_Fehler : _P_BahnuebergangFunksender_Fehler(v);
 		p_Schranke : _P_Schranke(v);
 		p_Schrankenmotor : _P_Schrankenmotor(v);
+		p_Schrankenmotor_Fehler : _P_Schrankenmotor_Fehler(v);
 		p_Schrankensensor : _P_Schrankensensor(v);
 		p_Schrankensteuerung : _P_Schrankensteuerung(v);
 		p_Sensor : _P_Sensor(v);
@@ -269,9 +278,12 @@ DEFINE
 	SchrankeOffen := v.V_Winkel = 2;
 	ZugAmGefahrenpunkt := v.V_PositionReal >= GP & v.V_PositionReal < GP + v.V_vReal; -- Interval
 	ZugAmSensorpunkt := v.V_PositionReal >= SP & v.V_PositionReal < SP + v.V_vReal; -- Interval
-	KeinFehler := (v.V_Sensor_Fehler = L_No & v.V_BahnuebergangFunksender_Fehler = L_No & v.V_Zugbremse_Fehler = L_No);
+	KeinFehler := (v.V_Sensor_Fehler = L_No 
+				& v.V_BahnuebergangFunksender_Fehler = L_No 
+				& v.V_Zugbremse_Fehler = L_No
+				& v.V_Schrankenmotor_Fehler = L_No);
 
-
+	
 -- Safety
 LTLSPEC G KeinFehler -> (ZugAmGefahrenpunkt -> SchrankeZu)
 LTLSPEC G KeinFehler -> (ZugAmGefahrenpunkt -> (SchrankeZu U ZugAmSensorpunkt))

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="f9adf3ee-5dc7-42c6-8de5-de6ecf08e397" name="Schrankenmotor_Fehler" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="09a20086-8740-43a2-99d4-a1fe0e6b0b07" name="InitialNode1">
+      <successors>
+        <transition Id="bb594534-ab42-40c1-bcc7-a93d250b9b65">
+          <stateMoniker name="/f9adf3ee-5dc7-42c6-8de5-de6ecf08e397/No" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="34a93ca5-4ca5-4370-8e76-3c198c6e549a" name="No">
+      <successors>
+        <transition Id="53058c2c-bf7a-4e22-b429-c11050c17ba0">
+          <stateMoniker name="/f9adf3ee-5dc7-42c6-8de5-de6ecf08e397/Yes" />
+        </transition>
+        <transition Id="637663bd-a504-4d57-9388-a365e8c63735">
+          <stateMoniker name="/f9adf3ee-5dc7-42c6-8de5-de6ecf08e397/No" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="87ed2af1-f2ce-40af-86cf-a5c2e97a3407" name="Yes" />
+  </states>
+</programGraph>
