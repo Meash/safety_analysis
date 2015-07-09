@@ -10,14 +10,14 @@
     </initialNode>
     <state Id="c7e1664c-22ba-49c2-9ca3-1fd2cde4c473" name="NichtBremsend">
       <successors>
-        <transition Id="bcc3fd85-2a91-4cbd-9a39-f2785d8c3a7f" guard="Zugsteuerung == Zwangsbremsung &amp;&amp; Zugbremse_Fehler == No" action="Bremswirkung := -1" label="Zugsteuerung == Zwangsbremsung &amp;&amp; Zugbremse_Fehler == No // Bremswirkung := -1" precondition="true">
+        <transition Id="bcc3fd85-2a91-4cbd-9a39-f2785d8c3a7f" guard="ZugbremseAktuator == Bremsend &amp;&amp; Zugbremse_Fehler == No" action="Bremswirkung := -1" label="ZugbremseAktuator == Bremsend &amp;&amp; Zugbremse_Fehler == No // Bremswirkung := -1" precondition="true">
           <stateMoniker name="/0304e74b-a749-46bc-baa8-dcc327f9be5c/Bremsend" />
         </transition>
       </successors>
     </state>
     <state Id="08b82379-0f42-4031-b0f4-835a1215f935" name="Bremsend">
       <successors>
-        <transition Id="f91ad1ac-be9a-498e-a272-b707a8410cd1" guard="Zugbremse_Fehler == Yes" action="Bremswirkung := 0" label="Zugbremse_Fehler == Yes // Bremswirkung := 0" precondition="true">
+        <transition Id="f91ad1ac-be9a-498e-a272-b707a8410cd1" guard="ZugbremseAktuator == NichtBremsend || Zugbremse_Fehler == Yes" action="Bremswirkung := 0" label="ZugbremseAktuator == NichtBremsend || Zugbremse_Fehler == Yes // Bremswirkung := 0" precondition="true">
           <stateMoniker name="/0304e74b-a749-46bc-baa8-dcc327f9be5c/NichtBremsend" />
         </transition>
       </successors>
@@ -30,7 +30,7 @@
   </variables>
   <importedVariables>
     <programGraphHasImportedVariables Id="b1e3b883-d176-4b25-b1ea-2c6c733167cf">
-      <importedVariable Id="cd0fa2b4-612e-44be-b726-a9b7e76468c7" name="Zugsteuerung" range="Fahren, Zwangsbremsung" />
+      <importedVariable Id="cd0fa2b4-612e-44be-b726-a9b7e76468c7" name="ZugbremseAktuator" range="NichtBremsend, Bremsend" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="33133a34-5d40-4628-8772-04f189952ad2">
       <importedVariable Id="64992efa-a5d3-4bcb-a826-e7c20d0017a5" name="Zugbremse_Fehler" range="No, Yes" />
