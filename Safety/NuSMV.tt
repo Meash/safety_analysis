@@ -15,12 +15,12 @@ DEFINE
 
 
 -- Safety
-CTLSPEC AG (ZugAmGefahrenpunkt -> SchrankeZu)
-CTLSPEC AG (ZugAmGefahrenpunkt -> A [SchrankeZu U ZugAmSensorpunkt])
+LTLSPEC G KeinFehler -> (ZugAmGefahrenpunkt -> SchrankeZu)
+LTLSPEC G KeinFehler -> (ZugAmGefahrenpunkt -> (SchrankeZu U ZugAmSensorpunkt))
 
 
 -- Bahnuebergang
-CTLSPEC AG (SchrankeZu -> AF SchrankeOffen)
+LTLSPEC G KeinFehler -> (SchrankeZu -> F SchrankeOffen)
 
 ---- Schranke
 ------ Schrankensensor
@@ -61,6 +61,6 @@ LTLSPEC G KeinFehler
 		U v.V_Zugpositionsbestimmung = L_Ende)))))
 
 ---- Zugsteuerung
-CTLSPEC AG ((v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht 
-			& SchrankeOffen)
-			-> AX v.V_Zugsteuerung = L_Zwangsbremsung)
+LTLSPEC G KeinFehler
+			-> ((v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht & SchrankeOffen)
+				-> X v.V_Zugsteuerung = L_Zwangsbremsung)
