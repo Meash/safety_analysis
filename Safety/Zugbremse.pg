@@ -17,7 +17,7 @@
     </state>
     <state Id="08b82379-0f42-4031-b0f4-835a1215f935" name="Bremsend">
       <successors>
-        <transition Id="f91ad1ac-be9a-498e-a272-b707a8410cd1" guard="ZugbremseAktuator == NichtBremsend || Zugbremse_Fehler == Yes" action="Bremswirkung := 0" label="ZugbremseAktuator == NichtBremsend || Zugbremse_Fehler == Yes // Bremswirkung := 0" precondition="true">
+        <transition Id="f91ad1ac-be9a-498e-a272-b707a8410cd1" guard="ZugbremseAktuator == NichtBremsend || Zugbremse_Fehler != No" action="Bremswirkung := 0" label="ZugbremseAktuator == NichtBremsend || Zugbremse_Fehler != No // Bremswirkung := 0" precondition="true">
           <stateMoniker name="/0304e74b-a749-46bc-baa8-dcc327f9be5c/NichtBremsend" />
         </transition>
       </successors>
