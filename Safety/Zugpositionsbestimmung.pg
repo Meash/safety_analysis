@@ -10,36 +10,48 @@
     </initialNode>
     <state Id="86813711-8391-45f3-9af9-ba8ed78d5d55" name="AufFreierStrecke">
       <successors>
-        <transition Id="b01a5bbf-9ebc-4051-941b-47524a7eee26" guard="Position &gt;= _EP" label="Position &gt;= _EP">
+        <transition Id="b01a5bbf-9ebc-4051-941b-47524a7eee26" guard="Position &gt;= _EP &amp;&amp; Zugpositionsbestimmung_Fehler == No" label="Position &gt;= _EP &amp;&amp; Zugpositionsbestimmung_Fehler == No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/EinschaltpunktErreicht" />
         </transition>
       </successors>
     </state>
     <state Id="6b29ffb6-0387-4f6a-96e5-0651ca5e0fb6" name="EinschaltpunktErreicht">
       <successors>
-        <transition Id="6ba61925-5df1-4eef-a568-f4552f2423e8" guard="Position &gt;= _AP" label="Position &gt;= _AP">
+        <transition Id="6ba61925-5df1-4eef-a568-f4552f2423e8" guard="Position &gt;= _AP &amp;&amp; Zugpositionsbestimmung_Fehler == No" label="Position &gt;= _AP &amp;&amp; Zugpositionsbestimmung_Fehler == No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AnfragepunktErreicht" />
+        </transition>
+        <transition Id="62ae63b8-d520-48c1-a203-9b61b0afdcaa" guard="Zugpositionsbestimmung_Fehler != No" label="Zugpositionsbestimmung_Fehler != No">
+          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AufFreierStrecke" />
         </transition>
       </successors>
     </state>
     <state Id="210dbee4-3e53-4aba-bd27-9f5a86335336" name="AnfragepunktErreicht">
       <successors>
-        <transition Id="0d7fdb94-fc58-4bf0-be7b-e7243d197ab7" guard="Position &gt;= _BEP" label="Position &gt;= _BEP">
+        <transition Id="0d7fdb94-fc58-4bf0-be7b-e7243d197ab7" guard="Position &gt;= _BEP &amp;&amp; Zugpositionsbestimmung_Fehler == No" label="Position &gt;= _BEP &amp;&amp; Zugpositionsbestimmung_Fehler == No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/BremseinsatzpunktErreicht" />
+        </transition>
+        <transition Id="d5312bf6-81eb-4952-8848-f4caa40e7d6c" guard="Zugpositionsbestimmung_Fehler != No" label="Zugpositionsbestimmung_Fehler != No">
+          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AufFreierStrecke" />
         </transition>
       </successors>
     </state>
     <state Id="bf80a76f-982f-4051-861e-3f8189026f0b" name="GefahrenpunktErreicht">
       <successors>
-        <transition Id="c396dd8e-3472-434f-b2ab-4d879682550b">
+        <transition Id="c396dd8e-3472-434f-b2ab-4d879682550b" guard="Zugpositionsbestimmung_Fehler == No" label="Zugpositionsbestimmung_Fehler == No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/Ende" />
+        </transition>
+        <transition Id="8827ba27-553a-43bd-a798-914f63c4838e" guard="Zugpositionsbestimmung_Fehler != No" label="Zugpositionsbestimmung_Fehler != No">
+          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AufFreierStrecke" />
         </transition>
       </successors>
     </state>
     <state Id="8fe520b9-015d-4353-ba60-a47e30bac2a3" name="BremseinsatzpunktErreicht">
       <successors>
-        <transition Id="e4984ffd-17ad-4062-be23-f6d1d20fb02a" guard="Position &gt;= _GP" label="Position &gt;= _GP">
+        <transition Id="e4984ffd-17ad-4062-be23-f6d1d20fb02a" guard="Position &gt;= _GP &amp;&amp; Zugpositionsbestimmung_Fehler == No" label="Position &gt;= _GP &amp;&amp; Zugpositionsbestimmung_Fehler == No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/GefahrenpunktErreicht" />
+        </transition>
+        <transition Id="21b504bf-c59c-4a9f-847e-8e611876d62a" guard="Zugpositionsbestimmung_Fehler != No" label="Zugpositionsbestimmung_Fehler != No">
+          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AufFreierStrecke" />
         </transition>
       </successors>
     </state>
@@ -77,6 +89,9 @@
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="0d32b0c0-89e5-44b5-b0d9-f9074f4a4acd">
       <importedVariable Id="409133ee-a570-4eb0-85c2-2cf0a1effde4" name="Zughodometer.v" range="0..5" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="2dcb0672-4cd1-4aa5-a668-3bce7a97e525">
+      <importedVariable Id="36c20eb2-9dec-477a-b7a5-381de3990047" name="Zugpositionsbestimmung_Fehler" range="No, Yes" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>
