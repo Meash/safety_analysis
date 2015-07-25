@@ -10,24 +10,42 @@
     </initialNode>
     <state Id="1ff5b864-7cd8-4259-9583-b0865e63636b" name="Offen">
       <successors>
-        <transition Id="836128c7-bb03-4a73-b804-c139db317295" guard="Winkel &lt; 2" label="Winkel &lt; 2">
+        <transition Id="836128c7-bb03-4a73-b804-c139db317295" guard="Winkel &lt; 2 &amp;&amp; Schrankensensor_Fehler == No" label="Winkel &lt; 2 &amp;&amp; Schrankensensor_Fehler == No">
           <stateMoniker name="/53e3d013-1a56-42e2-9408-6866766b1094/InDerBewegung" />
+        </transition>
+        <transition Id="7e073aa2-6f84-48d5-ac89-b53a016a3808" guard="Schrankensensor_Fehler != No" label="Schrankensensor_Fehler != No">
+          <stateMoniker name="/53e3d013-1a56-42e2-9408-6866766b1094/InDerBewegung" />
+        </transition>
+        <transition Id="55c1e24a-1656-453c-9fd7-36085d33210a" guard="Schrankensensor_Fehler != No" label="Schrankensensor_Fehler != No">
+          <stateMoniker name="/53e3d013-1a56-42e2-9408-6866766b1094/Geschlossen" />
         </transition>
       </successors>
     </state>
     <state Id="923979b8-4e28-487e-8799-a627f84ac36f" name="Geschlossen">
       <successors>
-        <transition Id="e1f98cc4-186f-48f1-955c-dcd05c2c30d1" guard="Winkel &gt; 0" label="Winkel &gt; 0">
+        <transition Id="e1f98cc4-186f-48f1-955c-dcd05c2c30d1" guard="Winkel &gt; 0 &amp;&amp; Schrankensensor_Fehler == No" label="Winkel &gt; 0 &amp;&amp; Schrankensensor_Fehler == No">
           <stateMoniker name="/53e3d013-1a56-42e2-9408-6866766b1094/InDerBewegung" />
+        </transition>
+        <transition Id="75e168c4-a9f6-41f9-a0c0-f6c8469f4e5b" guard="Schrankensensor_Fehler != No" label="Schrankensensor_Fehler != No">
+          <stateMoniker name="/53e3d013-1a56-42e2-9408-6866766b1094/InDerBewegung" />
+        </transition>
+        <transition Id="735e397b-6a65-46ce-8ace-f2f760fcf83f" guard="Schrankensensor_Fehler != No" label="Schrankensensor_Fehler != No">
+          <stateMoniker name="/53e3d013-1a56-42e2-9408-6866766b1094/Offen" />
         </transition>
       </successors>
     </state>
     <state Id="773af05e-609f-4b4d-838b-89112d1a405f" name="InDerBewegung">
       <successors>
-        <transition Id="056640d7-096a-4ff3-9b73-7ddc08d5bc2a" guard="Winkel == 0" label="Winkel == 0">
+        <transition Id="056640d7-096a-4ff3-9b73-7ddc08d5bc2a" guard="Winkel == 0 &amp;&amp; Schrankensensor_Fehler == No" label="Winkel == 0 &amp;&amp; Schrankensensor_Fehler == No">
           <stateMoniker name="/53e3d013-1a56-42e2-9408-6866766b1094/Geschlossen" />
         </transition>
-        <transition Id="ab931f58-d42e-4489-9abd-56e4f969a633" guard="Winkel == 2" label="Winkel == 2">
+        <transition Id="ab931f58-d42e-4489-9abd-56e4f969a633" guard="Winkel == 2 &amp;&amp; Schrankensensor_Fehler == No" label="Winkel == 2 &amp;&amp; Schrankensensor_Fehler == No">
+          <stateMoniker name="/53e3d013-1a56-42e2-9408-6866766b1094/Offen" />
+        </transition>
+        <transition Id="0a11ce13-4c4f-4562-b828-1101fc51b146" guard="Schrankensensor_Fehler != No" label="Schrankensensor_Fehler != No">
+          <stateMoniker name="/53e3d013-1a56-42e2-9408-6866766b1094/Geschlossen" />
+        </transition>
+        <transition Id="1fbd1117-306e-4fed-9892-19899982d31b" guard="Schrankensensor_Fehler != No" label="Schrankensensor_Fehler != No">
           <stateMoniker name="/53e3d013-1a56-42e2-9408-6866766b1094/Offen" />
         </transition>
       </successors>
@@ -41,6 +59,9 @@
   <importedVariables>
     <programGraphHasImportedVariables Id="841467af-a457-445a-ac38-9879ab05e197">
       <importedVariable Id="60f41d0e-1cd8-4f84-b6e9-dd78147646b8" name="Schranke.Winkel" range="0..2" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="22512958-aa1b-43c8-9310-a6baeee5448d">
+      <importedVariable Id="7db131f5-286a-4896-95f0-b2067b4539b0" name="Schrankensensor_Fehler" range="No, Yes" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

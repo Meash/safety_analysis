@@ -74,6 +74,14 @@
     <None Include="Schranke.pg.diagram">
       <DependentUpon>Schranke.pg</DependentUpon>
     </None>
+    <None Include="Schrankensensor.pg" />
+    <None Include="Schrankensensor.pg.diagram">
+      <DependentUpon>Schrankensensor.pg</DependentUpon>
+    </None>
+    <None Include="Schrankensensor_Fehler.pg" />
+    <None Include="Schrankensensor_Fehler.pg.diagram">
+      <DependentUpon>Schrankensensor_Fehler.pg</DependentUpon>
+    </None>
     <None Include="Schrankenmotor_Fehler.pg" />
     <None Include="Schrankenmotor_Fehler.pg.diagram">
       <DependentUpon>Schrankenmotor_Fehler.pg</DependentUpon>
@@ -81,10 +89,6 @@
     <None Include="Schrankenmotor.pg" />
     <None Include="Schrankenmotor.pg.diagram">
       <DependentUpon>Schrankenmotor.pg</DependentUpon>
-    </None>
-    <None Include="Schrankensensor.pg" />
-    <None Include="Schrankensensor.pg.diagram">
-      <DependentUpon>Schrankensensor.pg</DependentUpon>
     </None>
     <None Include="Schrankensteuerung.pg" />
     <None Include="Schrankensteuerung.pg.diagram">
@@ -101,6 +105,10 @@
     <None Include="ZugbremseAktuator.pg" />
     <None Include="ZugbremseAktuator.pg.diagram">
       <DependentUpon>ZugbremseAktuator.pg</DependentUpon>
+    </None>
+    <None Include="Zugbremse_Fehler - Copy.pg" />
+    <None Include="Zugbremse_Fehler - Copy.pg.diagram">
+      <DependentUpon>Zugbremse_Fehler - Copy.pg</DependentUpon>
     </None>
     <None Include="Zugbremse_Fehler.pg" />
     <None Include="Zugbremse_Fehler.pg.diagram">
