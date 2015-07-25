@@ -10,10 +10,10 @@
     </initialNode>
     <state Id="9c3b9d8c-037c-4ed3-8cfc-08352bf40a2b" name="Aus">
       <successors>
-        <transition Id="dd95f42c-3cbf-4647-8684-036f7c6c51a9" guard="Bahnuebergang == Entsichern &amp;&amp; Schrankensensor != Offen" label="Bahnuebergang == Entsichern &amp;&amp; Schrankensensor != Offen">
+        <transition Id="dd95f42c-3cbf-4647-8684-036f7c6c51a9" guard="BahnuebergangSteuerung == Entsichern &amp;&amp; Schrankensensor != Offen" label="BahnuebergangSteuerung == Entsichern &amp;&amp; Schrankensensor != Offen">
           <stateMoniker name="/469936e9-c106-495f-839f-09ce70297bbc/Oeffnen" />
         </transition>
-        <transition Id="16538640-1907-4d04-be2d-d8107d8b3a95" guard="Bahnuebergang == Sichern &amp;&amp; Schrankensensor != Geschlossen" label="Bahnuebergang == Sichern &amp;&amp; Schrankensensor != Geschlossen">
+        <transition Id="16538640-1907-4d04-be2d-d8107d8b3a95" guard="BahnuebergangSteuerung == Sichern &amp;&amp; Schrankensensor != Geschlossen" label="BahnuebergangSteuerung == Sichern &amp;&amp; Schrankensensor != Geschlossen">
           <stateMoniker name="/469936e9-c106-495f-839f-09ce70297bbc/Schliessen" />
         </transition>
       </successors>
@@ -38,7 +38,7 @@
       <importedVariable Id="d13370f3-2f06-433f-9e9f-b27ed22921e0" name="Schrankensensor" range="Offen, Geschlossen, InDerBewegung" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="bcda29c1-3e5a-45cd-8000-9b73d64a3710">
-      <importedVariable Id="e8c62398-29cd-4e84-9904-0becab9e1724" name="Bahnuebergang" range="Ungesichert, Sichern, Gesichert, Entsichern, ZugFahrtUeberSensor, ZustandsAnfrageAngekommen, SicherungsBestaetigungVersendet" />
+      <importedVariable Id="e8c62398-29cd-4e84-9904-0becab9e1724" name="BahnuebergangSteuerung" range="Ungesichert, Sichern, Gesichert, Entsichern, ZugFahrtUeberSensor, ZustandsAnfrageAngekommen, SicherungsBestaetigungVersendet" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

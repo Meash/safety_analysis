@@ -1,19 +1,20 @@
 
 MODULE _VARS
 	VAR
-		V_Bahnuebergang : {L_Ungesichert, L_Sichern, L_Gesichert, L_Entsichern, L_ZugFahrtUeberSensor, L_ZustandsAnfrageAngekommen, L_SicherungsBestaetigungVersendet};
-		V_Schrankensensor : {L_Offen, L_Geschlossen, L_InDerBewegung};
 		V_BahnuebergangFunkempfaenger : {L_Wartend, L_SicherungsAnweisungAngekommen, L_ZustandsAnfrageAngekommen};
-		V_Sensor : {L_KeinZug, L_ZugFaehrtDurch};
-		V_BahnuebergangFunksender : {L_Wartend, L_BestaetigungsNachrichtGesendet, L_SendeBestaetigungsNachricht};
 		V_ZugFunksender : {L_Wartend, L_SicherungsAnweisungGesendet, L_AnfrageGesendet};
+		V_BahnuebergangFunksender : {L_Wartend, L_BestaetigungsNachrichtGesendet, L_SendeBestaetigungsNachricht};
+		V_BahnuebergangSteuerung : {L_Ungesichert, L_Sichern, L_Gesichert, L_Entsichern, L_ZugFahrtUeberSensor, L_ZustandsAnfrageAngekommen, L_SicherungsBestaetigungVersendet};
 		V_BahnuebergangFunksender_Fehler : {L_No, L_Yes};
+		V_Schrankensensor : {L_Offen, L_Geschlossen, L_InDerBewegung};
+		V_Sensor : {L_KeinZug, L_ZugFaehrtDurch};
 		V_Schranke : {L__};
 		V_Winkel : 0..2;
 		V_DeltaWinkel : -1..1;
 		V_Schrankenmotor : {L_DrehrichtungSchliessend, L_Aus, L_DrehrichtungOeffnend};
 		V_Schrankensteuerung : {L_Aus, L_Oeffnen, L_Schliessen};
 		V_Schrankenmotor_Fehler : {L_No, L_Yes};
+		V_Schrankensensor_Fehler : {L_No, L_Yes};
 		V_PositionReal : -200..100;
 		V_Sensor_Fehler : {L_No, L_Yes};
 		V_Zugbremse : {L_NichtBremsend, L_Bremsend};
@@ -32,25 +33,8 @@ MODULE _VARS
 		V_v : 0..5;
 		V_Zugmotor : {L_Aus, L_Beschleunigen, L_GeschwindigkeitHalten};
 		V_Zugposition : {L__};
+		V_Zugpositionsbestimmung_Fehler : {L_No, L_Yes};
 		V_BahnuebergangGesichert : 0..1;
-MODULE _P_Bahnuebergang(v)
-	INIT
-		(v.V_Bahnuebergang = L_Ungesichert) & (TRUE)
-	TRANS
-		 ( v.V_Bahnuebergang = L_Ungesichert & next(v.V_Bahnuebergang) = L_Sichern & (v.V_BahnuebergangFunkempfaenger = L_SicherungsAnweisungAngekommen) & (TRUE))  |
-		 ( v.V_Bahnuebergang = L_Sichern & next(v.V_Bahnuebergang) = L_Gesichert & (v.V_Schrankensensor = L_Geschlossen) & (TRUE))  |
-		 ( v.V_Bahnuebergang = L_Gesichert & next(v.V_Bahnuebergang) = L_ZustandsAnfrageAngekommen & (v.V_BahnuebergangFunkempfaenger = L_ZustandsAnfrageAngekommen) & (TRUE))  |
-		 ( v.V_Bahnuebergang = L_Entsichern & next(v.V_Bahnuebergang) = L_Ungesichert & (v.V_Schrankensensor = L_Offen) & (TRUE))  |
-		 ( v.V_Bahnuebergang = L_ZugFahrtUeberSensor & next(v.V_Bahnuebergang) = L_Entsichern & (v.V_Sensor = L_KeinZug) & (TRUE))  |
-		 ( v.V_Bahnuebergang = L_ZustandsAnfrageAngekommen & next(v.V_Bahnuebergang) = L_SicherungsBestaetigungVersendet & (v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet) & (TRUE))  |
-		 ( v.V_Bahnuebergang = L_SicherungsBestaetigungVersendet & next(v.V_Bahnuebergang) = L_ZugFahrtUeberSensor & (v.V_Sensor = L_ZugFaehrtDurch) & (TRUE))  |
-		 ( v.V_Bahnuebergang = L_Ungesichert & next(v.V_Bahnuebergang) = L_Ungesichert & !(v.V_BahnuebergangFunkempfaenger = L_SicherungsAnweisungAngekommen) & (TRUE))  |
-		 ( v.V_Bahnuebergang = L_Sichern & next(v.V_Bahnuebergang) = L_Sichern & !(v.V_Schrankensensor = L_Geschlossen) & (TRUE))  |
-		 ( v.V_Bahnuebergang = L_Gesichert & next(v.V_Bahnuebergang) = L_Gesichert & !(v.V_BahnuebergangFunkempfaenger = L_ZustandsAnfrageAngekommen) & (TRUE))  |
-		 ( v.V_Bahnuebergang = L_Entsichern & next(v.V_Bahnuebergang) = L_Entsichern & !(v.V_Schrankensensor = L_Offen) & (TRUE))  |
-		 ( v.V_Bahnuebergang = L_ZugFahrtUeberSensor & next(v.V_Bahnuebergang) = L_ZugFahrtUeberSensor & !(v.V_Sensor = L_KeinZug) & (TRUE))  |
-		 ( v.V_Bahnuebergang = L_ZustandsAnfrageAngekommen & next(v.V_Bahnuebergang) = L_ZustandsAnfrageAngekommen & !(v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet) & (TRUE))  |
-		 ( v.V_Bahnuebergang = L_SicherungsBestaetigungVersendet & next(v.V_Bahnuebergang) = L_SicherungsBestaetigungVersendet & !(v.V_Sensor = L_ZugFaehrtDurch) & (TRUE));
 MODULE _P_BahnuebergangFunkempfaenger(v)
 	INIT
 		(v.V_BahnuebergangFunkempfaenger = L_Wartend) & (TRUE)
@@ -64,10 +48,10 @@ MODULE _P_BahnuebergangFunksender(v)
 	INIT
 		(v.V_BahnuebergangFunksender = L_Wartend) & (TRUE)
 	TRANS
-		 ( v.V_BahnuebergangFunksender = L_Wartend & next(v.V_BahnuebergangFunksender) = L_SendeBestaetigungsNachricht & ((v.V_Bahnuebergang = L_ZustandsAnfrageAngekommen) | (v.V_BahnuebergangFunksender_Fehler = L_Yes)) & (TRUE))  |
+		 ( v.V_BahnuebergangFunksender = L_Wartend & next(v.V_BahnuebergangFunksender) = L_SendeBestaetigungsNachricht & ((v.V_BahnuebergangSteuerung = L_ZustandsAnfrageAngekommen) | (v.V_BahnuebergangFunksender_Fehler != L_No)) & (TRUE))  |
 		 ( v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet & next(v.V_BahnuebergangFunksender) = L_Wartend & TRUE & (TRUE))  |
 		 ( v.V_BahnuebergangFunksender = L_SendeBestaetigungsNachricht & next(v.V_BahnuebergangFunksender) = L_BestaetigungsNachrichtGesendet & TRUE & (TRUE))  |
-		 ( v.V_BahnuebergangFunksender = L_Wartend & next(v.V_BahnuebergangFunksender) = L_Wartend & !((v.V_Bahnuebergang = L_ZustandsAnfrageAngekommen) | (v.V_BahnuebergangFunksender_Fehler = L_Yes)) & (TRUE));
+		 ( v.V_BahnuebergangFunksender = L_Wartend & next(v.V_BahnuebergangFunksender) = L_Wartend & !((v.V_BahnuebergangSteuerung = L_ZustandsAnfrageAngekommen) | (v.V_BahnuebergangFunksender_Fehler != L_No)) & (TRUE));
 MODULE _P_BahnuebergangFunksender_Fehler(v)
 	INIT
 		(v.V_BahnuebergangFunksender_Fehler = L_No) & (TRUE)
@@ -76,6 +60,24 @@ MODULE _P_BahnuebergangFunksender_Fehler(v)
 		 ( v.V_BahnuebergangFunksender_Fehler = L_No & next(v.V_BahnuebergangFunksender_Fehler) = L_No & TRUE & (TRUE))  |
 		 ( v.V_BahnuebergangFunksender_Fehler = L_Yes & next(v.V_BahnuebergangFunksender_Fehler) = L_No & TRUE & (TRUE))  |
 		 ( v.V_BahnuebergangFunksender_Fehler = L_Yes & next(v.V_BahnuebergangFunksender_Fehler) = L_Yes & TRUE & (TRUE));
+MODULE _P_BahnuebergangSteuerung(v)
+	INIT
+		(v.V_BahnuebergangSteuerung = L_Ungesichert) & (TRUE)
+	TRANS
+		 ( v.V_BahnuebergangSteuerung = L_Ungesichert & next(v.V_BahnuebergangSteuerung) = L_Sichern & (v.V_BahnuebergangFunkempfaenger = L_SicherungsAnweisungAngekommen) & (TRUE))  |
+		 ( v.V_BahnuebergangSteuerung = L_Sichern & next(v.V_BahnuebergangSteuerung) = L_Gesichert & (v.V_Schrankensensor = L_Geschlossen) & (TRUE))  |
+		 ( v.V_BahnuebergangSteuerung = L_Gesichert & next(v.V_BahnuebergangSteuerung) = L_ZustandsAnfrageAngekommen & (v.V_BahnuebergangFunkempfaenger = L_ZustandsAnfrageAngekommen) & (TRUE))  |
+		 ( v.V_BahnuebergangSteuerung = L_Entsichern & next(v.V_BahnuebergangSteuerung) = L_Ungesichert & (v.V_Schrankensensor = L_Offen) & (TRUE))  |
+		 ( v.V_BahnuebergangSteuerung = L_ZugFahrtUeberSensor & next(v.V_BahnuebergangSteuerung) = L_Entsichern & (v.V_Sensor = L_KeinZug) & (TRUE))  |
+		 ( v.V_BahnuebergangSteuerung = L_ZustandsAnfrageAngekommen & next(v.V_BahnuebergangSteuerung) = L_SicherungsBestaetigungVersendet & (v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet) & (TRUE))  |
+		 ( v.V_BahnuebergangSteuerung = L_SicherungsBestaetigungVersendet & next(v.V_BahnuebergangSteuerung) = L_ZugFahrtUeberSensor & (v.V_Sensor = L_ZugFaehrtDurch) & (TRUE))  |
+		 ( v.V_BahnuebergangSteuerung = L_Ungesichert & next(v.V_BahnuebergangSteuerung) = L_Ungesichert & !(v.V_BahnuebergangFunkempfaenger = L_SicherungsAnweisungAngekommen) & (TRUE))  |
+		 ( v.V_BahnuebergangSteuerung = L_Sichern & next(v.V_BahnuebergangSteuerung) = L_Sichern & !(v.V_Schrankensensor = L_Geschlossen) & (TRUE))  |
+		 ( v.V_BahnuebergangSteuerung = L_Gesichert & next(v.V_BahnuebergangSteuerung) = L_Gesichert & !(v.V_BahnuebergangFunkempfaenger = L_ZustandsAnfrageAngekommen) & (TRUE))  |
+		 ( v.V_BahnuebergangSteuerung = L_Entsichern & next(v.V_BahnuebergangSteuerung) = L_Entsichern & !(v.V_Schrankensensor = L_Offen) & (TRUE))  |
+		 ( v.V_BahnuebergangSteuerung = L_ZugFahrtUeberSensor & next(v.V_BahnuebergangSteuerung) = L_ZugFahrtUeberSensor & !(v.V_Sensor = L_KeinZug) & (TRUE))  |
+		 ( v.V_BahnuebergangSteuerung = L_ZustandsAnfrageAngekommen & next(v.V_BahnuebergangSteuerung) = L_ZustandsAnfrageAngekommen & !(v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet) & (TRUE))  |
+		 ( v.V_BahnuebergangSteuerung = L_SicherungsBestaetigungVersendet & next(v.V_BahnuebergangSteuerung) = L_SicherungsBestaetigungVersendet & !(v.V_Sensor = L_ZugFaehrtDurch) & (TRUE));
 MODULE _P_Schranke(v)
 	INIT
 		(v.V_Schranke = L__) & ((v.V_Winkel = 2))
@@ -86,13 +88,13 @@ MODULE _P_Schrankenmotor(v)
 	INIT
 		(v.V_Schrankenmotor = L_Aus) & (TRUE)
 	TRANS
-		 ( v.V_Schrankenmotor = L_DrehrichtungSchliessend & next(v.V_Schrankenmotor) = L_Aus & ((v.V_Schrankensteuerung = L_Aus) | (v.V_Schrankenmotor_Fehler = L_Yes)) & (next(v.V_DeltaWinkel) = 0))  |
+		 ( v.V_Schrankenmotor = L_DrehrichtungSchliessend & next(v.V_Schrankenmotor) = L_Aus & ((v.V_Schrankensteuerung = L_Aus) | (v.V_Schrankenmotor_Fehler != L_No)) & (next(v.V_DeltaWinkel) = 0))  |
 		 ( v.V_Schrankenmotor = L_Aus & next(v.V_Schrankenmotor) = L_DrehrichtungSchliessend & ((v.V_Schrankensteuerung = L_Schliessen) & (v.V_Schrankenmotor_Fehler = L_No)) & (next(v.V_DeltaWinkel) = -1))  |
 		 ( v.V_Schrankenmotor = L_Aus & next(v.V_Schrankenmotor) = L_DrehrichtungOeffnend & ((v.V_Schrankensteuerung = L_Oeffnen) & (v.V_Schrankenmotor_Fehler = L_No)) & (next(v.V_DeltaWinkel) = 1))  |
-		 ( v.V_Schrankenmotor = L_DrehrichtungOeffnend & next(v.V_Schrankenmotor) = L_Aus & ((v.V_Schrankensteuerung = L_Aus) | (v.V_Schrankenmotor_Fehler = L_Yes)) & (next(v.V_DeltaWinkel) = 0))  |
-		 ( v.V_Schrankenmotor = L_DrehrichtungSchliessend & next(v.V_Schrankenmotor) = L_DrehrichtungSchliessend & !((v.V_Schrankensteuerung = L_Aus) | (v.V_Schrankenmotor_Fehler = L_Yes)) & (next(v.V_DeltaWinkel) = v.V_DeltaWinkel))  |
+		 ( v.V_Schrankenmotor = L_DrehrichtungOeffnend & next(v.V_Schrankenmotor) = L_Aus & ((v.V_Schrankensteuerung = L_Aus) | (v.V_Schrankenmotor_Fehler != L_No)) & (next(v.V_DeltaWinkel) = 0))  |
+		 ( v.V_Schrankenmotor = L_DrehrichtungSchliessend & next(v.V_Schrankenmotor) = L_DrehrichtungSchliessend & !((v.V_Schrankensteuerung = L_Aus) | (v.V_Schrankenmotor_Fehler != L_No)) & (next(v.V_DeltaWinkel) = v.V_DeltaWinkel))  |
 		 ( v.V_Schrankenmotor = L_Aus & next(v.V_Schrankenmotor) = L_Aus & (!((v.V_Schrankensteuerung = L_Schliessen) & (v.V_Schrankenmotor_Fehler = L_No)) & !((v.V_Schrankensteuerung = L_Oeffnen) & (v.V_Schrankenmotor_Fehler = L_No))) & (next(v.V_DeltaWinkel) = v.V_DeltaWinkel))  |
-		 ( v.V_Schrankenmotor = L_DrehrichtungOeffnend & next(v.V_Schrankenmotor) = L_DrehrichtungOeffnend & !((v.V_Schrankensteuerung = L_Aus) | (v.V_Schrankenmotor_Fehler = L_Yes)) & (next(v.V_DeltaWinkel) = v.V_DeltaWinkel));
+		 ( v.V_Schrankenmotor = L_DrehrichtungOeffnend & next(v.V_Schrankenmotor) = L_DrehrichtungOeffnend & !((v.V_Schrankensteuerung = L_Aus) | (v.V_Schrankenmotor_Fehler != L_No)) & (next(v.V_DeltaWinkel) = v.V_DeltaWinkel));
 MODULE _P_Schrankenmotor_Fehler(v)
 	INIT
 		(v.V_Schrankenmotor_Fehler = L_No) & (TRUE)
@@ -104,22 +106,36 @@ MODULE _P_Schrankensensor(v)
 	INIT
 		(v.V_Schrankensensor = L_Offen) & (TRUE)
 	TRANS
-		 ( v.V_Schrankensensor = L_Offen & next(v.V_Schrankensensor) = L_InDerBewegung & (v.V_Winkel < 2) & (TRUE))  |
-		 ( v.V_Schrankensensor = L_Geschlossen & next(v.V_Schrankensensor) = L_InDerBewegung & (v.V_Winkel > 0) & (TRUE))  |
-		 ( v.V_Schrankensensor = L_InDerBewegung & next(v.V_Schrankensensor) = L_Geschlossen & (v.V_Winkel = 0) & (TRUE))  |
-		 ( v.V_Schrankensensor = L_InDerBewegung & next(v.V_Schrankensensor) = L_Offen & (v.V_Winkel = 2) & (TRUE))  |
-		 ( v.V_Schrankensensor = L_Offen & next(v.V_Schrankensensor) = L_Offen & !(v.V_Winkel < 2) & (TRUE))  |
-		 ( v.V_Schrankensensor = L_Geschlossen & next(v.V_Schrankensensor) = L_Geschlossen & !(v.V_Winkel > 0) & (TRUE))  |
-		 ( v.V_Schrankensensor = L_InDerBewegung & next(v.V_Schrankensensor) = L_InDerBewegung & (!(v.V_Winkel = 0) & !(v.V_Winkel = 2)) & (TRUE));
+		 ( v.V_Schrankensensor = L_Offen & next(v.V_Schrankensensor) = L_InDerBewegung & ((v.V_Winkel < 2) & (v.V_Schrankensensor_Fehler = L_No)) & (TRUE))  |
+		 ( v.V_Schrankensensor = L_Offen & next(v.V_Schrankensensor) = L_InDerBewegung & (v.V_Schrankensensor_Fehler != L_No) & (TRUE))  |
+		 ( v.V_Schrankensensor = L_Offen & next(v.V_Schrankensensor) = L_Geschlossen & (v.V_Schrankensensor_Fehler != L_No) & (TRUE))  |
+		 ( v.V_Schrankensensor = L_Geschlossen & next(v.V_Schrankensensor) = L_InDerBewegung & ((v.V_Winkel > 0) & (v.V_Schrankensensor_Fehler = L_No)) & (TRUE))  |
+		 ( v.V_Schrankensensor = L_Geschlossen & next(v.V_Schrankensensor) = L_InDerBewegung & (v.V_Schrankensensor_Fehler != L_No) & (TRUE))  |
+		 ( v.V_Schrankensensor = L_Geschlossen & next(v.V_Schrankensensor) = L_Offen & (v.V_Schrankensensor_Fehler != L_No) & (TRUE))  |
+		 ( v.V_Schrankensensor = L_InDerBewegung & next(v.V_Schrankensensor) = L_Geschlossen & ((v.V_Winkel = 0) & (v.V_Schrankensensor_Fehler = L_No)) & (TRUE))  |
+		 ( v.V_Schrankensensor = L_InDerBewegung & next(v.V_Schrankensensor) = L_Offen & ((v.V_Winkel = 2) & (v.V_Schrankensensor_Fehler = L_No)) & (TRUE))  |
+		 ( v.V_Schrankensensor = L_InDerBewegung & next(v.V_Schrankensensor) = L_Geschlossen & (v.V_Schrankensensor_Fehler != L_No) & (TRUE))  |
+		 ( v.V_Schrankensensor = L_InDerBewegung & next(v.V_Schrankensensor) = L_Offen & (v.V_Schrankensensor_Fehler != L_No) & (TRUE))  |
+		 ( v.V_Schrankensensor = L_Offen & next(v.V_Schrankensensor) = L_Offen & (!((v.V_Winkel < 2) & (v.V_Schrankensensor_Fehler = L_No)) & (!(v.V_Schrankensensor_Fehler != L_No) & !(v.V_Schrankensensor_Fehler != L_No))) & (TRUE))  |
+		 ( v.V_Schrankensensor = L_Geschlossen & next(v.V_Schrankensensor) = L_Geschlossen & (!((v.V_Winkel > 0) & (v.V_Schrankensensor_Fehler = L_No)) & (!(v.V_Schrankensensor_Fehler != L_No) & !(v.V_Schrankensensor_Fehler != L_No))) & (TRUE))  |
+		 ( v.V_Schrankensensor = L_InDerBewegung & next(v.V_Schrankensensor) = L_InDerBewegung & (!((v.V_Winkel = 0) & (v.V_Schrankensensor_Fehler = L_No)) & (!((v.V_Winkel = 2) & (v.V_Schrankensensor_Fehler = L_No)) & (!(v.V_Schrankensensor_Fehler != L_No) & !(v.V_Schrankensensor_Fehler != L_No)))) & (TRUE));
+MODULE _P_Schrankensensor_Fehler(v)
+	INIT
+		(v.V_Schrankensensor_Fehler = L_No) & (TRUE)
+	TRANS
+		 ( v.V_Schrankensensor_Fehler = L_No & next(v.V_Schrankensensor_Fehler) = L_Yes & TRUE & (TRUE))  |
+		 ( v.V_Schrankensensor_Fehler = L_No & next(v.V_Schrankensensor_Fehler) = L_No & TRUE & (TRUE))  |
+		 ( v.V_Schrankensensor_Fehler = L_Yes & next(v.V_Schrankensensor_Fehler) = L_Yes & TRUE & (TRUE))  |
+		 ( v.V_Schrankensensor_Fehler = L_Yes & next(v.V_Schrankensensor_Fehler) = L_No & TRUE & (TRUE));
 MODULE _P_Schrankensteuerung(v)
 	INIT
 		(v.V_Schrankensteuerung = L_Aus) & (TRUE)
 	TRANS
-		 ( v.V_Schrankensteuerung = L_Aus & next(v.V_Schrankensteuerung) = L_Oeffnen & ((v.V_Bahnuebergang = L_Entsichern) & (v.V_Schrankensensor != L_Offen)) & (TRUE))  |
-		 ( v.V_Schrankensteuerung = L_Aus & next(v.V_Schrankensteuerung) = L_Schliessen & ((v.V_Bahnuebergang = L_Sichern) & (v.V_Schrankensensor != L_Geschlossen)) & (TRUE))  |
+		 ( v.V_Schrankensteuerung = L_Aus & next(v.V_Schrankensteuerung) = L_Oeffnen & ((v.V_BahnuebergangSteuerung = L_Entsichern) & (v.V_Schrankensensor != L_Offen)) & (TRUE))  |
+		 ( v.V_Schrankensteuerung = L_Aus & next(v.V_Schrankensteuerung) = L_Schliessen & ((v.V_BahnuebergangSteuerung = L_Sichern) & (v.V_Schrankensensor != L_Geschlossen)) & (TRUE))  |
 		 ( v.V_Schrankensteuerung = L_Oeffnen & next(v.V_Schrankensteuerung) = L_Aus & (v.V_Schrankensensor = L_Offen) & (TRUE))  |
 		 ( v.V_Schrankensteuerung = L_Schliessen & next(v.V_Schrankensteuerung) = L_Aus & (v.V_Schrankensensor = L_Geschlossen) & (TRUE))  |
-		 ( v.V_Schrankensteuerung = L_Aus & next(v.V_Schrankensteuerung) = L_Aus & (!((v.V_Bahnuebergang = L_Entsichern) & (v.V_Schrankensensor != L_Offen)) & !((v.V_Bahnuebergang = L_Sichern) & (v.V_Schrankensensor != L_Geschlossen))) & (TRUE))  |
+		 ( v.V_Schrankensteuerung = L_Aus & next(v.V_Schrankensteuerung) = L_Aus & (!((v.V_BahnuebergangSteuerung = L_Entsichern) & (v.V_Schrankensensor != L_Offen)) & !((v.V_BahnuebergangSteuerung = L_Sichern) & (v.V_Schrankensensor != L_Geschlossen))) & (TRUE))  |
 		 ( v.V_Schrankensteuerung = L_Oeffnen & next(v.V_Schrankensteuerung) = L_Oeffnen & !(v.V_Schrankensensor = L_Offen) & (TRUE))  |
 		 ( v.V_Schrankensteuerung = L_Schliessen & next(v.V_Schrankensteuerung) = L_Schliessen & !(v.V_Schrankensensor = L_Geschlossen) & (TRUE));
 MODULE _P_Sensor(v)
@@ -144,9 +160,9 @@ MODULE _P_Zugbremse(v)
 		(v.V_Zugbremse = L_NichtBremsend) & (TRUE)
 	TRANS
 		 ( v.V_Zugbremse = L_NichtBremsend & next(v.V_Zugbremse) = L_Bremsend & ((v.V_ZugbremseAktuator = L_Bremsend) & (v.V_Zugbremse_Fehler = L_No)) & (next(v.V_Bremswirkung) = -1))  |
-		 ( v.V_Zugbremse = L_Bremsend & next(v.V_Zugbremse) = L_NichtBremsend & ((v.V_ZugbremseAktuator = L_NichtBremsend) | (v.V_Zugbremse_Fehler = L_Yes)) & (next(v.V_Bremswirkung) = 0))  |
+		 ( v.V_Zugbremse = L_Bremsend & next(v.V_Zugbremse) = L_NichtBremsend & ((v.V_ZugbremseAktuator = L_NichtBremsend) | (v.V_Zugbremse_Fehler != L_No)) & (next(v.V_Bremswirkung) = 0))  |
 		 ( v.V_Zugbremse = L_NichtBremsend & next(v.V_Zugbremse) = L_NichtBremsend & !((v.V_ZugbremseAktuator = L_Bremsend) & (v.V_Zugbremse_Fehler = L_No)) & (next(v.V_Bremswirkung) = v.V_Bremswirkung))  |
-		 ( v.V_Zugbremse = L_Bremsend & next(v.V_Zugbremse) = L_Bremsend & !((v.V_ZugbremseAktuator = L_NichtBremsend) | (v.V_Zugbremse_Fehler = L_Yes)) & (next(v.V_Bremswirkung) = v.V_Bremswirkung));
+		 ( v.V_Zugbremse = L_Bremsend & next(v.V_Zugbremse) = L_Bremsend & !((v.V_ZugbremseAktuator = L_NichtBremsend) | (v.V_Zugbremse_Fehler != L_No)) & (next(v.V_Bremswirkung) = v.V_Bremswirkung));
 MODULE _P_Zugbremse_Fehler(v)
 	INIT
 		(v.V_Zugbremse_Fehler = L_No) & (TRUE)
@@ -222,16 +238,29 @@ MODULE _P_Zugpositionsbestimmung(v)
 	INIT
 		(v.V_Zugpositionsbestimmung = L_AufFreierStrecke) & (TRUE)
 	TRANS
-		 ( v.V_Zugpositionsbestimmung = L_AufFreierStrecke & next(v.V_Zugpositionsbestimmung) = L_EinschaltpunktErreicht & (v.V_Position >= ((((0 - 22) - ((v.V_v * v.V_v) / (2 * 1))) - ((2 * 5) * v.V_v)) - (v.V_v * ((2 / 1) + 5)))) & (TRUE))  |
-		 ( v.V_Zugpositionsbestimmung = L_EinschaltpunktErreicht & next(v.V_Zugpositionsbestimmung) = L_AnfragepunktErreicht & (v.V_Position >= (((0 - 22) - ((v.V_v * v.V_v) / (2 * 1))) - ((2 * 5) * v.V_v))) & (TRUE))  |
-		 ( v.V_Zugpositionsbestimmung = L_AnfragepunktErreicht & next(v.V_Zugpositionsbestimmung) = L_BremseinsatzpunktErreicht & (v.V_Position >= ((0 - 22) - ((v.V_v * v.V_v) / (2 * 1)))) & (TRUE))  |
-		 ( v.V_Zugpositionsbestimmung = L_GefahrenpunktErreicht & next(v.V_Zugpositionsbestimmung) = L_Ende & TRUE & (TRUE))  |
-		 ( v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht & next(v.V_Zugpositionsbestimmung) = L_GefahrenpunktErreicht & (v.V_Position >= 0) & (TRUE))  |
-		 ( v.V_Zugpositionsbestimmung = L_AufFreierStrecke & next(v.V_Zugpositionsbestimmung) = L_AufFreierStrecke & !(v.V_Position >= ((((0 - 22) - ((v.V_v * v.V_v) / (2 * 1))) - ((2 * 5) * v.V_v)) - (v.V_v * ((2 / 1) + 5)))) & (TRUE))  |
-		 ( v.V_Zugpositionsbestimmung = L_EinschaltpunktErreicht & next(v.V_Zugpositionsbestimmung) = L_EinschaltpunktErreicht & !(v.V_Position >= (((0 - 22) - ((v.V_v * v.V_v) / (2 * 1))) - ((2 * 5) * v.V_v))) & (TRUE))  |
-		 ( v.V_Zugpositionsbestimmung = L_AnfragepunktErreicht & next(v.V_Zugpositionsbestimmung) = L_AnfragepunktErreicht & !(v.V_Position >= ((0 - 22) - ((v.V_v * v.V_v) / (2 * 1)))) & (TRUE))  |
-		 ( v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht & next(v.V_Zugpositionsbestimmung) = L_BremseinsatzpunktErreicht & !(v.V_Position >= 0) & (TRUE))  |
+		 ( v.V_Zugpositionsbestimmung = L_AufFreierStrecke & next(v.V_Zugpositionsbestimmung) = L_EinschaltpunktErreicht & ((v.V_Position >= ((((0 - 22) - ((v.V_v * v.V_v) / (2 * 1))) - ((2 * 5) * v.V_v)) - (v.V_v * ((2 / 1) + 5)))) & (v.V_Zugpositionsbestimmung_Fehler = L_No)) & (TRUE))  |
+		 ( v.V_Zugpositionsbestimmung = L_EinschaltpunktErreicht & next(v.V_Zugpositionsbestimmung) = L_AnfragepunktErreicht & ((v.V_Position >= (((0 - 22) - ((v.V_v * v.V_v) / (2 * 1))) - ((2 * 5) * v.V_v))) & (v.V_Zugpositionsbestimmung_Fehler = L_No)) & (TRUE))  |
+		 ( v.V_Zugpositionsbestimmung = L_EinschaltpunktErreicht & next(v.V_Zugpositionsbestimmung) = L_AufFreierStrecke & (v.V_Zugpositionsbestimmung_Fehler != L_No) & (TRUE))  |
+		 ( v.V_Zugpositionsbestimmung = L_AnfragepunktErreicht & next(v.V_Zugpositionsbestimmung) = L_BremseinsatzpunktErreicht & ((v.V_Position >= ((0 - 22) - ((v.V_v * v.V_v) / (2 * 1)))) & (v.V_Zugpositionsbestimmung_Fehler = L_No)) & (TRUE))  |
+		 ( v.V_Zugpositionsbestimmung = L_AnfragepunktErreicht & next(v.V_Zugpositionsbestimmung) = L_AufFreierStrecke & (v.V_Zugpositionsbestimmung_Fehler != L_No) & (TRUE))  |
+		 ( v.V_Zugpositionsbestimmung = L_GefahrenpunktErreicht & next(v.V_Zugpositionsbestimmung) = L_Ende & (v.V_Zugpositionsbestimmung_Fehler = L_No) & (TRUE))  |
+		 ( v.V_Zugpositionsbestimmung = L_GefahrenpunktErreicht & next(v.V_Zugpositionsbestimmung) = L_AufFreierStrecke & (v.V_Zugpositionsbestimmung_Fehler != L_No) & (TRUE))  |
+		 ( v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht & next(v.V_Zugpositionsbestimmung) = L_GefahrenpunktErreicht & ((v.V_Position >= 0) & (v.V_Zugpositionsbestimmung_Fehler = L_No)) & (TRUE))  |
+		 ( v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht & next(v.V_Zugpositionsbestimmung) = L_AufFreierStrecke & (v.V_Zugpositionsbestimmung_Fehler != L_No) & (TRUE))  |
+		 ( v.V_Zugpositionsbestimmung = L_AufFreierStrecke & next(v.V_Zugpositionsbestimmung) = L_AufFreierStrecke & !((v.V_Position >= ((((0 - 22) - ((v.V_v * v.V_v) / (2 * 1))) - ((2 * 5) * v.V_v)) - (v.V_v * ((2 / 1) + 5)))) & (v.V_Zugpositionsbestimmung_Fehler = L_No)) & (TRUE))  |
+		 ( v.V_Zugpositionsbestimmung = L_EinschaltpunktErreicht & next(v.V_Zugpositionsbestimmung) = L_EinschaltpunktErreicht & (!((v.V_Position >= (((0 - 22) - ((v.V_v * v.V_v) / (2 * 1))) - ((2 * 5) * v.V_v))) & (v.V_Zugpositionsbestimmung_Fehler = L_No)) & !(v.V_Zugpositionsbestimmung_Fehler != L_No)) & (TRUE))  |
+		 ( v.V_Zugpositionsbestimmung = L_AnfragepunktErreicht & next(v.V_Zugpositionsbestimmung) = L_AnfragepunktErreicht & (!((v.V_Position >= ((0 - 22) - ((v.V_v * v.V_v) / (2 * 1)))) & (v.V_Zugpositionsbestimmung_Fehler = L_No)) & !(v.V_Zugpositionsbestimmung_Fehler != L_No)) & (TRUE))  |
+		 ( v.V_Zugpositionsbestimmung = L_GefahrenpunktErreicht & next(v.V_Zugpositionsbestimmung) = L_GefahrenpunktErreicht & (!(v.V_Zugpositionsbestimmung_Fehler = L_No) & !(v.V_Zugpositionsbestimmung_Fehler != L_No)) & (TRUE))  |
+		 ( v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht & next(v.V_Zugpositionsbestimmung) = L_BremseinsatzpunktErreicht & (!((v.V_Position >= 0) & (v.V_Zugpositionsbestimmung_Fehler = L_No)) & !(v.V_Zugpositionsbestimmung_Fehler != L_No)) & (TRUE))  |
 		 ( v.V_Zugpositionsbestimmung = L_Ende & next(v.V_Zugpositionsbestimmung) = L_Ende & TRUE & (TRUE));
+MODULE _P_Zugpositionsbestimmung_Fehler(v)
+	INIT
+		(v.V_Zugpositionsbestimmung_Fehler = L_No) & (TRUE)
+	TRANS
+		 ( v.V_Zugpositionsbestimmung_Fehler = L_No & next(v.V_Zugpositionsbestimmung_Fehler) = L_Yes & TRUE & (TRUE))  |
+		 ( v.V_Zugpositionsbestimmung_Fehler = L_No & next(v.V_Zugpositionsbestimmung_Fehler) = L_No & TRUE & (TRUE))  |
+		 ( v.V_Zugpositionsbestimmung_Fehler = L_Yes & next(v.V_Zugpositionsbestimmung_Fehler) = L_No & TRUE & (TRUE))  |
+		 ( v.V_Zugpositionsbestimmung_Fehler = L_Yes & next(v.V_Zugpositionsbestimmung_Fehler) = L_Yes & TRUE & (TRUE));
 MODULE _P_Zugsteuerung(v)
 	INIT
 		(v.V_Zugsteuerung = L_Fahren) & ((v.V_BahnuebergangGesichert = 0))
@@ -244,14 +273,15 @@ MODULE _P_Zugsteuerung(v)
 MODULE main
 	VAR
 		v : _VARS();
-		p_Bahnuebergang : _P_Bahnuebergang(v);
 		p_BahnuebergangFunkempfaenger : _P_BahnuebergangFunkempfaenger(v);
 		p_BahnuebergangFunksender : _P_BahnuebergangFunksender(v);
 		p_BahnuebergangFunksender_Fehler : _P_BahnuebergangFunksender_Fehler(v);
+		p_BahnuebergangSteuerung : _P_BahnuebergangSteuerung(v);
 		p_Schranke : _P_Schranke(v);
 		p_Schrankenmotor : _P_Schrankenmotor(v);
 		p_Schrankenmotor_Fehler : _P_Schrankenmotor_Fehler(v);
 		p_Schrankensensor : _P_Schrankensensor(v);
+		p_Schrankensensor_Fehler : _P_Schrankensensor_Fehler(v);
 		p_Schrankensteuerung : _P_Schrankensteuerung(v);
 		p_Sensor : _P_Sensor(v);
 		p_Sensor_Fehler : _P_Sensor_Fehler(v);
@@ -266,6 +296,7 @@ MODULE main
 		p_Zugmotor : _P_Zugmotor(v);
 		p_Zugposition : _P_Zugposition(v);
 		p_Zugpositionsbestimmung : _P_Zugpositionsbestimmung(v);
+		p_Zugpositionsbestimmung_Fehler : _P_Zugpositionsbestimmung_Fehler(v);
 		p_Zugsteuerung : _P_Zugsteuerung(v);
 
 

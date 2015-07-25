@@ -45,9 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Bahnuebergang.pg" />
-    <None Include="Bahnuebergang.pg.diagram">
-      <DependentUpon>Bahnuebergang.pg</DependentUpon>
+    <None Include="BahnuebergangSteuerung.pg" />
+    <None Include="BahnuebergangSteuerung.pg.diagram">
+      <DependentUpon>BahnuebergangSteuerung.pg</DependentUpon>
     </None>
     <None Include="BahnuebergangFunkempfaenger.pg" />
     <None Include="BahnuebergangFunkempfaenger.pg.diagram">

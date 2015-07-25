@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="3b302720-4d94-4525-ad5d-b5bd13f9b9ff" name="Bahnuebergang" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="3b302720-4d94-4525-ad5d-b5bd13f9b9ff" name="BahnuebergangSteuerung" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
   <states>
     <initialNode Id="b8330c9a-a0ee-43be-a464-ba82200a8309" name="InitialNode1">
       <successors>
