@@ -5,7 +5,7 @@ MODULE _VARS
 		V_ZugFunksender : {L_Wartend, L_SicherungsAnweisungGesendet, L_AnfrageGesendet};
 		V_BahnuebergangFunksender : {L_Wartend, L_BestaetigungsNachrichtGesendet, L_SendeBestaetigungsNachricht};
 		V_BahnuebergangSteuerung : {L_Ungesichert, L_Sichern, L_Gesichert, L_Entsichern, L_ZugFahrtUeberSensor, L_ZustandsAnfrageAngekommen, L_SicherungsBestaetigungVersendet};
-		V_BahnuebergangFunksender_Fehler : {L_No, L_Yes};
+		V_BahnuebergangFunksender_Fehler : {L_No, L_SendetTrotzNichtSicherung};
 		V_Schrankensensor : {L_Offen, L_Geschlossen, L_InDerBewegung};
 		V_Sensor : {L_KeinZug, L_ZugFaehrtDurch};
 		V_Schranke : {L__};
@@ -57,10 +57,10 @@ MODULE _P_BahnuebergangFunksender_Fehler(v)
 	INIT
 		(v.V_BahnuebergangFunksender_Fehler = L_No) & (TRUE)
 	TRANS
-		 ( v.V_BahnuebergangFunksender_Fehler = L_No & next(v.V_BahnuebergangFunksender_Fehler) = L_Yes & TRUE & (TRUE))  |
+		 ( v.V_BahnuebergangFunksender_Fehler = L_No & next(v.V_BahnuebergangFunksender_Fehler) = L_SendetTrotzNichtSicherung & TRUE & (TRUE))  |
 		 ( v.V_BahnuebergangFunksender_Fehler = L_No & next(v.V_BahnuebergangFunksender_Fehler) = L_No & TRUE & (TRUE))  |
-		 ( v.V_BahnuebergangFunksender_Fehler = L_Yes & next(v.V_BahnuebergangFunksender_Fehler) = L_No & TRUE & (TRUE))  |
-		 ( v.V_BahnuebergangFunksender_Fehler = L_Yes & next(v.V_BahnuebergangFunksender_Fehler) = L_Yes & TRUE & (TRUE));
+		 ( v.V_BahnuebergangFunksender_Fehler = L_SendetTrotzNichtSicherung & next(v.V_BahnuebergangFunksender_Fehler) = L_No & TRUE & (TRUE))  |
+		 ( v.V_BahnuebergangFunksender_Fehler = L_SendetTrotzNichtSicherung & next(v.V_BahnuebergangFunksender_Fehler) = L_SendetTrotzNichtSicherung & TRUE & (TRUE));
 MODULE _P_BahnuebergangSteuerung(v)
 	INIT
 		(v.V_BahnuebergangSteuerung = L_Ungesichert) & (TRUE)
@@ -447,7 +447,30 @@ LTLSPEC ! ((KeineEinelementigenKritischenFehlermengen
 				U Hazard)
 				
 -- zweielementige kritische Fehlermengen: 
--- {{BahnuebergangFunksender_Fehler, Schrankenmotor_Fehler}, 
---  {BahnuebergangFunksender_Fehler, ZugFunksender_Fehler}, 
+-- {{BahnuebergangFunksender_Fehler, Schrankenmotor_Fehler}, -- Die Schranken werden nicht geschlossen - die Bestaetigung an den Zug geht aber trotzdem raus
+--  {BahnuebergangFunksender_Fehler, ZugFunksender_Fehler}, -- Bahnuebergang sichert nicht, weil er nie die Anweisung erhaelt - die Bestaetigung an den Zug geht aber trotzdem raus
 --  {Zugbremse_Fehler, Schrankenmotor_Fehler}, 
 --  {Zugbremse_Fehler, ZugFunksender_Fehler}}
+
+-- dreielementige kritische Fehlermengen
+--  alle dreielementigen Fehlermengen, die keine einelementigen Fehlermengen beinhalten:
+--  {{BahnuebergangFunksender_Fehler, Zugbremse_Fehler, Schrankenmotor_Fehler}, -- Obermenge von {BahnuebergangFunksender_Fehler, Schrankenmotor_Fehler} -> nicht zu betrachten
+--   {BahnuebergangFunksender_Fehler, Zugbremse_Fehler, ZugFunksender_Fehler}, -- Obermenge von {Zugbremse_Fehler, ZugFunksender_Fehler} -> nicht zu betrachten
+--   {BahnuebergangFunksender_Fehler, Schrankenmotor_Fehler, ZugFunksender_Fehler}, -- Obermenge von {BahnuebergangFunksender_Fehler, Schrankenmotor_Fehler} -> nicht zu betrachten
+--   {Zugbremse_Fehler, Schrankenmotor_Fehler, ZugFunksender_Fehler} -- Obermenge von {Zugbremse_Fehler, Schrankenmotor_Fehler} -> nicht zu betrachten
+--  }
+-- Keine dreielementigen kritischen Fehlermengen mehr zu betrachten
+-- -> fertig!
+
+
+
+-- Alle minimal kritischen Fehlermengen:
+-- {
+--  {Sensor_Fehler}, 
+--  {Schrankensensor_Fehler}, 
+--  {Zugpositionsbestimmung_Fehler}, 
+--  {BahnuebergangFunksender_Fehler, Schrankenmotor_Fehler}, 
+--  {BahnuebergangFunksender_Fehler, ZugFunksender_Fehler}, 
+--  {Zugbremse_Fehler, Schrankenmotor_Fehler}, 
+--  {Zugbremse_Fehler, ZugFunksender_Fehler}
+-- }

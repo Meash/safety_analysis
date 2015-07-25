@@ -131,7 +131,30 @@ LTLSPEC ! ((KeineEinelementigenKritischenFehlermengen
 				U Hazard)
 				
 -- zweielementige kritische Fehlermengen: 
--- {{BahnuebergangFunksender_Fehler, Schrankenmotor_Fehler}, 
---  {BahnuebergangFunksender_Fehler, ZugFunksender_Fehler}, 
+-- {{BahnuebergangFunksender_Fehler, Schrankenmotor_Fehler}, -- Die Schranken werden nicht geschlossen - die Bestaetigung an den Zug geht aber trotzdem raus
+--  {BahnuebergangFunksender_Fehler, ZugFunksender_Fehler}, -- Bahnuebergang sichert nicht, weil er nie die Anweisung erhaelt - die Bestaetigung an den Zug geht aber trotzdem raus
 --  {Zugbremse_Fehler, Schrankenmotor_Fehler}, 
 --  {Zugbremse_Fehler, ZugFunksender_Fehler}}
+
+-- dreielementige kritische Fehlermengen
+--  alle dreielementigen Fehlermengen, die keine einelementigen Fehlermengen beinhalten:
+--  {{BahnuebergangFunksender_Fehler, Zugbremse_Fehler, Schrankenmotor_Fehler}, -- Obermenge von {BahnuebergangFunksender_Fehler, Schrankenmotor_Fehler} -> nicht zu betrachten
+--   {BahnuebergangFunksender_Fehler, Zugbremse_Fehler, ZugFunksender_Fehler}, -- Obermenge von {Zugbremse_Fehler, ZugFunksender_Fehler} -> nicht zu betrachten
+--   {BahnuebergangFunksender_Fehler, Schrankenmotor_Fehler, ZugFunksender_Fehler}, -- Obermenge von {BahnuebergangFunksender_Fehler, Schrankenmotor_Fehler} -> nicht zu betrachten
+--   {Zugbremse_Fehler, Schrankenmotor_Fehler, ZugFunksender_Fehler} -- Obermenge von {Zugbremse_Fehler, Schrankenmotor_Fehler} -> nicht zu betrachten
+--  }
+-- Keine dreielementigen kritischen Fehlermengen mehr zu betrachten
+-- -> fertig!
+
+
+
+-- Alle minimal kritischen Fehlermengen:
+-- {
+--  {Sensor_Fehler}, 
+--  {Schrankensensor_Fehler}, 
+--  {Zugpositionsbestimmung_Fehler}, 
+--  {BahnuebergangFunksender_Fehler, Schrankenmotor_Fehler}, 
+--  {BahnuebergangFunksender_Fehler, ZugFunksender_Fehler}, 
+--  {Zugbremse_Fehler, Schrankenmotor_Fehler}, 
+--  {Zugbremse_Fehler, ZugFunksender_Fehler}
+-- }
