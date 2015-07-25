@@ -326,8 +326,6 @@ DEFINE
 				& v.V_Schrankensensor_Fehler = L_No
 				& v.V_ZugFunksender_Fehler = L_No
 				& v.V_Zugpositionsbestimmung_Fehler = L_No);
-	Hazard := ZugAmGefahrenpunkt & SchrankeOffen;
-
 
 	
 -- Safety
@@ -343,8 +341,11 @@ LTLSPEC G KeinFehler -> (SchrankeZu -> F SchrankeOffen)
 CTLSPEC AG KeinFehler -> (AG (SchrankeZu -> AX v.V_Schrankensensor = L_Geschlossen)) -- X due to state machine timing
 CTLSPEC AG KeinFehler -> (AG (SchrankeOffen -> AX v.V_Schrankensensor = L_Offen))
 
+
 ---- Sensor
-LTLSPEC F (ZugAmSensorpunkt -> (v.V_Sensor = L_ZugFaehrtDurch U v.V_Sensor = L_KeinZug))
+LTLSPEC G KeinFehler -> G (ZugAmSensorpunkt -> (
+				(X v.V_Sensor = L_ZugFaehrtDurch) 
+				& (v.V_Sensor = L_ZugFaehrtDurch U v.V_Sensor = L_KeinZug)))
 
 
 -- Funk
