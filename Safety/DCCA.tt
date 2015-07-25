@@ -20,35 +20,69 @@ DEFINE
 				& v.V_Zugpositionsbestimmung_Fehler = L_No);
 	Hazard := ZugAmGefahrenpunkt & SchrankeOffen;
 
--- TODO
--- leere Fehlermenge
+
+-- leere Fehlermenge -> nicht kritisch
 LTLSPEC ! (KeinFehler U Hazard)
 
 -- einelementige Fehlermengen
+---- Sensor_Fehler -> kritisch
 LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
 			& v.V_Zugbremse_Fehler = L_No
-			& v.V_Schrankenmotor_Fehler = L_No)
+			& v.V_Schrankenmotor_Fehler = L_No
+			& v.V_Schrankensensor_Fehler = L_No
+			& v.V_ZugFunksender_Fehler = L_No
+			& v.V_Zugpositionsbestimmung_Fehler = L_No)
 			U Hazard)
+---- BahnuebergangFunksender_Fehler -> nicht kritisch
 LTLSPEC ! ((v.V_Sensor_Fehler = L_No 
 			& v.V_Zugbremse_Fehler = L_No
-			& v.V_Schrankenmotor_Fehler = L_No)
+			& v.V_Schrankenmotor_Fehler = L_No
+			& v.V_Schrankensensor_Fehler = L_No
+			& v.V_ZugFunksender_Fehler = L_No
+			& v.V_Zugpositionsbestimmung_Fehler = L_No)
 			U Hazard)
+---- Zugbremse_Fehler -> nicht kritisch
 LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
 			& v.V_Sensor_Fehler = L_No
-			& v.V_Schrankenmotor_Fehler = L_No)
+			& v.V_Schrankenmotor_Fehler = L_No
+			& v.V_Schrankensensor_Fehler = L_No
+			& v.V_ZugFunksender_Fehler = L_No
+			& v.V_Zugpositionsbestimmung_Fehler = L_No)
 			U Hazard)
+---- Schrankenmotor_Fehler -> nicht kritisch
 LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
 			& v.V_Zugbremse_Fehler = L_No
-			& v.V_Sensor_Fehler = L_No)
+			& v.V_Sensor_Fehler = L_No
+			& v.V_Schrankensensor_Fehler = L_No
+			& v.V_ZugFunksender_Fehler = L_No
+			& v.V_Zugpositionsbestimmung_Fehler = L_No)
+			U Hazard)
+---- Schrankensensor_Fehler -> kritisch
+LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
+			& v.V_Zugbremse_Fehler = L_No
+			& v.V_Sensor_Fehler = L_No
+			& v.V_Schrankenmotor_Fehler = L_No
+			& v.V_ZugFunksender_Fehler = L_No
+			& v.V_Zugpositionsbestimmung_Fehler = L_No)
+			U Hazard)
+---- ZugFunksender_Fehler -> nicht kritisch
+LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
+			& v.V_Zugbremse_Fehler = L_No
+			& v.V_Sensor_Fehler = L_No
+			& v.V_Schrankensensor_Fehler = L_No
+			& v.V_Schrankenmotor_Fehler = L_No
+			& v.V_Zugpositionsbestimmung_Fehler = L_No)
+			U Hazard)
+---- Zugpositionsbestimmung_Fehler -> kritisch
+LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
+			& v.V_Zugbremse_Fehler = L_No
+			& v.V_Sensor_Fehler = L_No
+			& v.V_Schrankensensor_Fehler = L_No
+			& v.V_Schrankenmotor_Fehler = L_No
+			& v.V_ZugFunksender_Fehler = L_No)
 			U Hazard)
 
--- zweielementige Fehlermengen
-LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
-			& v.V_Sensor_Fehler = L_No)
-			U Hazard)
-LTLSPEC ! ((v.V_Schrankenmotor_Fehler = L_No
-			& v.V_Sensor_Fehler = L_No)
-			U Hazard)
-LTLSPEC ! ((v.V_Zugbremse_Fehler = L_No 
-			& v.V_Sensor_Fehler = L_No)
-			U Hazard)
+-- einelementige kritische Fehlermengen: 
+-- {{Sensor_Fehler}, 
+--  {Schrankensensor_Fehler}, 
+--  {Zugpositionsbestimmung_Fehler}}
