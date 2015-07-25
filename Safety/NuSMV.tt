@@ -14,7 +14,10 @@ DEFINE
 	KeinFehler := (v.V_Sensor_Fehler = L_No 
 				& v.V_BahnuebergangFunksender_Fehler = L_No 
 				& v.V_Zugbremse_Fehler = L_No
-				& v.V_Schrankenmotor_Fehler = L_No);
+				& v.V_Schrankenmotor_Fehler = L_No
+				& v.V_Schrankensensor_Fehler = L_No
+				& v.V_ZugFunksender_Fehler = L_No
+				& v.V_Zugpositionsbestimmung_Fehler = L_No);
 	Hazard := ZugAmGefahrenpunkt & SchrankeOffen;
 	-- TODO
 -- leere Fehlermenge

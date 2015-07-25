@@ -24,6 +24,7 @@ MODULE _VARS
 		V_Zugsteuerung : {L_Fahren, L_Zwangsbremsung};
 		V_ZugFunkempfaenger : {L_Wartend, L_SicherungsBestaetigungErhalten};
 		V_ZugFunksteuerung : {L_Wartend, L_SendeSicherungsAnweisung, L_SendeAnfrage};
+		V_ZugFunksender_Fehler : {L_No, L_Yes};
 		V_Zugpositionsbestimmung : {L_AufFreierStrecke, L_EinschaltpunktErreicht, L_AnfragepunktErreicht, L_GefahrenpunktErreicht, L_BremseinsatzpunktErreicht, L_Ende};
 		V_Zuggeschwindigkeit : {L__};
 		V_vReal : 0..5;
@@ -188,11 +189,18 @@ MODULE _P_ZugFunksender(v)
 	INIT
 		(v.V_ZugFunksender = L_Wartend) & (TRUE)
 	TRANS
-		 ( v.V_ZugFunksender = L_Wartend & next(v.V_ZugFunksender) = L_SicherungsAnweisungGesendet & (v.V_ZugFunksteuerung = L_SendeSicherungsAnweisung) & (TRUE))  |
-		 ( v.V_ZugFunksender = L_Wartend & next(v.V_ZugFunksender) = L_AnfrageGesendet & (v.V_ZugFunksteuerung = L_SendeAnfrage) & (TRUE))  |
+		 ( v.V_ZugFunksender = L_Wartend & next(v.V_ZugFunksender) = L_SicherungsAnweisungGesendet & ((v.V_ZugFunksteuerung = L_SendeSicherungsAnweisung) & (v.V_ZugFunksender_Fehler = L_No)) & (TRUE))  |
+		 ( v.V_ZugFunksender = L_Wartend & next(v.V_ZugFunksender) = L_AnfrageGesendet & ((v.V_ZugFunksteuerung = L_SendeAnfrage) & (v.V_ZugFunksender_Fehler = L_No)) & (TRUE))  |
 		 ( v.V_ZugFunksender = L_SicherungsAnweisungGesendet & next(v.V_ZugFunksender) = L_Wartend & TRUE & (TRUE))  |
 		 ( v.V_ZugFunksender = L_AnfrageGesendet & next(v.V_ZugFunksender) = L_Wartend & TRUE & (TRUE))  |
-		 ( v.V_ZugFunksender = L_Wartend & next(v.V_ZugFunksender) = L_Wartend & (!(v.V_ZugFunksteuerung = L_SendeSicherungsAnweisung) & !(v.V_ZugFunksteuerung = L_SendeAnfrage)) & (TRUE));
+		 ( v.V_ZugFunksender = L_Wartend & next(v.V_ZugFunksender) = L_Wartend & (!((v.V_ZugFunksteuerung = L_SendeSicherungsAnweisung) & (v.V_ZugFunksender_Fehler = L_No)) & !((v.V_ZugFunksteuerung = L_SendeAnfrage) & (v.V_ZugFunksender_Fehler = L_No))) & (TRUE));
+MODULE _P_ZugFunksender_Fehler(v)
+	INIT
+		(v.V_ZugFunksender_Fehler = L_No) & (TRUE)
+	TRANS
+		 ( v.V_ZugFunksender_Fehler = L_No & next(v.V_ZugFunksender_Fehler) = L_Yes & TRUE & (TRUE))  |
+		 ( v.V_ZugFunksender_Fehler = L_No & next(v.V_ZugFunksender_Fehler) = L_No & TRUE & (TRUE))  |
+		 ( v.V_ZugFunksender_Fehler = L_Yes & next(v.V_ZugFunksender_Fehler) = L_Yes & TRUE & (TRUE));
 MODULE _P_ZugFunksteuerung(v)
 	INIT
 		(v.V_ZugFunksteuerung = L_Wartend) & (TRUE)
@@ -290,6 +298,7 @@ MODULE main
 		p_ZugbremseAktuator : _P_ZugbremseAktuator(v);
 		p_ZugFunkempfaenger : _P_ZugFunkempfaenger(v);
 		p_ZugFunksender : _P_ZugFunksender(v);
+		p_ZugFunksender_Fehler : _P_ZugFunksender_Fehler(v);
 		p_ZugFunksteuerung : _P_ZugFunksteuerung(v);
 		p_Zuggeschwindigkeit : _P_Zuggeschwindigkeit(v);
 		p_Zughodometer : _P_Zughodometer(v);
@@ -312,7 +321,10 @@ DEFINE
 	KeinFehler := (v.V_Sensor_Fehler = L_No 
 				& v.V_BahnuebergangFunksender_Fehler = L_No 
 				& v.V_Zugbremse_Fehler = L_No
-				& v.V_Schrankenmotor_Fehler = L_No);
+				& v.V_Schrankenmotor_Fehler = L_No
+				& v.V_Schrankensensor_Fehler = L_No
+				& v.V_ZugFunksender_Fehler = L_No
+				& v.V_Zugpositionsbestimmung_Fehler = L_No);
 	Hazard := ZugAmGefahrenpunkt & SchrankeOffen;
 	-- TODO
 -- leere Fehlermenge
