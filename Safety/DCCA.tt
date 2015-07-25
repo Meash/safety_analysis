@@ -21,7 +21,7 @@ DEFINE
 	Hazard := ZugAmGefahrenpunkt & SchrankeOffen;
 
 
--- leere Fehlermenge -> nicht kritisch
+	-- leere Fehlermenge -> nicht kritisch
 LTLSPEC ! (KeinFehler U Hazard)
 
 -- einelementige Fehlermengen
@@ -99,33 +99,39 @@ DEFINE KeineEinelementigenKritischenFehlermengen :=
 --	Schrankenmotor_Fehler, 
 --	ZugFunksender_Fehler
 
--- {BahnuebergangFunksender_Fehler, Zugbremse_Fehler} -> 
+-- {BahnuebergangFunksender_Fehler, Zugbremse_Fehler} -> nicht kritisch
 LTLSPEC ! ((KeineEinelementigenKritischenFehlermengen
 				& v.V_Schrankenmotor_Fehler = L_No
 				& v.V_ZugFunksender_Fehler = L_No)
 				U Hazard)
--- {BahnuebergangFunksender_Fehler, Schrankenmotor_Fehler} -> 
+-- {BahnuebergangFunksender_Fehler, Schrankenmotor_Fehler} -> kritisch
 LTLSPEC ! ((KeineEinelementigenKritischenFehlermengen
 				& v.V_Zugbremse_Fehler = L_No
 				& v.V_ZugFunksender_Fehler = L_No)
 				U Hazard)
--- {BahnuebergangFunksender_Fehler, ZugFunksender_Fehler} -> 
+-- {BahnuebergangFunksender_Fehler, ZugFunksender_Fehler} -> kritisch
 LTLSPEC ! ((KeineEinelementigenKritischenFehlermengen
 				& v.V_Zugbremse_Fehler = L_No
 				& v.V_Schrankenmotor_Fehler = L_No)
 				U Hazard)
--- {Zugbremse_Fehler, Schrankenmotor_Fehler} -> 
+-- {Zugbremse_Fehler, Schrankenmotor_Fehler} -> kritisch
 LTLSPEC ! ((KeineEinelementigenKritischenFehlermengen
 				& v.V_BahnuebergangFunksender_Fehler = L_No
 				& v.V_ZugFunksender_Fehler = L_No)
 				U Hazard)
--- {Zugbremse_Fehler, ZugFunksender_Fehler} -> 
+-- {Zugbremse_Fehler, ZugFunksender_Fehler} -> kritisch
 LTLSPEC ! ((KeineEinelementigenKritischenFehlermengen
 				& v.V_BahnuebergangFunksender_Fehler = L_No
 				& v.V_Schrankenmotor_Fehler = L_No)
 				U Hazard)
--- {Schrankenmotor_Fehler, ZugFunksender_Fehler} -> 
+-- {Schrankenmotor_Fehler, ZugFunksender_Fehler} -> nicht kritisch
 LTLSPEC ! ((KeineEinelementigenKritischenFehlermengen
 				& v.V_BahnuebergangFunksender_Fehler = L_No
 				& v.V_Zugbremse_Fehler = L_No)
 				U Hazard)
+				
+-- zweielementige kritische Fehlermengen: 
+-- {{BahnuebergangFunksender_Fehler, Schrankenmotor_Fehler}, 
+--  {BahnuebergangFunksender_Fehler, ZugFunksender_Fehler}, 
+--  {Zugbremse_Fehler, Schrankenmotor_Fehler}, 
+--  {Zugbremse_Fehler, ZugFunksender_Fehler}}
