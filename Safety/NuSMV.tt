@@ -15,6 +15,39 @@ DEFINE
 				& v.V_BahnuebergangFunksender_Fehler = L_No 
 				& v.V_Zugbremse_Fehler = L_No
 				& v.V_Schrankenmotor_Fehler = L_No);
+	Hazard := ZugAmGefahrenpunkt & SchrankeOffen;
+	-- TODO
+-- leere Fehlermenge
+LTLSPEC ! (KeinFehler U Hazard)
+
+-- einelementige Fehlermengen
+LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
+			& v.V_Zugbremse_Fehler = L_No
+			& v.V_Schrankenmotor_Fehler = L_No)
+			U Hazard)
+LTLSPEC ! ((v.V_Sensor_Fehler = L_No 
+			& v.V_Zugbremse_Fehler = L_No
+			& v.V_Schrankenmotor_Fehler = L_No)
+			U Hazard)
+LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
+			& v.V_Sensor_Fehler = L_No
+			& v.V_Schrankenmotor_Fehler = L_No)
+			U Hazard)
+LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
+			& v.V_Zugbremse_Fehler = L_No
+			& v.V_Sensor_Fehler = L_No)
+			U Hazard)
+
+-- zweielementige Fehlermengen
+LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
+			& v.V_Sensor_Fehler = L_No)
+			U Hazard)
+LTLSPEC ! ((v.V_Schrankenmotor_Fehler = L_No
+			& v.V_Sensor_Fehler = L_No)
+			U Hazard)
+LTLSPEC ! ((v.V_Zugbremse_Fehler = L_No 
+			& v.V_Sensor_Fehler = L_No)
+			U Hazard)
 
 	
 -- Safety
