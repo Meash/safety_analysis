@@ -30,8 +30,8 @@ LTLSPEC G KeinFehler -> (SchrankeZu -> F SchrankeOffen)
 
 ---- Schranke
 ------ Schrankensensor
-CTLSPEC AG KeinFehler -> (AG (SchrankeZu -> AX v.V_Schrankensensor = L_Geschlossen)) -- X due to state machine timing
-CTLSPEC AG KeinFehler -> (AG (SchrankeOffen -> AX v.V_Schrankensensor = L_Offen))
+LTLSPEC G KeinFehler -> (G (SchrankeZu -> X v.V_Schrankensensor = L_Geschlossen)) -- X due to state machine timing
+LTLSPEC G KeinFehler -> (G (SchrankeOffen -> X v.V_Schrankensensor = L_Offen))
 
 
 ---- Sensor
@@ -57,20 +57,29 @@ CTLSPEC AG KeinFehler -> (
 LTLSPEC G (v.V_Zugbremse = L_Bremsend -> F v.V_vReal = 0)
 
 ---- Zugpositionsbestimmung
-LTLSPEC G KeinFehler
-		-> (v.V_Zugpositionsbestimmung = L_AufFreierStrecke
+LTLSPEC G KeinFehler -> 
+		-- alle kommen vor
+		(v.V_Zugpositionsbestimmung = L_AufFreierStrecke
 		& X F (v.V_Zugpositionsbestimmung = L_EinschaltpunktErreicht 
+		& X F (v.V_Zugpositionsbestimmung = L_NachEinschaltpunkt 
 		& X F (v.V_Zugpositionsbestimmung = L_AnfragepunktErreicht 
+		& X F (v.V_Zugpositionsbestimmung = L_NachAnfragepunkt 
 		& X F (v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht 
+		& X F (v.V_Zugpositionsbestimmung = L_NachBremseinsatzpunkt 
 		& X F (v.V_Zugpositionsbestimmung = L_GefahrenpunktErreicht 
-		& X F v.V_Zugpositionsbestimmung = L_Ende))))
+		& X F (v.V_Zugpositionsbestimmung = L_NachGefahrenpunkt 
+		& X F v.V_Zugpositionsbestimmung = L_Ende))))))))
 		-- nur eine Reihenfolge
 		& v.V_Zugpositionsbestimmung = L_AufFreierStrecke
 		U (v.V_Zugpositionsbestimmung = L_EinschaltpunktErreicht 
+		U (v.V_Zugpositionsbestimmung = L_NachEinschaltpunkt 
 		U (v.V_Zugpositionsbestimmung = L_AnfragepunktErreicht 
+		U (v.V_Zugpositionsbestimmung = L_NachAnfragepunkt 
 		U (v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht 
+		U (v.V_Zugpositionsbestimmung = L_NachBremseinsatzpunkt 
 		U (v.V_Zugpositionsbestimmung = L_GefahrenpunktErreicht 
-		U v.V_Zugpositionsbestimmung = L_Ende)))))
+		U (v.V_Zugpositionsbestimmung = L_NachGefahrenpunkt 
+		U v.V_Zugpositionsbestimmung = L_Ende)))))))))
 
 ---- Zugsteuerung
 LTLSPEC G KeinFehler

@@ -35,7 +35,7 @@
   </states>
   <importedVariables>
     <programGraphHasImportedVariables Id="795827d2-73b2-4e62-9af9-b820cb706168">
-      <importedVariable Id="b7090aef-b0a1-4118-86a5-9bcf41c925ee" name="Zugpositionsbestimmung" range="AufFreierStrecke, EinschaltpunktErreicht, AnfragepunktErreicht, GefahrenpunktErreicht, BremseinsatzpunktErreicht, Ende" />
+      <importedVariable Id="b7090aef-b0a1-4118-86a5-9bcf41c925ee" name="Zugpositionsbestimmung" range="AufFreierStrecke, EinschaltpunktErreicht, AnfragepunktErreicht, GefahrenpunktErreicht, BremseinsatzpunktErreicht, Ende, NachEinschaltpunkt, NachAnfragepunkt, NachBremseinsatzpunkt, NachGefahrenpunkt" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>
