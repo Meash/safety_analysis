@@ -3,7 +3,7 @@
   <states>
     <initialNode Id="00397895-4879-4cc1-ba3c-63f4ea906593" name="InitialNode1">
       <successors>
-        <transition Id="af39e2e4-0414-45e8-9ab7-c90d6dd22b41">
+        <transition Id="af39e2e4-0414-45e8-9ab7-c90d6dd22b41" guard="Bremswirkung == 0" label="Bremswirkung == 0">
           <stateMoniker name="/0304e74b-a749-46bc-baa8-dcc327f9be5c/NichtBremsend" />
         </transition>
       </successors>
