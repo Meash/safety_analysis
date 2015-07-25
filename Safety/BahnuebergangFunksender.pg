@@ -30,12 +30,17 @@
       </successors>
     </state>
   </states>
+  <comments>
+    <programGraphHasComments Id="ab94026b-3c84-492e-9b4b-a070bc10d16c">
+      <comment Id="1261b898-ccbf-4ebb-8495-49b40d9b5809" text="Der hier eingebaute Fehler führt dazu, dass die Bestaetigungsnachricht auch ohne Aufforderung durch die Steuerung gesendet wird. &#xD;&#xA;Sind also die Schranken nicht zu, wird dem Zug trotzdem gesagt, dass alles in Ordnung ist." />
+    </programGraphHasComments>
+  </comments>
   <importedVariables>
     <programGraphHasImportedVariables Id="1d4f498e-4602-482a-941e-c7aadee83c34">
       <importedVariable Id="a9e9dff5-5449-4f7e-bbda-99d3d961b5c2" name="BahnuebergangSteuerung" range="Ungesichert, Sichern, Gesichert, Entsichern, ZugFahrtUeberSensor, ZustandsAnfrageAngekommen, SicherungsBestaetigungVersendet" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="843fc552-5e15-4da1-8255-9c7a1561f6b0">
-      <importedVariable Id="809e7a3e-75b0-45e7-bda6-3fbc0865c636" name="BahnuebergangFunksender_Fehler" range="No, Yes" />
+      <importedVariable Id="809e7a3e-75b0-45e7-bda6-3fbc0865c636" name="BahnuebergangFunksender_Fehler" range="No, SendetTrotzNichtSicherung" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

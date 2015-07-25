@@ -11,20 +11,20 @@
     <state Id="30021519-0998-41c3-a21c-bcc56501ae68" name="No">
       <successors>
         <transition Id="ccefecc8-0c3f-4fc3-b605-2227d7a4a3cf">
-          <stateMoniker name="/bb58c7c5-e45b-431f-85a2-f4d69b8095af/Yes" />
+          <stateMoniker name="/bb58c7c5-e45b-431f-85a2-f4d69b8095af/SendetTrotzNichtSicherung" />
         </transition>
         <transition Id="277ea4f0-1490-4fd0-bda0-864a3a7aec9f">
           <stateMoniker name="/bb58c7c5-e45b-431f-85a2-f4d69b8095af/No" />
         </transition>
       </successors>
     </state>
-    <state Id="ae036d8b-3f07-4e79-b2df-df60e44f87de" name="Yes">
+    <state Id="ae036d8b-3f07-4e79-b2df-df60e44f87de" name="SendetTrotzNichtSicherung">
       <successors>
         <transition Id="40a059ca-0f09-423a-8409-85a06cff2874">
           <stateMoniker name="/bb58c7c5-e45b-431f-85a2-f4d69b8095af/No" />
         </transition>
         <transition Id="672acd59-5463-4560-ac0b-eb28793659be">
-          <stateMoniker name="/bb58c7c5-e45b-431f-85a2-f4d69b8095af/Yes" />
+          <stateMoniker name="/bb58c7c5-e45b-431f-85a2-f4d69b8095af/SendetTrotzNichtSicherung" />
         </transition>
       </successors>
     </state>
