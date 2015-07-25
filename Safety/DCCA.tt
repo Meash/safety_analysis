@@ -1,0 +1,54 @@
+﻿<#@ template inherits="Safety.ProgramGraphDsl.ProgramGraphTransformation" hostspecific="true" #>
+<#@ output encoding="us-ascii" extension=".smv" #>
+<#@ assembly Name="Safety.ProgramGraphDsl.dll" #>
+
+<#=  TransformToNuSMV() #>
+
+DEFINE 
+	GP := 0;
+	SP := 35;
+	SchrankeZu := v.V_Winkel = 0;
+	SchrankeOffen := v.V_Winkel = 2;
+	ZugAmGefahrenpunkt := v.V_PositionReal >= GP & v.V_PositionReal < GP + v.V_vReal; -- Interval
+	ZugAmSensorpunkt := v.V_PositionReal >= SP & v.V_PositionReal < SP + v.V_vReal; -- Interval
+	KeinFehler := (v.V_Sensor_Fehler = L_No 
+				& v.V_BahnuebergangFunksender_Fehler = L_No 
+				& v.V_Zugbremse_Fehler = L_No
+				& v.V_Schrankenmotor_Fehler = L_No
+				& v.V_Schrankensensor_Fehler = L_No
+				& v.V_ZugFunksender_Fehler = L_No
+				& v.V_Zugpositionsbestimmung_Fehler = L_No);
+	Hazard := ZugAmGefahrenpunkt & SchrankeOffen;
+
+-- TODO
+-- leere Fehlermenge
+LTLSPEC ! (KeinFehler U Hazard)
+
+-- einelementige Fehlermengen
+LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
+			& v.V_Zugbremse_Fehler = L_No
+			& v.V_Schrankenmotor_Fehler = L_No)
+			U Hazard)
+LTLSPEC ! ((v.V_Sensor_Fehler = L_No 
+			& v.V_Zugbremse_Fehler = L_No
+			& v.V_Schrankenmotor_Fehler = L_No)
+			U Hazard)
+LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
+			& v.V_Sensor_Fehler = L_No
+			& v.V_Schrankenmotor_Fehler = L_No)
+			U Hazard)
+LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
+			& v.V_Zugbremse_Fehler = L_No
+			& v.V_Sensor_Fehler = L_No)
+			U Hazard)
+
+-- zweielementige Fehlermengen
+LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
+			& v.V_Sensor_Fehler = L_No)
+			U Hazard)
+LTLSPEC ! ((v.V_Schrankenmotor_Fehler = L_No
+			& v.V_Sensor_Fehler = L_No)
+			U Hazard)
+LTLSPEC ! ((v.V_Zugbremse_Fehler = L_No 
+			& v.V_Sensor_Fehler = L_No)
+			U Hazard)

@@ -61,14 +61,23 @@
     <None Include="BahnuebergangFunksender.pg.diagram">
       <DependentUpon>BahnuebergangFunksender.pg</DependentUpon>
     </None>
-    <None Include="NuSMV.smv">
+    <None Include="BehaviourWithoutFaults.smv">
+      <DependentUpon>BehaviourWithoutFaults.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NuSMV.tt</DependentUpon>
     </None>
-    <None Include="NuSMV.tt">
+    <None Include="BehaviourWithoutFaults.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>NuSMV.smv</LastGenOutput>
+      <LastGenOutput>BehaviourWithoutFaults.smv</LastGenOutput>
+    </None>
+    <None Include="DCCA.smv">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DCCA.tt</DependentUpon>
+    </None>
+    <None Include="DCCA.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DCCA.smv</LastGenOutput>
     </None>
     <None Include="Schranke.pg" />
     <None Include="Schranke.pg.diagram">

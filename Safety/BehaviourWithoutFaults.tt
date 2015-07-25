@@ -19,38 +19,7 @@ DEFINE
 				& v.V_ZugFunksender_Fehler = L_No
 				& v.V_Zugpositionsbestimmung_Fehler = L_No);
 	Hazard := ZugAmGefahrenpunkt & SchrankeOffen;
-	-- TODO
--- leere Fehlermenge
-LTLSPEC ! (KeinFehler U Hazard)
 
--- einelementige Fehlermengen
-LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
-			& v.V_Zugbremse_Fehler = L_No
-			& v.V_Schrankenmotor_Fehler = L_No)
-			U Hazard)
-LTLSPEC ! ((v.V_Sensor_Fehler = L_No 
-			& v.V_Zugbremse_Fehler = L_No
-			& v.V_Schrankenmotor_Fehler = L_No)
-			U Hazard)
-LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
-			& v.V_Sensor_Fehler = L_No
-			& v.V_Schrankenmotor_Fehler = L_No)
-			U Hazard)
-LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
-			& v.V_Zugbremse_Fehler = L_No
-			& v.V_Sensor_Fehler = L_No)
-			U Hazard)
-
--- zweielementige Fehlermengen
-LTLSPEC ! ((v.V_BahnuebergangFunksender_Fehler = L_No 
-			& v.V_Sensor_Fehler = L_No)
-			U Hazard)
-LTLSPEC ! ((v.V_Schrankenmotor_Fehler = L_No
-			& v.V_Sensor_Fehler = L_No)
-			U Hazard)
-LTLSPEC ! ((v.V_Zugbremse_Fehler = L_No 
-			& v.V_Sensor_Fehler = L_No)
-			U Hazard)
 
 	
 -- Safety
@@ -63,25 +32,28 @@ LTLSPEC G KeinFehler -> (SchrankeZu -> F SchrankeOffen)
 
 ---- Schranke
 ------ Schrankensensor
-CTLSPEC AG (SchrankeZu -> AX v.V_Schrankensensor = L_Geschlossen) -- X due to state machine timing
-CTLSPEC AG (SchrankeOffen -> AX v.V_Schrankensensor = L_Offen)
+CTLSPEC AG KeinFehler -> (AG (SchrankeZu -> AX v.V_Schrankensensor = L_Geschlossen)) -- X due to state machine timing
+CTLSPEC AG KeinFehler -> (AG (SchrankeOffen -> AX v.V_Schrankensensor = L_Offen))
 
 ---- Sensor
-CTLSPEC EF (ZugAmSensorpunkt -> A [v.V_Sensor = L_ZugFaehrtDurch U v.V_Sensor = L_KeinZug])
+LTLSPEC F (ZugAmSensorpunkt -> (v.V_Sensor = L_ZugFaehrtDurch U v.V_Sensor = L_KeinZug))
 
 
 -- Funk
-CTLSPEC EF v.V_ZugFunksender = L_SicherungsAnweisungGesendet 
-		-> AF v.V_BahnuebergangFunkempfaenger = L_SicherungsAnweisungAngekommen
-CTLSPEC EF v.V_ZugFunksender = L_AnfrageGesendet 
-		-> AF v.V_BahnuebergangFunkempfaenger = L_ZustandsAnfrageAngekommen
-CTLSPEC EF v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet 
-		-> AF v.V_ZugFunkempfaenger = L_SicherungsBestaetigungErhalten
+CTLSPEC AG KeinFehler -> (
+		EF v.V_ZugFunksender = L_SicherungsAnweisungGesendet 
+			-> AF v.V_BahnuebergangFunkempfaenger = L_SicherungsAnweisungAngekommen)
+CTLSPEC AG KeinFehler -> (
+		EF v.V_ZugFunksender = L_AnfrageGesendet 
+			-> AF v.V_BahnuebergangFunkempfaenger = L_ZustandsAnfrageAngekommen)
+CTLSPEC AG KeinFehler -> (
+		EF v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet 
+			-> AF v.V_ZugFunkempfaenger = L_SicherungsBestaetigungErhalten)
 
 
 -- Zug
 ---- Bremse
-CTLSPEC AG (v.V_Zugbremse = L_Bremsend -> AF v.V_vReal = 0)
+LTLSPEC G (v.V_Zugbremse = L_Bremsend -> F v.V_vReal = 0)
 
 ---- Zugpositionsbestimmung
 LTLSPEC G KeinFehler
