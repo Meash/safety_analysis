@@ -13,7 +13,7 @@
         <transition Id="ac127002-948f-486e-8398-a6d66a55e46e" guard="vReal &gt; 0" action="vReal := vReal + Antriebswirkung + Bremswirkung + Reibungswirkung" label="vReal &gt; 0 // vReal := vReal + Antriebswirkung + Bremswirkung + Reibungswirkung" precondition="vReal + Antriebswirkung + Bremswirkung + Reibungswirkung &lt;= 5 &amp;&amp; vReal + Antriebswirkung + Bremswirkung + Reibungswirkung &gt;= 0">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/_" />
         </transition>
-        <transition Id="fd5c9409-508b-4d2e-bfa0-af721cd460cd" guard="vReal == 1 &amp;&amp; Bremswirkung == -1 &amp;&amp; Antriebswirkung == 1" action="vReal := 0" label="vReal == 1 &amp;&amp; Bremswirkung == -1 &amp;&amp; Antriebswirkung == 1 // vReal := 0" precondition="0 &gt;= 0">
+        <transition Id="fd5c9409-508b-4d2e-bfa0-af721cd460cd" guard="vReal == 1 &amp;&amp; Bremswirkung == -1 &amp;&amp; Antriebswirkung == 0" action="vReal := 0" label="vReal == 1 &amp;&amp; Bremswirkung == -1 &amp;&amp; Antriebswirkung == 0 // vReal := 0" precondition="0 &gt;= 0">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/_" />
         </transition>
       </successors>
