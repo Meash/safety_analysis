@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="0304e74b-a749-46bc-baa8-dcc327f9be5c" name="ZugFunksender_Fehler" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="00397895-4879-4cc1-ba3c-63f4ea906593" name="InitialNode1">
+      <successors>
+        <transition Id="af39e2e4-0414-45e8-9ab7-c90d6dd22b41">
+          <stateMoniker name="/0304e74b-a749-46bc-baa8-dcc327f9be5c/No" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="c7e1664c-22ba-49c2-9ca3-1fd2cde4c473" name="No">
+      <successors>
+        <transition Id="bcc3fd85-2a91-4cbd-9a39-f2785d8c3a7f">
+          <stateMoniker name="/0304e74b-a749-46bc-baa8-dcc327f9be5c/Yes" />
+        </transition>
+        <transition Id="ee8cb6c6-471c-41ac-a85f-e6720ec3204f">
+          <stateMoniker name="/0304e74b-a749-46bc-baa8-dcc327f9be5c/No" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="08b82379-0f42-4031-b0f4-835a1215f935" name="Yes" />
+  </states>
+</programGraph>
