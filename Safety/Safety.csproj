@@ -45,6 +45,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="BahnuebergangOeffnungsTimer.pg" />
+    <None Include="BahnuebergangOeffnungsTimer.pg.diagram">
+      <DependentUpon>BahnuebergangOeffnungsTimer.pg</DependentUpon>
+    </None>
+    <None Include="BahnuebergangFunkSteuerung.pg" />
+    <None Include="BahnuebergangFunkSteuerung.pg.diagram">
+      <DependentUpon>BahnuebergangFunkSteuerung.pg</DependentUpon>
+    </None>
     <None Include="BahnuebergangSteuerung.pg" />
     <None Include="BahnuebergangSteuerung.pg.diagram">
       <DependentUpon>BahnuebergangSteuerung.pg</DependentUpon>

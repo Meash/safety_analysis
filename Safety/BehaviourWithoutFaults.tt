@@ -27,6 +27,7 @@ LTLSPEC G KeinFehler -> (ZugAmGefahrenpunkt -> (SchrankeZu U ZugAmSensorpunkt))
 
 -- Bahnuebergang
 LTLSPEC G KeinFehler -> (SchrankeZu -> F SchrankeOffen)
+LTLSPEC G KeinFehler -> (v.V_ZugPunktpositionsbestimmung = L_AufFreierStrecke -> SchrankeOffen)
 
 ---- Schranke
 ------ Schrankensensor

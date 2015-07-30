@@ -10,7 +10,7 @@
     </initialNode>
     <state Id="30021519-0998-41c3-a21c-bcc56501ae68" name="Wartend">
       <successors>
-        <transition Id="50cce472-a84e-4586-9c5c-27d1e357f152" guard="BahnuebergangSteuerung == ZustandsAnfrageAngekommen || BahnuebergangFunksender_Stoerung != No" label="BahnuebergangSteuerung == ZustandsAnfrageAngekommen || BahnuebergangFunksender_Stoerung != No">
+        <transition Id="50cce472-a84e-4586-9c5c-27d1e357f152" guard="BahnuebergangFunkSteuerung == SendeBestaetigungsNachricht || BahnuebergangFunksender_Stoerung != No" label="BahnuebergangFunkSteuerung == SendeBestaetigungsNachricht || BahnuebergangFunksender_Stoerung != No">
           <stateMoniker name="/bb58c7c5-e45b-431f-85a2-f4d69b8095af/SendeBestaetigungsNachricht" />
         </transition>
       </successors>
@@ -36,11 +36,11 @@
     </programGraphHasComments>
   </comments>
   <importedVariables>
-    <programGraphHasImportedVariables Id="1d4f498e-4602-482a-941e-c7aadee83c34">
-      <importedVariable Id="a9e9dff5-5449-4f7e-bbda-99d3d961b5c2" name="BahnuebergangSteuerung" range="Ungesichert, Sichern, Gesichert, Entsichern, ZugFahrtUeberSensor, ZustandsAnfrageAngekommen, SicherungsBestaetigungVersendet" />
-    </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="843fc552-5e15-4da1-8255-9c7a1561f6b0">
       <importedVariable Id="809e7a3e-75b0-45e7-bda6-3fbc0865c636" name="BahnuebergangFunksender_Stoerung" range="No, SendetTrotzNichtSicherung" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="31b641cb-48ec-461c-8e55-4438d22c490b">
+      <importedVariable Id="ea939f3f-7936-40de-8124-fa4d4bcac706" name="BahnuebergangFunkSteuerung" range="Wartend, ZugWartetAufBestaetigung, SendeBestaetigungsNachricht" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

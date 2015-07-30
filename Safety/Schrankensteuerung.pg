@@ -38,7 +38,7 @@
       <importedVariable Id="d13370f3-2f06-433f-9e9f-b27ed22921e0" name="Schrankensensor" range="Offen, Geschlossen, InDerBewegung" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="bcda29c1-3e5a-45cd-8000-9b73d64a3710">
-      <importedVariable Id="e8c62398-29cd-4e84-9904-0becab9e1724" name="BahnuebergangSteuerung" range="Ungesichert, Sichern, Gesichert, Entsichern, ZugFahrtUeberSensor, ZustandsAnfrageAngekommen, SicherungsBestaetigungVersendet" />
+      <importedVariable Id="e8c62398-29cd-4e84-9904-0becab9e1724" name="BahnuebergangSteuerung" range="Ungesichert, Sichern, Gesichert, Entsichern, ZugFahrtUeberSensor" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

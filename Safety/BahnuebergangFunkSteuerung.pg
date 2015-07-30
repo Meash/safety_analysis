@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="3b302720-4d94-4525-ad5d-b5bd13f9b9ff" name="BahnuebergangFunkSteuerung" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="b8330c9a-a0ee-43be-a464-ba82200a8309" name="InitialNode1">
+      <successors>
+        <transition Id="02d02bee-2fca-491b-bee3-195a3c531b8a">
+          <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/Wartend" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="a87a98d0-f7c9-44f5-8701-adacd0b5df60" name="Wartend">
+      <successors>
+        <transition Id="7ee9f674-8ed3-4c9b-92a4-945e64c0e52d" guard="BahnuebergangFunkempfaenger == ZustandsAnfrageAngekommen" label="BahnuebergangFunkempfaenger == ZustandsAnfrageAngekommen">
+          <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/ZugWartetAufBestaetigung" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="a67b4f20-f080-4072-831c-7fc66d7d4b3c" name="ZugWartetAufBestaetigung">
+      <successors>
+        <transition Id="59183018-2632-4e45-8eeb-d6706ac7e986" guard="Schrankensensor == Geschlossen" label="Schrankensensor == Geschlossen">
+          <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/SendeBestaetigungsNachricht" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="443d7cc7-a5dd-4373-b17b-9426a982976f" name="SendeBestaetigungsNachricht">
+      <successors>
+        <transition Id="7589c6e2-5d6c-4350-a6f1-4a2210c33513" guard="BahnuebergangFunksender == BestaetigungsNachrichtGesendet" label="BahnuebergangFunksender == BestaetigungsNachrichtGesendet">
+          <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/Wartend" />
+        </transition>
+      </successors>
+    </state>
+  </states>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="78968b8e-cd6d-447d-828d-c36cbdde56b6">
+      <importedVariable Id="48215f61-963c-488d-bfb6-35c2a3036eb4" name="Schrankensensor" range="Offen, Geschlossen, InDerBewegung" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="0d1abe70-3421-4975-a6c9-91bdbd55293b">
+      <importedVariable Id="80509911-2251-4cf3-94b3-195d0122dd61" name="BahnuebergangFunkempfaenger" range="Wartend, SicherungsAnweisungAngekommen, ZustandsAnfrageAngekommen" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="5e3f3582-f367-4168-967b-f408fabe5294">
+      <importedVariable Id="e9c97961-f716-4faa-bc4e-a937e0c8379a" name="BahnuebergangFunksender" range="Wartend, BestaetigungsNachrichtGesendet, SendeBestaetigungsNachricht" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>
