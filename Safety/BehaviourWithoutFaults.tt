@@ -11,6 +11,7 @@ DEFINE
 	SchrankeOffen := v.V_Winkel = 2;
 	ZugAmGefahrenpunkt := v.V_PositionReal >= GP & v.V_PositionReal < GP + v.V_vReal; -- Interval
 	ZugAmSensorpunkt := v.V_PositionReal >= SP & v.V_PositionReal < SP + v.V_vReal; -- Interval
+	ZugSteht := v.V_vReal = 0;
 	KeinFehler := (v.V_Sensor_Stoerung = L_No 
 				& v.V_BahnuebergangFunksender_Stoerung = L_No 
 				& v.V_Zugbremse_Ausfall = L_No
@@ -30,6 +31,8 @@ LTLSPEC G KeinFehler -> (SchrankeZu -> F SchrankeOffen)
 LTLSPEC G KeinFehler -> (v.V_ZugPunktpositionsbestimmung = L_AufFreierStrecke -> SchrankeOffen)
 
 ---- Schranke
+LTLSPEC G F SchrankeOffen
+
 ------ Schrankensensor
 LTLSPEC G KeinFehler -> (G (SchrankeZu -> X v.V_Schrankensensor = L_Geschlossen)) -- X due to state machine timing
 LTLSPEC G KeinFehler -> (G (SchrankeOffen -> X v.V_Schrankensensor = L_Offen))
@@ -55,7 +58,7 @@ CTLSPEC AG KeinFehler -> (
 
 -- Zug
 ---- Bremse
-LTLSPEC G (v.V_Zugbremse = L_Bremsend -> F v.V_vReal = 0)
+LTLSPEC G (v.V_Zugbremse = L_Bremsend -> F ZugSteht)
 LTLSPEC G KeinFehler -> (! F v.V_Zugbremse = L_Bremsend)
 
 ---- ZugPunktpositionsbestimmung

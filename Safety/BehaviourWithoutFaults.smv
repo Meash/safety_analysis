@@ -36,6 +36,7 @@ MODULE _VARS
 		V_Position : -200..100;
 		V_v : 0..5;
 		V_Zugmotor : {L_Aus, L_Beschleunigen, L_GeschwindigkeitHalten};
+		V_Zugmotor_Stoerung : {L_No, L_Yes};
 		V_Zugposition : {L__};
 		V_ZugPunktpositionsbestimmung_Stoerung : {L_No, L_Yes};
 		V_BahnuebergangGesichert : 0..1;
@@ -263,6 +264,14 @@ MODULE _P_Zugmotor(v)
 		 ( v.V_Zugmotor = L_Aus & next(v.V_Zugmotor) = L_Aus & (!(((v.V_Zugsteuerung = L_Fahren) & (v.V_v < 5)) & (2 <= 2)) & !(((v.V_Zugsteuerung = L_Fahren) & (v.V_v = 5)) & ((1 >= 0) & (1 <= 2)))) & (next(v.V_Antriebswirkung) = v.V_Antriebswirkung))  |
 		 ( v.V_Zugmotor = L_Beschleunigen & next(v.V_Zugmotor) = L_Beschleunigen & (!((v.V_Zugsteuerung = L_Zwangsbremsung) & (0 >= 0)) & !(((v.V_Zugsteuerung = L_Fahren) & (v.V_v = 5)) & ((1 >= 0) & (1 <= 2)))) & (next(v.V_Antriebswirkung) = v.V_Antriebswirkung))  |
 		 ( v.V_Zugmotor = L_GeschwindigkeitHalten & next(v.V_Zugmotor) = L_GeschwindigkeitHalten & (!((v.V_Zugsteuerung = L_Zwangsbremsung) & (0 >= 0)) & !(((v.V_Zugsteuerung = L_Fahren) & (v.V_v < 5)) & ((2 <= 2) & (2 >= 0)))) & (next(v.V_Antriebswirkung) = v.V_Antriebswirkung));
+MODULE _P_Zugmotor_Stoerung(v)
+	INIT
+		(v.V_Zugmotor_Stoerung = L_No) & (TRUE)
+	TRANS
+		 ( v.V_Zugmotor_Stoerung = L_No & next(v.V_Zugmotor_Stoerung) = L_Yes & TRUE & (TRUE))  |
+		 ( v.V_Zugmotor_Stoerung = L_No & next(v.V_Zugmotor_Stoerung) = L_No & TRUE & (TRUE))  |
+		 ( v.V_Zugmotor_Stoerung = L_Yes & next(v.V_Zugmotor_Stoerung) = L_No & TRUE & (TRUE))  |
+		 ( v.V_Zugmotor_Stoerung = L_Yes & next(v.V_Zugmotor_Stoerung) = L_Yes & TRUE & (TRUE));
 MODULE _P_Zugposition(v)
 	INIT
 		(v.V_Zugposition = L__) & ((v.V_PositionReal = -200))
@@ -337,6 +346,7 @@ MODULE main
 		p_Zuggeschwindigkeit : _P_Zuggeschwindigkeit(v);
 		p_Zughodometer : _P_Zughodometer(v);
 		p_Zugmotor : _P_Zugmotor(v);
+		p_Zugmotor_Stoerung : _P_Zugmotor_Stoerung(v);
 		p_Zugposition : _P_Zugposition(v);
 		p_ZugPunktpositionsbestimmung : _P_ZugPunktpositionsbestimmung(v);
 		p_ZugPunktpositionsbestimmung_Stoerung : _P_ZugPunktpositionsbestimmung_Stoerung(v);
@@ -352,6 +362,7 @@ DEFINE
 	SchrankeOffen := v.V_Winkel = 2;
 	ZugAmGefahrenpunkt := v.V_PositionReal >= GP & v.V_PositionReal < GP + v.V_vReal; -- Interval
 	ZugAmSensorpunkt := v.V_PositionReal >= SP & v.V_PositionReal < SP + v.V_vReal; -- Interval
+	ZugSteht := v.V_vReal = 0;
 	KeinFehler := (v.V_Sensor_Stoerung = L_No 
 				& v.V_BahnuebergangFunksender_Stoerung = L_No 
 				& v.V_Zugbremse_Ausfall = L_No
@@ -371,6 +382,8 @@ LTLSPEC G KeinFehler -> (SchrankeZu -> F SchrankeOffen)
 LTLSPEC G KeinFehler -> (v.V_ZugPunktpositionsbestimmung = L_AufFreierStrecke -> SchrankeOffen)
 
 ---- Schranke
+LTLSPEC G F SchrankeOffen
+
 ------ Schrankensensor
 LTLSPEC G KeinFehler -> (G (SchrankeZu -> X v.V_Schrankensensor = L_Geschlossen)) -- X due to state machine timing
 LTLSPEC G KeinFehler -> (G (SchrankeOffen -> X v.V_Schrankensensor = L_Offen))
@@ -396,7 +409,7 @@ CTLSPEC AG KeinFehler -> (
 
 -- Zug
 ---- Bremse
-LTLSPEC G (v.V_Zugbremse = L_Bremsend -> F v.V_vReal = 0)
+LTLSPEC G (v.V_Zugbremse = L_Bremsend -> F ZugSteht)
 LTLSPEC G KeinFehler -> (! F v.V_Zugbremse = L_Bremsend)
 
 ---- ZugPunktpositionsbestimmung
