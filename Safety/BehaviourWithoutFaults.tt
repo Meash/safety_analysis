@@ -18,7 +18,8 @@ DEFINE
 				& v.V_Schrankenmotor_Ausfall = L_No
 				& v.V_Schrankensensor_Stoerung = L_No
 				& v.V_ZugFunksender_Ausfall = L_No
-				& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No);
+				& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No
+				& v.V_Zugmotor_Ausfall = L_No);
 
 
 -- Safety
@@ -31,7 +32,7 @@ LTLSPEC G KeinFehler -> (SchrankeZu -> F SchrankeOffen)
 LTLSPEC G KeinFehler -> (v.V_ZugPunktpositionsbestimmung = L_AufFreierStrecke -> SchrankeOffen)
 
 ---- Schranke
-LTLSPEC G F SchrankeOffen
+LTLSPEC G v.V_Schrankenmotor_Ausfall = L_No -> G F SchrankeOffen
 
 ------ Schrankensensor
 LTLSPEC G KeinFehler -> (G (SchrankeZu -> X v.V_Schrankensensor = L_Geschlossen)) -- X due to state machine timing

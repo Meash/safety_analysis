@@ -17,7 +17,8 @@ DEFINE
 				& v.V_Schrankenmotor_Ausfall = L_No
 				& v.V_Schrankensensor_Stoerung = L_No
 				& v.V_ZugFunksender_Ausfall = L_No
-				& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No);
+				& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No
+				& v.V_Zugmotor_Ausfall = L_No);
 	Hazard := ZugAmGefahrenpunkt & SchrankeOffen;
 
 
@@ -31,7 +32,8 @@ LTLSPEC ! ((v.V_BahnuebergangFunksender_Stoerung = L_No
 			& v.V_Schrankenmotor_Ausfall = L_No
 			& v.V_Schrankensensor_Stoerung = L_No
 			& v.V_ZugFunksender_Ausfall = L_No
-			& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)
+			& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No
+			& v.V_Zugmotor_Ausfall = L_No)
 			U Hazard)
 ---- BahnuebergangFunksender_Fehler -> nicht kritisch
 LTLSPEC ! ((v.V_Sensor_Stoerung = L_No 
@@ -39,7 +41,8 @@ LTLSPEC ! ((v.V_Sensor_Stoerung = L_No
 			& v.V_Schrankenmotor_Ausfall = L_No
 			& v.V_Schrankensensor_Stoerung = L_No
 			& v.V_ZugFunksender_Ausfall = L_No
-			& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)
+			& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No
+			& v.V_Zugmotor_Ausfall = L_No)
 			U Hazard)
 ---- Zugbremse_Fehler -> nicht kritisch
 LTLSPEC ! ((v.V_BahnuebergangFunksender_Stoerung = L_No 
@@ -47,7 +50,8 @@ LTLSPEC ! ((v.V_BahnuebergangFunksender_Stoerung = L_No
 			& v.V_Schrankenmotor_Ausfall = L_No
 			& v.V_Schrankensensor_Stoerung = L_No
 			& v.V_ZugFunksender_Ausfall = L_No
-			& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)
+			& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No
+			& v.V_Zugmotor_Ausfall = L_No)
 			U Hazard)
 ---- Schrankenmotor_Fehler -> nicht kritisch
 LTLSPEC ! ((v.V_BahnuebergangFunksender_Stoerung = L_No 
@@ -55,7 +59,8 @@ LTLSPEC ! ((v.V_BahnuebergangFunksender_Stoerung = L_No
 			& v.V_Sensor_Stoerung = L_No
 			& v.V_Schrankensensor_Stoerung = L_No
 			& v.V_ZugFunksender_Ausfall = L_No
-			& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)
+			& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No
+			& v.V_Zugmotor_Ausfall = L_No)
 			U Hazard)
 ---- Schrankensensor_Fehler -> kritisch
 LTLSPEC ! ((v.V_BahnuebergangFunksender_Stoerung = L_No 
@@ -63,7 +68,8 @@ LTLSPEC ! ((v.V_BahnuebergangFunksender_Stoerung = L_No
 			& v.V_Sensor_Stoerung = L_No
 			& v.V_Schrankenmotor_Ausfall = L_No
 			& v.V_ZugFunksender_Ausfall = L_No
-			& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)
+			& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No
+			& v.V_Zugmotor_Ausfall = L_No)
 			U Hazard)
 ---- ZugFunksender_Fehler -> nicht kritisch
 LTLSPEC ! ((v.V_BahnuebergangFunksender_Stoerung = L_No 
@@ -71,7 +77,8 @@ LTLSPEC ! ((v.V_BahnuebergangFunksender_Stoerung = L_No
 			& v.V_Sensor_Stoerung = L_No
 			& v.V_Schrankensensor_Stoerung = L_No
 			& v.V_Schrankenmotor_Ausfall = L_No
-			& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)
+			& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No
+			& v.V_Zugmotor_Ausfall = L_No)
 			U Hazard)
 ---- ZugPunktpositionsbestimmung_Stoerung -> kritisch
 LTLSPEC ! ((v.V_BahnuebergangFunksender_Stoerung = L_No 
@@ -79,18 +86,30 @@ LTLSPEC ! ((v.V_BahnuebergangFunksender_Stoerung = L_No
 			& v.V_Sensor_Stoerung = L_No
 			& v.V_Schrankensensor_Stoerung = L_No
 			& v.V_Schrankenmotor_Ausfall = L_No
-			& v.V_ZugFunksender_Ausfall = L_No)
+			& v.V_ZugFunksender_Ausfall = L_No
+			& v.V_Zugmotor_Ausfall = L_No)
+			U Hazard)
+---- Zugmotor_Ausfall -> kritisch (?)
+LTLSPEC ! ((v.V_BahnuebergangFunksender_Stoerung = L_No 
+			& v.V_Zugbremse_Ausfall = L_No
+			& v.V_Sensor_Stoerung = L_No
+			& v.V_Schrankensensor_Stoerung = L_No
+			& v.V_Schrankenmotor_Ausfall = L_No
+			& v.V_ZugFunksender_Ausfall = L_No
+			& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)
 			U Hazard)
 
 -- einelementige kritische Fehlermengen: 
 -- {{Sensor_Fehler}, 
 --  {Schrankensensor_Fehler}, 
---  {ZugPunktpositionsbestimmung_Stoerung}}
+--  {ZugPunktpositionsbestimmung_Stoerung}, 
+--  {Zugmotor_Ausfall}}
 
 DEFINE KeineEinelementigenKritischenFehlermengen := 
 			v.V_Sensor_Stoerung = L_No 
 			& v.V_Schrankensensor_Stoerung = L_No 
-			& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No;
+			& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No
+			& v.V_Zugmotor_Ausfall = L_No;
 
 -- zweielementige Fehlermengen
 -- Zu prüfen: Kombinationen aus 
@@ -153,6 +172,7 @@ LTLSPEC ! ((KeineEinelementigenKritischenFehlermengen
 --  {Sensor_Fehler}, 
 --  {Schrankensensor_Fehler}, 
 --  {ZugPunktpositionsbestimmung_Stoerung}, 
+--  {Zugmotor_Ausfall}, 
 --  {BahnuebergangFunksender_Fehler, Schrankenmotor_Fehler}, 
 --  {BahnuebergangFunksender_Fehler, ZugFunksender_Fehler}, 
 --  {Zugbremse_Fehler, Schrankenmotor_Fehler}, 
