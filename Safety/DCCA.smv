@@ -4,9 +4,12 @@ MODULE _VARS
 		V_BahnuebergangFunkempfaenger : {L_Wartend, L_SicherungsAnweisungAngekommen, L_ZustandsAnfrageAngekommen};
 		V_ZugFunksender : {L_Wartend, L_SicherungsAnweisungGesendet, L_AnfrageGesendet};
 		V_BahnuebergangFunksender : {L_Wartend, L_BestaetigungsNachrichtGesendet, L_SendeBestaetigungsNachricht};
-		V_BahnuebergangSteuerung : {L_Ungesichert, L_Sichern, L_Gesichert, L_Entsichern, L_ZugFahrtUeberSensor, L_ZustandsAnfrageAngekommen, L_SicherungsBestaetigungVersendet};
 		V_BahnuebergangFunksender_Stoerung : {L_No, L_SendetTrotzNichtSicherung};
+		V_BahnuebergangFunkSteuerung : {L_Wartend, L_ZugWartetAufBestaetigung, L_SendeBestaetigungsNachricht};
 		V_Schrankensensor : {L_Offen, L_Geschlossen, L_InDerBewegung};
+		V_BahnuebergangOeffnungsTimer : {L_Wartend, L_Aktiv, L_Timeout};
+		V_countdown : 0..20;
+		V_BahnuebergangSteuerung : {L_Ungesichert, L_Sichern, L_Gesichert, L_Entsichern, L_ZugFahrtUeberSensor};
 		V_Sensor : {L_KeinZug, L_ZugFaehrtDurch};
 		V_Schranke : {L__};
 		V_Winkel : 0..2;
@@ -49,10 +52,10 @@ MODULE _P_BahnuebergangFunksender(v)
 	INIT
 		(v.V_BahnuebergangFunksender = L_Wartend) & (TRUE)
 	TRANS
-		 ( v.V_BahnuebergangFunksender = L_Wartend & next(v.V_BahnuebergangFunksender) = L_SendeBestaetigungsNachricht & ((v.V_BahnuebergangSteuerung = L_ZustandsAnfrageAngekommen) | (v.V_BahnuebergangFunksender_Stoerung != L_No)) & (TRUE))  |
+		 ( v.V_BahnuebergangFunksender = L_Wartend & next(v.V_BahnuebergangFunksender) = L_SendeBestaetigungsNachricht & ((v.V_BahnuebergangFunkSteuerung = L_SendeBestaetigungsNachricht) | (v.V_BahnuebergangFunksender_Stoerung != L_No)) & (TRUE))  |
 		 ( v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet & next(v.V_BahnuebergangFunksender) = L_Wartend & TRUE & (TRUE))  |
 		 ( v.V_BahnuebergangFunksender = L_SendeBestaetigungsNachricht & next(v.V_BahnuebergangFunksender) = L_BestaetigungsNachrichtGesendet & TRUE & (TRUE))  |
-		 ( v.V_BahnuebergangFunksender = L_Wartend & next(v.V_BahnuebergangFunksender) = L_Wartend & !((v.V_BahnuebergangSteuerung = L_ZustandsAnfrageAngekommen) | (v.V_BahnuebergangFunksender_Stoerung != L_No)) & (TRUE));
+		 ( v.V_BahnuebergangFunksender = L_Wartend & next(v.V_BahnuebergangFunksender) = L_Wartend & !((v.V_BahnuebergangFunkSteuerung = L_SendeBestaetigungsNachricht) | (v.V_BahnuebergangFunksender_Stoerung != L_No)) & (TRUE));
 MODULE _P_BahnuebergangFunksender_Stoerung(v)
 	INIT
 		(v.V_BahnuebergangFunksender_Stoerung = L_No) & (TRUE)
@@ -61,24 +64,42 @@ MODULE _P_BahnuebergangFunksender_Stoerung(v)
 		 ( v.V_BahnuebergangFunksender_Stoerung = L_No & next(v.V_BahnuebergangFunksender_Stoerung) = L_No & TRUE & (TRUE))  |
 		 ( v.V_BahnuebergangFunksender_Stoerung = L_SendetTrotzNichtSicherung & next(v.V_BahnuebergangFunksender_Stoerung) = L_No & TRUE & (TRUE))  |
 		 ( v.V_BahnuebergangFunksender_Stoerung = L_SendetTrotzNichtSicherung & next(v.V_BahnuebergangFunksender_Stoerung) = L_SendetTrotzNichtSicherung & TRUE & (TRUE));
+MODULE _P_BahnuebergangFunkSteuerung(v)
+	INIT
+		(v.V_BahnuebergangFunkSteuerung = L_Wartend) & (TRUE)
+	TRANS
+		 ( v.V_BahnuebergangFunkSteuerung = L_Wartend & next(v.V_BahnuebergangFunkSteuerung) = L_ZugWartetAufBestaetigung & (v.V_BahnuebergangFunkempfaenger = L_ZustandsAnfrageAngekommen) & (TRUE))  |
+		 ( v.V_BahnuebergangFunkSteuerung = L_ZugWartetAufBestaetigung & next(v.V_BahnuebergangFunkSteuerung) = L_SendeBestaetigungsNachricht & (v.V_Schrankensensor = L_Geschlossen) & (TRUE))  |
+		 ( v.V_BahnuebergangFunkSteuerung = L_SendeBestaetigungsNachricht & next(v.V_BahnuebergangFunkSteuerung) = L_Wartend & (v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet) & (TRUE))  |
+		 ( v.V_BahnuebergangFunkSteuerung = L_Wartend & next(v.V_BahnuebergangFunkSteuerung) = L_Wartend & !(v.V_BahnuebergangFunkempfaenger = L_ZustandsAnfrageAngekommen) & (TRUE))  |
+		 ( v.V_BahnuebergangFunkSteuerung = L_ZugWartetAufBestaetigung & next(v.V_BahnuebergangFunkSteuerung) = L_ZugWartetAufBestaetigung & !(v.V_Schrankensensor = L_Geschlossen) & (TRUE))  |
+		 ( v.V_BahnuebergangFunkSteuerung = L_SendeBestaetigungsNachricht & next(v.V_BahnuebergangFunkSteuerung) = L_SendeBestaetigungsNachricht & !(v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet) & (TRUE));
+MODULE _P_BahnuebergangOeffnungsTimer(v)
+	INIT
+		(v.V_BahnuebergangOeffnungsTimer = L_Wartend) & ((v.V_countdown = 30))
+	TRANS
+		 ( v.V_BahnuebergangOeffnungsTimer = L_Wartend & next(v.V_BahnuebergangOeffnungsTimer) = L_Aktiv & (v.V_Schrankensensor = L_Geschlossen) & (next(v.V_countdown) = v.V_countdown))  |
+		 ( v.V_BahnuebergangOeffnungsTimer = L_Aktiv & next(v.V_BahnuebergangOeffnungsTimer) = L_Aktiv & ((v.V_countdown > 0) & ((v.V_countdown - 1) >= 0)) & (next(v.V_countdown) = (v.V_countdown - 1)))  |
+		 ( v.V_BahnuebergangOeffnungsTimer = L_Aktiv & next(v.V_BahnuebergangOeffnungsTimer) = L_Timeout & (v.V_countdown = 0) & (next(v.V_countdown) = v.V_countdown))  |
+		 ( v.V_BahnuebergangOeffnungsTimer = L_Wartend & next(v.V_BahnuebergangOeffnungsTimer) = L_Wartend & !(v.V_Schrankensensor = L_Geschlossen) & (next(v.V_countdown) = v.V_countdown))  |
+		 ( v.V_BahnuebergangOeffnungsTimer = L_Aktiv & next(v.V_BahnuebergangOeffnungsTimer) = L_Aktiv & (!((v.V_countdown > 0) & ((v.V_countdown - 1) >= 0)) & !(v.V_countdown = 0)) & (next(v.V_countdown) = v.V_countdown))  |
+		 ( v.V_BahnuebergangOeffnungsTimer = L_Timeout & next(v.V_BahnuebergangOeffnungsTimer) = L_Timeout & TRUE & (next(v.V_countdown) = v.V_countdown));
 MODULE _P_BahnuebergangSteuerung(v)
 	INIT
 		(v.V_BahnuebergangSteuerung = L_Ungesichert) & (TRUE)
 	TRANS
 		 ( v.V_BahnuebergangSteuerung = L_Ungesichert & next(v.V_BahnuebergangSteuerung) = L_Sichern & (v.V_BahnuebergangFunkempfaenger = L_SicherungsAnweisungAngekommen) & (TRUE))  |
 		 ( v.V_BahnuebergangSteuerung = L_Sichern & next(v.V_BahnuebergangSteuerung) = L_Gesichert & (v.V_Schrankensensor = L_Geschlossen) & (TRUE))  |
-		 ( v.V_BahnuebergangSteuerung = L_Gesichert & next(v.V_BahnuebergangSteuerung) = L_ZustandsAnfrageAngekommen & (v.V_BahnuebergangFunkempfaenger = L_ZustandsAnfrageAngekommen) & (TRUE))  |
+		 ( v.V_BahnuebergangSteuerung = L_Gesichert & next(v.V_BahnuebergangSteuerung) = L_ZugFahrtUeberSensor & (v.V_Sensor = L_ZugFaehrtDurch) & (TRUE))  |
+		 ( v.V_BahnuebergangSteuerung = L_Gesichert & next(v.V_BahnuebergangSteuerung) = L_Entsichern & (v.V_BahnuebergangOeffnungsTimer = L_Timeout) & (TRUE))  |
 		 ( v.V_BahnuebergangSteuerung = L_Entsichern & next(v.V_BahnuebergangSteuerung) = L_Ungesichert & (v.V_Schrankensensor = L_Offen) & (TRUE))  |
 		 ( v.V_BahnuebergangSteuerung = L_ZugFahrtUeberSensor & next(v.V_BahnuebergangSteuerung) = L_Entsichern & (v.V_Sensor = L_KeinZug) & (TRUE))  |
-		 ( v.V_BahnuebergangSteuerung = L_ZustandsAnfrageAngekommen & next(v.V_BahnuebergangSteuerung) = L_SicherungsBestaetigungVersendet & (v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet) & (TRUE))  |
-		 ( v.V_BahnuebergangSteuerung = L_SicherungsBestaetigungVersendet & next(v.V_BahnuebergangSteuerung) = L_ZugFahrtUeberSensor & (v.V_Sensor = L_ZugFaehrtDurch) & (TRUE))  |
+		 ( v.V_BahnuebergangSteuerung = L_ZugFahrtUeberSensor & next(v.V_BahnuebergangSteuerung) = L_Entsichern & (v.V_BahnuebergangOeffnungsTimer = L_Timeout) & (TRUE))  |
 		 ( v.V_BahnuebergangSteuerung = L_Ungesichert & next(v.V_BahnuebergangSteuerung) = L_Ungesichert & !(v.V_BahnuebergangFunkempfaenger = L_SicherungsAnweisungAngekommen) & (TRUE))  |
 		 ( v.V_BahnuebergangSteuerung = L_Sichern & next(v.V_BahnuebergangSteuerung) = L_Sichern & !(v.V_Schrankensensor = L_Geschlossen) & (TRUE))  |
-		 ( v.V_BahnuebergangSteuerung = L_Gesichert & next(v.V_BahnuebergangSteuerung) = L_Gesichert & !(v.V_BahnuebergangFunkempfaenger = L_ZustandsAnfrageAngekommen) & (TRUE))  |
+		 ( v.V_BahnuebergangSteuerung = L_Gesichert & next(v.V_BahnuebergangSteuerung) = L_Gesichert & (!(v.V_Sensor = L_ZugFaehrtDurch) & !(v.V_BahnuebergangOeffnungsTimer = L_Timeout)) & (TRUE))  |
 		 ( v.V_BahnuebergangSteuerung = L_Entsichern & next(v.V_BahnuebergangSteuerung) = L_Entsichern & !(v.V_Schrankensensor = L_Offen) & (TRUE))  |
-		 ( v.V_BahnuebergangSteuerung = L_ZugFahrtUeberSensor & next(v.V_BahnuebergangSteuerung) = L_ZugFahrtUeberSensor & !(v.V_Sensor = L_KeinZug) & (TRUE))  |
-		 ( v.V_BahnuebergangSteuerung = L_ZustandsAnfrageAngekommen & next(v.V_BahnuebergangSteuerung) = L_ZustandsAnfrageAngekommen & !(v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet) & (TRUE))  |
-		 ( v.V_BahnuebergangSteuerung = L_SicherungsBestaetigungVersendet & next(v.V_BahnuebergangSteuerung) = L_SicherungsBestaetigungVersendet & !(v.V_Sensor = L_ZugFaehrtDurch) & (TRUE));
+		 ( v.V_BahnuebergangSteuerung = L_ZugFahrtUeberSensor & next(v.V_BahnuebergangSteuerung) = L_ZugFahrtUeberSensor & (!(v.V_Sensor = L_KeinZug) & !(v.V_BahnuebergangOeffnungsTimer = L_Timeout)) & (TRUE));
 MODULE _P_Schranke(v)
 	INIT
 		(v.V_Schranke = L__) & ((v.V_Winkel = 2))
@@ -295,6 +316,8 @@ MODULE main
 		p_BahnuebergangFunkempfaenger : _P_BahnuebergangFunkempfaenger(v);
 		p_BahnuebergangFunksender : _P_BahnuebergangFunksender(v);
 		p_BahnuebergangFunksender_Stoerung : _P_BahnuebergangFunksender_Stoerung(v);
+		p_BahnuebergangFunkSteuerung : _P_BahnuebergangFunkSteuerung(v);
+		p_BahnuebergangOeffnungsTimer : _P_BahnuebergangOeffnungsTimer(v);
 		p_BahnuebergangSteuerung : _P_BahnuebergangSteuerung(v);
 		p_Schranke : _P_Schranke(v);
 		p_Schrankenmotor : _P_Schrankenmotor(v);
@@ -339,7 +362,7 @@ DEFINE
 	Hazard := ZugAmGefahrenpunkt & SchrankeOffen;
 
 
-	-- leere Fehlermenge -> nicht kritisch
+-- leere Fehlermenge -> nicht kritisch
 LTLSPEC ! (KeinFehler U Hazard)
 
 -- einelementige Fehlermengen

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="766fd1de-7f12-4859-b1c7-ca52f17a43f0" name="BahnuebergangOeffnungsTimer" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+  <states>
+    <initialNode Id="d7df6a2f-ac9d-472f-8e26-566afc9b1774" name="InitialNode1">
+      <successors>
+        <transition Id="85376fd7-6427-4079-8337-6f232b18de9d" guard="countdown == 30" label="countdown == 30">
+          <stateMoniker name="/766fd1de-7f12-4859-b1c7-ca52f17a43f0/Wartend" />
+        </transition>
+      </successors>
+    </initialNode>
+    <state Id="5c530fa1-8e66-40d1-9afd-c2e799aae11c" name="Wartend">
+      <successors>
+        <transition Id="dca729fe-c03a-49ca-b57c-fcef42048222" guard="Schrankensensor == Geschlossen" label="Schrankensensor == Geschlossen">
+          <stateMoniker name="/766fd1de-7f12-4859-b1c7-ca52f17a43f0/Aktiv" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="d070e34d-af7e-42ca-b64b-96cae45d40a6" name="Aktiv">
+      <successors>
+        <transition Id="7ca736d3-de91-455f-9c2f-d12a56bf203d" guard="countdown &gt; 0" action="countdown := countdown - 1" label="countdown &gt; 0 // countdown := countdown - 1" precondition="countdown - 1 &gt;= 0">
+          <stateMoniker name="/766fd1de-7f12-4859-b1c7-ca52f17a43f0/Aktiv" />
+        </transition>
+        <transition Id="2a9134f7-cf1f-48f8-91fe-6fbfd6f841ed" guard="countdown == 0" label="countdown == 0">
+          <stateMoniker name="/766fd1de-7f12-4859-b1c7-ca52f17a43f0/Timeout" />
+        </transition>
+      </successors>
+    </state>
+    <state Id="f5d909bf-43f6-4862-8837-d4569f5a4f7b" name="Timeout" />
+  </states>
+  <variables>
+    <programGraphHasVariables Id="e28cdac1-91f1-45e6-b11e-05ec0f6bb047">
+      <variable Id="084d204a-5c59-4cb8-bd2e-76a326880bc2" name="countdown" range="0..20" />
+    </programGraphHasVariables>
+  </variables>
+  <comments>
+    <programGraphHasComments Id="f4797895-abbd-444d-b400-f336cefc50e9">
+      <comment Id="2ffbeb51-eba3-4c3f-9b60-65248a5cd447" text="Die Range von countdown sollte in der Praxis etwas höher sein, um auch mit einem langsamer fahrenden Zug umgehen zu können. Mit einer zu großen Range hat bei uns das Modelchecking allerdings noch länger gedauert." />
+    </programGraphHasComments>
+  </comments>
+  <importedVariables>
+    <programGraphHasImportedVariables Id="ecb6b340-d537-4794-886f-11f1fa917f57">
+      <importedVariable Id="41edb6ae-6189-47a7-98c4-8a2f8845ce72" name="Schrankensensor" range="Offen, Geschlossen, InDerBewegung" />
+    </programGraphHasImportedVariables>
+  </importedVariables>
+</programGraph>

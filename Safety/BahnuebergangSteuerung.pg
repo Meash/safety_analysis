@@ -27,6 +27,9 @@
         <transition Id="f499d367-41f7-42d9-a98f-52be55a860df" guard="Sensor==ZugFaehrtDurch" label="Sensor==ZugFaehrtDurch">
           <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/ZugFahrtUeberSensor" />
         </transition>
+        <transition Id="84f2e7fe-5fc9-4dd7-93c7-7e1c66531697" guard="BahnuebergangOeffnungsTimer == Timeout" label="BahnuebergangOeffnungsTimer == Timeout">
+          <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/Entsichern" />
+        </transition>
       </successors>
     </state>
     <state Id="5353116d-da7f-49b9-8be6-edb9e21c2bd5" name="Entsichern">
@@ -41,6 +44,9 @@
         <transition Id="ed0a4278-a784-4ab3-8885-75c6b13698d9" guard="Sensor==KeinZug" label="Sensor==KeinZug">
           <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/Entsichern" />
         </transition>
+        <transition Id="10a5c3be-8b73-4312-b4de-a9503a2d1aba" guard="BahnuebergangOeffnungsTimer == Timeout" label="BahnuebergangOeffnungsTimer == Timeout">
+          <stateMoniker name="/3b302720-4d94-4525-ad5d-b5bd13f9b9ff/Entsichern" />
+        </transition>
       </successors>
     </state>
   </states>
@@ -53,6 +59,9 @@
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="e89bcc7e-3b52-46d8-aa72-abbc98f734b4">
       <importedVariable Id="2408f3ad-4c13-4783-a50d-748b9ad51f24" name="Sensor" range="KeinZug, ZugFaehrtDurch" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="29d82627-ef3a-4f37-bf96-3fa42bca41b2">
+      <importedVariable Id="a9d788c8-2d58-4bd6-b168-be8efaaaafa2" name="BahnuebergangOeffnungsTimer" range="Wartend, Aktiv, Timeout" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

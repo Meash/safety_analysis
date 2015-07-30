@@ -19,7 +19,7 @@ DEFINE
 				& v.V_ZugFunksender_Ausfall = L_No
 				& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No);
 
-	
+
 -- Safety
 LTLSPEC G KeinFehler -> (ZugAmGefahrenpunkt -> SchrankeZu)
 LTLSPEC G KeinFehler -> (ZugAmGefahrenpunkt -> (SchrankeZu U ZugAmSensorpunkt))
@@ -56,6 +56,7 @@ CTLSPEC AG KeinFehler -> (
 -- Zug
 ---- Bremse
 LTLSPEC G (v.V_Zugbremse = L_Bremsend -> F v.V_vReal = 0)
+LTLSPEC G KeinFehler -> (! F v.V_Zugbremse = L_Bremsend)
 
 ---- ZugPunktpositionsbestimmung
 LTLSPEC G KeinFehler -> 

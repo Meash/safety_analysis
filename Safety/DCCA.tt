@@ -21,7 +21,7 @@ DEFINE
 	Hazard := ZugAmGefahrenpunkt & SchrankeOffen;
 
 
-	-- leere Fehlermenge -> nicht kritisch
+-- leere Fehlermenge -> nicht kritisch
 LTLSPEC ! (KeinFehler U Hazard)
 
 -- einelementige Fehlermengen
