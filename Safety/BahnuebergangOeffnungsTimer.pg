@@ -3,7 +3,7 @@
   <states>
     <initialNode Id="d7df6a2f-ac9d-472f-8e26-566afc9b1774" name="InitialNode1">
       <successors>
-        <transition Id="85376fd7-6427-4079-8337-6f232b18de9d" guard="countdown == 30" label="countdown == 30">
+        <transition Id="85376fd7-6427-4079-8337-6f232b18de9d" guard="countdown == 20" label="countdown == 20">
           <stateMoniker name="/766fd1de-7f12-4859-b1c7-ca52f17a43f0/Wartend" />
         </transition>
       </successors>

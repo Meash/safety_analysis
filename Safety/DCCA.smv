@@ -52,10 +52,11 @@ MODULE _P_BahnuebergangFunksender(v)
 	INIT
 		(v.V_BahnuebergangFunksender = L_Wartend) & (TRUE)
 	TRANS
-		 ( v.V_BahnuebergangFunksender = L_Wartend & next(v.V_BahnuebergangFunksender) = L_SendeBestaetigungsNachricht & ((v.V_BahnuebergangFunkSteuerung = L_SendeBestaetigungsNachricht) | (v.V_BahnuebergangFunksender_Stoerung != L_No)) & (TRUE))  |
+		 ( v.V_BahnuebergangFunksender = L_Wartend & next(v.V_BahnuebergangFunksender) = L_SendeBestaetigungsNachricht & ((v.V_BahnuebergangFunkSteuerung = L_SendeBestaetigungsNachricht) & (v.V_BahnuebergangFunksender_Stoerung = L_No)) & (TRUE))  |
+		 ( v.V_BahnuebergangFunksender = L_Wartend & next(v.V_BahnuebergangFunksender) = L_SendeBestaetigungsNachricht & (v.V_BahnuebergangFunksender_Stoerung != L_No) & (TRUE))  |
 		 ( v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet & next(v.V_BahnuebergangFunksender) = L_Wartend & TRUE & (TRUE))  |
 		 ( v.V_BahnuebergangFunksender = L_SendeBestaetigungsNachricht & next(v.V_BahnuebergangFunksender) = L_BestaetigungsNachrichtGesendet & TRUE & (TRUE))  |
-		 ( v.V_BahnuebergangFunksender = L_Wartend & next(v.V_BahnuebergangFunksender) = L_Wartend & !((v.V_BahnuebergangFunkSteuerung = L_SendeBestaetigungsNachricht) | (v.V_BahnuebergangFunksender_Stoerung != L_No)) & (TRUE));
+		 ( v.V_BahnuebergangFunksender = L_Wartend & next(v.V_BahnuebergangFunksender) = L_Wartend & (!((v.V_BahnuebergangFunkSteuerung = L_SendeBestaetigungsNachricht) & (v.V_BahnuebergangFunksender_Stoerung = L_No)) & !(v.V_BahnuebergangFunksender_Stoerung != L_No)) & (TRUE));
 MODULE _P_BahnuebergangFunksender_Stoerung(v)
 	INIT
 		(v.V_BahnuebergangFunksender_Stoerung = L_No) & (TRUE)
@@ -76,7 +77,7 @@ MODULE _P_BahnuebergangFunkSteuerung(v)
 		 ( v.V_BahnuebergangFunkSteuerung = L_SendeBestaetigungsNachricht & next(v.V_BahnuebergangFunkSteuerung) = L_SendeBestaetigungsNachricht & !(v.V_BahnuebergangFunksender = L_BestaetigungsNachrichtGesendet) & (TRUE));
 MODULE _P_BahnuebergangOeffnungsTimer(v)
 	INIT
-		(v.V_BahnuebergangOeffnungsTimer = L_Wartend) & ((v.V_countdown = 30))
+		(v.V_BahnuebergangOeffnungsTimer = L_Wartend) & ((v.V_countdown = 20))
 	TRANS
 		 ( v.V_BahnuebergangOeffnungsTimer = L_Wartend & next(v.V_BahnuebergangOeffnungsTimer) = L_Aktiv & (v.V_Schrankensensor = L_Geschlossen) & (next(v.V_countdown) = v.V_countdown))  |
 		 ( v.V_BahnuebergangOeffnungsTimer = L_Aktiv & next(v.V_BahnuebergangOeffnungsTimer) = L_Aktiv & ((v.V_countdown > 0) & ((v.V_countdown - 1) >= 0)) & (next(v.V_countdown) = (v.V_countdown - 1)))  |
@@ -337,6 +338,7 @@ MODULE main
 		p_Zuggeschwindigkeit : _P_Zuggeschwindigkeit(v);
 		p_Zughodometer : _P_Zughodometer(v);
 		p_Zugmotor : _P_Zugmotor(v);
+		p_Zugmotor_Stoerung : _P_Zugmotor_Stoerung(v);
 		p_Zugposition : _P_Zugposition(v);
 		p_ZugPunktpositionsbestimmung : _P_ZugPunktpositionsbestimmung(v);
 		p_ZugPunktpositionsbestimmung_Stoerung : _P_ZugPunktpositionsbestimmung_Stoerung(v);
