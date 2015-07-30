@@ -53,9 +53,9 @@
     <None Include="BahnuebergangFunkempfaenger.pg.diagram">
       <DependentUpon>BahnuebergangFunkempfaenger.pg</DependentUpon>
     </None>
-    <None Include="BahnuebergangFunksender_Fehler.pg" />
-    <None Include="BahnuebergangFunksender_Fehler.pg.diagram">
-      <DependentUpon>BahnuebergangFunksender_Fehler.pg</DependentUpon>
+    <None Include="BahnuebergangFunksender_Stoerung.pg" />
+    <None Include="BahnuebergangFunksender_Stoerung.pg.diagram">
+      <DependentUpon>BahnuebergangFunksender_Stoerung.pg</DependentUpon>
     </None>
     <None Include="BahnuebergangFunksender.pg" />
     <None Include="BahnuebergangFunksender.pg.diagram">
@@ -87,13 +87,13 @@
     <None Include="Schrankensensor.pg.diagram">
       <DependentUpon>Schrankensensor.pg</DependentUpon>
     </None>
-    <None Include="Schrankensensor_Fehler.pg" />
-    <None Include="Schrankensensor_Fehler.pg.diagram">
-      <DependentUpon>Schrankensensor_Fehler.pg</DependentUpon>
+    <None Include="Schrankensensor_Stoerung.pg" />
+    <None Include="Schrankensensor_Stoerung.pg.diagram">
+      <DependentUpon>Schrankensensor_Stoerung.pg</DependentUpon>
     </None>
-    <None Include="Schrankenmotor_Fehler.pg" />
-    <None Include="Schrankenmotor_Fehler.pg.diagram">
-      <DependentUpon>Schrankenmotor_Fehler.pg</DependentUpon>
+    <None Include="Schrankenmotor_Ausfall.pg" />
+    <None Include="Schrankenmotor_Ausfall.pg.diagram">
+      <DependentUpon>Schrankenmotor_Ausfall.pg</DependentUpon>
     </None>
     <None Include="Schrankenmotor.pg" />
     <None Include="Schrankenmotor.pg.diagram">
@@ -107,25 +107,25 @@
     <None Include="Sensor.pg.diagram">
       <DependentUpon>Sensor.pg</DependentUpon>
     </None>
-    <None Include="Sensor_Fehler.pg" />
-    <None Include="Sensor_Fehler.pg.diagram">
-      <DependentUpon>Sensor_Fehler.pg</DependentUpon>
+    <None Include="Sensor_Stoerung.pg" />
+    <None Include="Sensor_Stoerung.pg.diagram">
+      <DependentUpon>Sensor_Stoerung.pg</DependentUpon>
     </None>
     <None Include="ZugbremseAktuator.pg" />
     <None Include="ZugbremseAktuator.pg.diagram">
       <DependentUpon>ZugbremseAktuator.pg</DependentUpon>
     </None>
-    <None Include="ZugFunksender_Fehler.pg" />
-    <None Include="ZugFunksender_Fehler.pg.diagram">
-      <DependentUpon>ZugFunksender_Fehler.pg</DependentUpon>
+    <None Include="ZugFunksender_Ausfall.pg" />
+    <None Include="ZugFunksender_Ausfall.pg.diagram">
+      <DependentUpon>ZugFunksender_Ausfall.pg</DependentUpon>
     </None>
-    <None Include="Zugpositionsbestimmung_Fehler.pg" />
-    <None Include="Zugpositionsbestimmung_Fehler.pg.diagram">
-      <DependentUpon>Zugpositionsbestimmung_Fehler.pg</DependentUpon>
+    <None Include="ZugPunktpositionsbestimmung_Stoerung.pg" />
+    <None Include="ZugPunktpositionsbestimmung_Stoerung.pg.diagram">
+      <DependentUpon>ZugPunktpositionsbestimmung_Stoerung.pg</DependentUpon>
     </None>
-    <None Include="Zugbremse_Fehler.pg" />
-    <None Include="Zugbremse_Fehler.pg.diagram">
-      <DependentUpon>Zugbremse_Fehler.pg</DependentUpon>
+    <None Include="Zugbremse_Ausfall.pg" />
+    <None Include="Zugbremse_Ausfall.pg.diagram">
+      <DependentUpon>Zugbremse_Ausfall.pg</DependentUpon>
     </None>
     <None Include="Zugbremse.pg" />
     <None Include="Zugbremse.pg.diagram">
@@ -159,9 +159,9 @@
     <None Include="Zugposition.pg.diagram">
       <DependentUpon>Zugposition.pg</DependentUpon>
     </None>
-    <None Include="Zugpositionsbestimmung.pg" />
-    <None Include="Zugpositionsbestimmung.pg.diagram">
-      <DependentUpon>Zugpositionsbestimmung.pg</DependentUpon>
+    <None Include="ZugPunktpositionsbestimmung.pg" />
+    <None Include="ZugPunktpositionsbestimmung.pg.diagram">
+      <DependentUpon>ZugPunktpositionsbestimmung.pg</DependentUpon>
     </None>
     <None Include="Zugsteuerung.pg" />
     <None Include="Zugsteuerung.pg.diagram">

@@ -11,13 +11,13 @@ DEFINE
 	SchrankeOffen := v.V_Winkel = 2;
 	ZugAmGefahrenpunkt := v.V_PositionReal >= GP & v.V_PositionReal < GP + v.V_vReal; -- Interval
 	ZugAmSensorpunkt := v.V_PositionReal >= SP & v.V_PositionReal < SP + v.V_vReal; -- Interval
-	KeinFehler := (v.V_Sensor_Fehler = L_No 
-				& v.V_BahnuebergangFunksender_Fehler = L_No 
-				& v.V_Zugbremse_Fehler = L_No
-				& v.V_Schrankenmotor_Fehler = L_No
-				& v.V_Schrankensensor_Fehler = L_No
-				& v.V_ZugFunksender_Fehler = L_No
-				& v.V_Zugpositionsbestimmung_Fehler = L_No);
+	KeinFehler := (v.V_Sensor_Stoerung = L_No 
+				& v.V_BahnuebergangFunksender_Stoerung = L_No 
+				& v.V_Zugbremse_Ausfall = L_No
+				& v.V_Schrankenmotor_Ausfall = L_No
+				& v.V_Schrankensensor_Stoerung = L_No
+				& v.V_ZugFunksender_Ausfall = L_No
+				& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No);
 
 	
 -- Safety
@@ -56,32 +56,30 @@ CTLSPEC AG KeinFehler -> (
 ---- Bremse
 LTLSPEC G (v.V_Zugbremse = L_Bremsend -> F v.V_vReal = 0)
 
----- Zugpositionsbestimmung
+---- ZugPunktpositionsbestimmung
 LTLSPEC G KeinFehler -> 
 		-- alle kommen vor
-		(v.V_Zugpositionsbestimmung = L_AufFreierStrecke
-		& X F (v.V_Zugpositionsbestimmung = L_EinschaltpunktErreicht 
-		& X F (v.V_Zugpositionsbestimmung = L_NachEinschaltpunkt 
-		& X F (v.V_Zugpositionsbestimmung = L_AnfragepunktErreicht 
-		& X F (v.V_Zugpositionsbestimmung = L_NachAnfragepunkt 
-		& X F (v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht 
-		& X F (v.V_Zugpositionsbestimmung = L_NachBremseinsatzpunkt 
-		& X F (v.V_Zugpositionsbestimmung = L_GefahrenpunktErreicht 
-		& X F (v.V_Zugpositionsbestimmung = L_NachGefahrenpunkt 
-		& X F v.V_Zugpositionsbestimmung = L_Ende))))))))
+		(v.V_ZugPunktpositionsbestimmung = L_AufFreierStrecke
+		& X F (v.V_ZugPunktpositionsbestimmung = L_EinschaltpunktErreicht 
+		& X F (v.V_ZugPunktpositionsbestimmung = L_NachEinschaltpunkt 
+		& X F (v.V_ZugPunktpositionsbestimmung = L_AnfragepunktErreicht 
+		& X F (v.V_ZugPunktpositionsbestimmung = L_NachAnfragepunkt 
+		& X F (v.V_ZugPunktpositionsbestimmung = L_BremseinsatzpunktErreicht 
+		& X F (v.V_ZugPunktpositionsbestimmung = L_NachBremseinsatzpunkt 
+		& X F (v.V_ZugPunktpositionsbestimmung = L_GefahrenpunktErreicht 
+		& X F v.V_ZugPunktpositionsbestimmung = L_Ende)))))))
 		-- nur eine Reihenfolge
-		& v.V_Zugpositionsbestimmung = L_AufFreierStrecke
-		U (v.V_Zugpositionsbestimmung = L_EinschaltpunktErreicht 
-		U (v.V_Zugpositionsbestimmung = L_NachEinschaltpunkt 
-		U (v.V_Zugpositionsbestimmung = L_AnfragepunktErreicht 
-		U (v.V_Zugpositionsbestimmung = L_NachAnfragepunkt 
-		U (v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht 
-		U (v.V_Zugpositionsbestimmung = L_NachBremseinsatzpunkt 
-		U (v.V_Zugpositionsbestimmung = L_GefahrenpunktErreicht 
-		U (v.V_Zugpositionsbestimmung = L_NachGefahrenpunkt 
-		U v.V_Zugpositionsbestimmung = L_Ende)))))))))
+		& v.V_ZugPunktpositionsbestimmung = L_AufFreierStrecke
+		U (v.V_ZugPunktpositionsbestimmung = L_EinschaltpunktErreicht 
+		U (v.V_ZugPunktpositionsbestimmung = L_NachEinschaltpunkt 
+		U (v.V_ZugPunktpositionsbestimmung = L_AnfragepunktErreicht 
+		U (v.V_ZugPunktpositionsbestimmung = L_NachAnfragepunkt 
+		U (v.V_ZugPunktpositionsbestimmung = L_BremseinsatzpunktErreicht 
+		U (v.V_ZugPunktpositionsbestimmung = L_NachBremseinsatzpunkt 
+		U (v.V_ZugPunktpositionsbestimmung = L_GefahrenpunktErreicht 
+		U v.V_ZugPunktpositionsbestimmung = L_Ende))))))))
 
 ---- Zugsteuerung
 LTLSPEC G KeinFehler
-			-> ((v.V_Zugpositionsbestimmung = L_BremseinsatzpunktErreicht & SchrankeOffen)
+			-> ((v.V_ZugPunktpositionsbestimmung = L_BremseinsatzpunktErreicht & SchrankeOffen)
 				-> X v.V_Zugsteuerung = L_Zwangsbremsung)

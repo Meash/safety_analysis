@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="0304e74b-a749-46bc-baa8-dcc327f9be5c" name="Zugpositionsbestimmung_Fehler" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="0304e74b-a749-46bc-baa8-dcc327f9be5c" name="ZugPunktpositionsbestimmung_Stoerung" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
   <states>
     <initialNode Id="00397895-4879-4cc1-ba3c-63f4ea906593" name="InitialNode1">
       <successors>

@@ -10,10 +10,10 @@
     </initialNode>
     <state Id="814bfba5-102b-4abe-bd5e-62535a2a0f6d" name="Wartend">
       <successors>
-        <transition Id="fe72d7fe-1eaf-4fca-bd29-c4e8e5643304" guard="ZugFunksteuerung == SendeSicherungsAnweisung &amp;&amp; ZugFunksender_Fehler == No" label="ZugFunksteuerung == SendeSicherungsAnweisung &amp;&amp; ZugFunksender_Fehler == No">
+        <transition Id="fe72d7fe-1eaf-4fca-bd29-c4e8e5643304" guard="ZugFunksteuerung == SendeSicherungsAnweisung &amp;&amp; ZugFunksender_Ausfall == No" label="ZugFunksteuerung == SendeSicherungsAnweisung &amp;&amp; ZugFunksender_Ausfall == No">
           <stateMoniker name="/e9a61c51-ad65-41c0-bc7d-ba13db01c9a0/SicherungsAnweisungGesendet" />
         </transition>
-        <transition Id="fae65b11-9f26-4eb5-8336-73b1fd063bb0" guard="ZugFunksteuerung == SendeAnfrage &amp;&amp; ZugFunksender_Fehler == No" label="ZugFunksteuerung == SendeAnfrage &amp;&amp; ZugFunksender_Fehler == No">
+        <transition Id="fae65b11-9f26-4eb5-8336-73b1fd063bb0" guard="ZugFunksteuerung == SendeAnfrage &amp;&amp; ZugFunksender_Ausfall == No" label="ZugFunksteuerung == SendeAnfrage &amp;&amp; ZugFunksender_Ausfall == No">
           <stateMoniker name="/e9a61c51-ad65-41c0-bc7d-ba13db01c9a0/AnfrageGesendet" />
         </transition>
       </successors>
@@ -38,7 +38,7 @@
       <importedVariable Id="b7090aef-b0a1-4118-86a5-9bcf41c925ee" name="ZugFunksteuerung" range="Wartend, SendeSicherungsAnweisung, SendeAnfrage" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="10a5dbef-e48b-4ad6-acd3-ed5822486ee0">
-      <importedVariable Id="ed58d09a-819e-4788-a2e8-8985a3631ab0" name="ZugFunksender_Fehler" range="No, Yes" />
+      <importedVariable Id="ed58d09a-819e-4788-a2e8-8985a3631ab0" name="ZugFunksender_Ausfall" range="No, Yes" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

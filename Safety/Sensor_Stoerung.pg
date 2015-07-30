@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="70f13bd9-d24b-4138-a7e5-f8982969ee0d" name="Sensor_Fehler" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="70f13bd9-d24b-4138-a7e5-f8982969ee0d" name="Sensor_Stoerung" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
   <states>
     <initialNode Id="a9321b0a-5a50-40f7-ba9b-40fc10083f27" name="InitialNode1">
       <successors>
@@ -11,20 +11,20 @@
     <state Id="7bf4aab5-4a88-4906-98ed-8218381bd939" name="No">
       <successors>
         <transition Id="0e454b00-167b-489d-88e0-05f1bc4fd3a3">
-          <stateMoniker name="/70f13bd9-d24b-4138-a7e5-f8982969ee0d/Yes" />
+          <stateMoniker name="/70f13bd9-d24b-4138-a7e5-f8982969ee0d/ErkenntImmerZug" />
         </transition>
         <transition Id="2fc101a4-f078-4e16-906a-bbeda3b05cfc">
           <stateMoniker name="/70f13bd9-d24b-4138-a7e5-f8982969ee0d/No" />
         </transition>
       </successors>
     </state>
-    <state Id="a6aa818b-9f05-463d-9092-0881823d914f" name="Yes">
+    <state Id="a6aa818b-9f05-463d-9092-0881823d914f" name="ErkenntImmerZug">
       <successors>
         <transition Id="ba4a6c44-249d-451f-87b9-36593757bf1f">
           <stateMoniker name="/70f13bd9-d24b-4138-a7e5-f8982969ee0d/No" />
         </transition>
         <transition Id="43a45f78-1fd5-4fc1-a6ce-12786d054905">
-          <stateMoniker name="/70f13bd9-d24b-4138-a7e5-f8982969ee0d/Yes" />
+          <stateMoniker name="/70f13bd9-d24b-4138-a7e5-f8982969ee0d/ErkenntImmerZug" />
         </transition>
       </successors>
     </state>

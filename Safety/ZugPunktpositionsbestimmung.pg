@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="288248bd-3e03-4eda-a54d-6d89134c2093" name="Zugpositionsbestimmung" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="288248bd-3e03-4eda-a54d-6d89134c2093" name="ZugPunktpositionsbestimmung" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
   <states>
     <initialNode Id="a63c328a-4b56-40cb-a6fc-cbbb2c309726" name="InitialNode1">
       <successors>
@@ -10,7 +10,7 @@
     </initialNode>
     <state Id="86813711-8391-45f3-9af9-ba8ed78d5d55" name="AufFreierStrecke">
       <successors>
-        <transition Id="b01a5bbf-9ebc-4051-941b-47524a7eee26" guard="Position &gt;= _EP &amp;&amp; Zugpositionsbestimmung_Fehler == No" label="Position &gt;= _EP &amp;&amp; Zugpositionsbestimmung_Fehler == No">
+        <transition Id="b01a5bbf-9ebc-4051-941b-47524a7eee26" guard="Position &gt;= _EP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No" label="Position &gt;= _EP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/EinschaltpunktErreicht" />
         </transition>
       </successors>
@@ -20,14 +20,14 @@
         <transition Id="14f71e7c-f711-4449-8699-e85d39590118">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/NachEinschaltpunkt" />
         </transition>
-        <transition Id="94285706-7738-4938-bbf4-b68549fdc9ec" guard="Zugpositionsbestimmung_Fehler != No" label="Zugpositionsbestimmung_Fehler != No">
+        <transition Id="94285706-7738-4938-bbf4-b68549fdc9ec" guard="ZugPunktpositionsbestimmung_Stoerung != No" label="ZugPunktpositionsbestimmung_Stoerung != No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AufFreierStrecke" />
         </transition>
       </successors>
     </state>
     <state Id="210dbee4-3e53-4aba-bd27-9f5a86335336" name="AnfragepunktErreicht">
       <successors>
-        <transition Id="d5312bf6-81eb-4952-8848-f4caa40e7d6c" guard="Zugpositionsbestimmung_Fehler != No" label="Zugpositionsbestimmung_Fehler != No">
+        <transition Id="d5312bf6-81eb-4952-8848-f4caa40e7d6c" guard="ZugPunktpositionsbestimmung_Stoerung != No" label="ZugPunktpositionsbestimmung_Stoerung != No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AufFreierStrecke" />
         </transition>
         <transition Id="6b123eb5-0cce-4037-b838-a1e3cab8f5bc">
@@ -37,17 +37,17 @@
     </state>
     <state Id="bf80a76f-982f-4051-861e-3f8189026f0b" name="GefahrenpunktErreicht">
       <successors>
-        <transition Id="8827ba27-553a-43bd-a798-914f63c4838e" guard="Zugpositionsbestimmung_Fehler != No" label="Zugpositionsbestimmung_Fehler != No">
+        <transition Id="8827ba27-553a-43bd-a798-914f63c4838e" guard="ZugPunktpositionsbestimmung_Stoerung != No" label="ZugPunktpositionsbestimmung_Stoerung != No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AufFreierStrecke" />
         </transition>
-        <transition Id="3a31ebf2-46b2-467b-b9bb-70144370554e">
-          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/NachGefahrenpunkt" />
+        <transition Id="e00df0eb-cbd4-4f61-bab4-e63afaab0808">
+          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/Ende" />
         </transition>
       </successors>
     </state>
     <state Id="8fe520b9-015d-4353-ba60-a47e30bac2a3" name="BremseinsatzpunktErreicht">
       <successors>
-        <transition Id="21b504bf-c59c-4a9f-847e-8e611876d62a" guard="Zugpositionsbestimmung_Fehler != No" label="Zugpositionsbestimmung_Fehler != No">
+        <transition Id="21b504bf-c59c-4a9f-847e-8e611876d62a" guard="ZugPunktpositionsbestimmung_Stoerung != No" label="ZugPunktpositionsbestimmung_Stoerung != No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AufFreierStrecke" />
         </transition>
         <transition Id="62169fd2-4897-470b-a9b9-44e5b0e31e15">
@@ -58,45 +58,40 @@
     <state Id="963b959a-69c8-47bd-8e0f-ababc50569e2" name="Ende" />
     <state Id="53005e5a-13a2-43f4-969e-b465d3de611c" name="NachEinschaltpunkt">
       <successors>
-        <transition Id="553756bc-010f-4779-ba84-688d2ffdf78a" guard="Position &gt;= _AP &amp;&amp; Zugpositionsbestimmung_Fehler == No" label="Position &gt;= _AP &amp;&amp; Zugpositionsbestimmung_Fehler == No">
+        <transition Id="553756bc-010f-4779-ba84-688d2ffdf78a" guard="Position &gt;= _AP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No" label="Position &gt;= _AP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AnfragepunktErreicht" />
         </transition>
-        <transition Id="e6e7d810-eedb-4db9-b7a4-128cf5d65a65" guard="Zugpositionsbestimmung_Fehler != No" label="Zugpositionsbestimmung_Fehler != No">
+        <transition Id="e6e7d810-eedb-4db9-b7a4-128cf5d65a65" guard="ZugPunktpositionsbestimmung_Stoerung != No" label="ZugPunktpositionsbestimmung_Stoerung != No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AufFreierStrecke" />
         </transition>
       </successors>
     </state>
     <state Id="3a350ee5-03e1-4467-a793-0d6950c79c72" name="NachAnfragepunkt">
       <successors>
-        <transition Id="70956767-f48a-494d-9f10-c4db6b8ed535" guard="Position &gt;= _BEP &amp;&amp; Zugpositionsbestimmung_Fehler == No" label="Position &gt;= _BEP &amp;&amp; Zugpositionsbestimmung_Fehler == No">
+        <transition Id="70956767-f48a-494d-9f10-c4db6b8ed535" guard="Position &gt;= _BEP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No" label="Position &gt;= _BEP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/BremseinsatzpunktErreicht" />
         </transition>
-        <transition Id="5e0f22ef-cdc9-4f5f-9d6e-4ba0e93fd2b3" guard="Zugpositionsbestimmung_Fehler != No" label="Zugpositionsbestimmung_Fehler != No">
+        <transition Id="5e0f22ef-cdc9-4f5f-9d6e-4ba0e93fd2b3" guard="ZugPunktpositionsbestimmung_Stoerung != No" label="ZugPunktpositionsbestimmung_Stoerung != No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AufFreierStrecke" />
         </transition>
       </successors>
     </state>
     <state Id="4b741c2a-2da9-451c-b248-855487bedbab" name="NachBremseinsatzpunkt">
       <successors>
-        <transition Id="e282f216-80ae-463d-a87a-25afd71ae4a8" guard="Position &gt;= _GP &amp;&amp; Zugpositionsbestimmung_Fehler == No" label="Position &gt;= _GP &amp;&amp; Zugpositionsbestimmung_Fehler == No">
+        <transition Id="e282f216-80ae-463d-a87a-25afd71ae4a8" guard="Position &gt;= _GP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No" label="Position &gt;= _GP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/GefahrenpunktErreicht" />
         </transition>
-        <transition Id="9b133047-b15f-492e-ba43-4d11d0554eaf" guard="Zugpositionsbestimmung_Fehler != No" label="Zugpositionsbestimmung_Fehler != No">
-          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AufFreierStrecke" />
-        </transition>
-      </successors>
-    </state>
-    <state Id="e788ef00-ab3b-4372-bfba-5d69802fe89e" name="NachGefahrenpunkt">
-      <successors>
-        <transition Id="ed127cf3-8c79-46a8-8775-5780f9cf9d18" guard="Zugpositionsbestimmung_Fehler == No" label="Zugpositionsbestimmung_Fehler == No">
-          <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/Ende" />
-        </transition>
-        <transition Id="caca9693-f63e-4d3e-a1b9-839a83ddcf73" guard="Zugpositionsbestimmung_Fehler != No" label="Zugpositionsbestimmung_Fehler != No">
+        <transition Id="9b133047-b15f-492e-ba43-4d11d0554eaf" guard="ZugPunktpositionsbestimmung_Stoerung != No" label="ZugPunktpositionsbestimmung_Stoerung != No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AufFreierStrecke" />
         </transition>
       </successors>
     </state>
   </states>
+  <comments>
+    <programGraphHasComments Id="d8a30ee5-7a06-4234-b896-e095ae8cbe32">
+      <comment Id="1d320260-f27a-4dda-b889-0e112be21d6e" text="Im Fehlerfall denkt die Komponente immer, sie ist auf freier Strecke" />
+    </programGraphHasComments>
+  </comments>
   <macros>
     <programGraphHasMacros Id="f8583c99-1e05-43bb-8098-2fe705f9416b">
       <macro Id="01ea6f13-17be-432f-983c-e2887fa09829" name="_EP" body="_AP - v * (_t + _c)" />
@@ -131,7 +126,7 @@
       <importedVariable Id="409133ee-a570-4eb0-85c2-2cf0a1effde4" name="Zughodometer.v" range="0..5" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="2dcb0672-4cd1-4aa5-a668-3bce7a97e525">
-      <importedVariable Id="36c20eb2-9dec-477a-b7a5-381de3990047" name="Zugpositionsbestimmung_Fehler" range="No, Yes" />
+      <importedVariable Id="36c20eb2-9dec-477a-b7a5-381de3990047" name="ZugPunktpositionsbestimmung_Stoerung" range="No, Yes" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

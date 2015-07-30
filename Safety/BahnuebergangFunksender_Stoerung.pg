@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="bb58c7c5-e45b-431f-85a2-f4d69b8095af" name="BahnuebergangFunksender_Fehler" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
+<programGraph xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="bb58c7c5-e45b-431f-85a2-f4d69b8095af" name="BahnuebergangFunksender_Stoerung" xmlns="http://schemas.microsoft.com/dsltools/ProgramGraphDsl">
   <states>
     <initialNode Id="e6eeac1b-e86f-4d9f-86fa-78a052883c46" name="InitialNode1">
       <successors>

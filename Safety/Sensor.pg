@@ -10,25 +10,27 @@
     </initialNode>
     <state Id="7bf4aab5-4a88-4906-98ed-8218381bd939" name="KeinZug">
       <successors>
-        <transition Id="0e454b00-167b-489d-88e0-05f1bc4fd3a3" guard="PositionReal &gt;= SP &amp;&amp; PositionReal &lt;= SP + Messweite &amp;&amp; Sensor_Fehler == No" label="PositionReal &gt;= SP &amp;&amp; PositionReal &lt;= SP + Messweite &amp;&amp; Sensor_Fehler == No">
+        <transition Id="0e454b00-167b-489d-88e0-05f1bc4fd3a3" guard="PositionReal &gt;= SP &amp;&amp; PositionReal &lt;= SP + Messweite &amp;&amp; Sensor_Stoerung == No" label="PositionReal &gt;= SP &amp;&amp; PositionReal &lt;= SP + Messweite &amp;&amp; Sensor_Stoerung == No">
           <stateMoniker name="/70f13bd9-d24b-4138-a7e5-f8982969ee0d/ZugFaehrtDurch" />
         </transition>
-        <transition Id="9d49167d-1e07-4d7c-8b71-d85a6cac248e" guard="Sensor_Fehler != No" label="Sensor_Fehler != No">
+        <transition Id="9d49167d-1e07-4d7c-8b71-d85a6cac248e" guard="Sensor_Stoerung != No" label="Sensor_Stoerung != No">
           <stateMoniker name="/70f13bd9-d24b-4138-a7e5-f8982969ee0d/ZugFaehrtDurch" />
         </transition>
       </successors>
     </state>
     <state Id="a6aa818b-9f05-463d-9092-0881823d914f" name="ZugFaehrtDurch">
       <successors>
-        <transition Id="ba4a6c44-249d-451f-87b9-36593757bf1f" guard="(PositionReal &lt; SP || PositionReal &gt; SP + Messweite) &amp;&amp; Sensor_Fehler == No" label="(PositionReal &lt; SP || PositionReal &gt; SP + Messweite) &amp;&amp; Sensor_Fehler == No">
-          <stateMoniker name="/70f13bd9-d24b-4138-a7e5-f8982969ee0d/KeinZug" />
-        </transition>
-        <transition Id="67085d8d-24a1-41e5-acd0-be2e58039eeb" guard="Sensor_Fehler != No" label="Sensor_Fehler != No">
+        <transition Id="ba4a6c44-249d-451f-87b9-36593757bf1f" guard="(PositionReal &lt; SP || PositionReal &gt; SP + Messweite) &amp;&amp; Sensor_Stoerung == No" label="(PositionReal &lt; SP || PositionReal &gt; SP + Messweite) &amp;&amp; Sensor_Stoerung == No">
           <stateMoniker name="/70f13bd9-d24b-4138-a7e5-f8982969ee0d/KeinZug" />
         </transition>
       </successors>
     </state>
   </states>
+  <comments>
+    <programGraphHasComments Id="257a1821-d0c2-4075-b77b-7607dc05204b">
+      <comment Id="f24c929b-4715-45ac-89d7-e826a576819c" text="Von der kabelbasierten Kommunikation zwischen Sensor und Bahnuebergang haben wir abstrahiert" />
+    </programGraphHasComments>
+  </comments>
   <macros>
     <programGraphHasMacros Id="56f212c5-d739-4679-911e-8735ea70c1b6">
       <macro Id="b94772f5-2c29-404a-9be3-fec9a65818c6" name="SP" body="35" />
@@ -42,7 +44,7 @@
       <importedVariable Id="a696361b-69f2-400b-8957-249afa960c86" name="Zugposition.PositionReal" range="-200..100" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="5039e6e8-ecd0-4989-adb6-9cdb9af8c5a7">
-      <importedVariable Id="90016be4-4f09-44ee-bf0f-47d612699607" name="Sensor_Fehler" range="No, Yes" />
+      <importedVariable Id="90016be4-4f09-44ee-bf0f-47d612699607" name="Sensor_Stoerung" range="No, ErkenntImmerZug" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

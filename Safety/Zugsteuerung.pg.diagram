@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<programGraphDslDiagram dslVersion="1.0.0.0" Id="8c4fb884-7355-43ea-b724-486eed3d5b3e" absoluteBounds="0, 0, 11.25, 8.5" name="Zug">
+<programGraphDslDiagram dslVersion="1.0.0.0" Id="8c4fb884-7355-43ea-b724-486eed3d5b3e" absoluteBounds="0, 0, 11, 8.5" name="Zug">
   <programGraphMoniker Id="288248bd-3e03-4eda-a54d-6d89134c2093" />
   <nestedChildShapes>
     <initialStateShape Id="dd6370b4-1a46-4a7d-8608-35b80669a793" absoluteBounds="2.25, 3.25, 0.125, 0.125">
@@ -44,7 +44,7 @@
         <stateShapeMoniker Id="dd2fa1be-edb4-42c5-9840-e8524df47c32" />
       </nodes>
     </transitionConnector>
-    <commentBoxShape Id="305c28ea-dada-4161-be44-6b30e8920cc3" absoluteBounds="9.125, 3.5, 1.875, 0.5">
+    <commentBoxShape Id="305c28ea-dada-4161-be44-6b30e8920cc3" absoluteBounds="9.125, 3.5, 1.125, 0.5">
       <commentMoniker Id="849de69c-4250-4253-ac4d-a57a496184d7" />
     </commentBoxShape>
     <commentBoxShape Id="a9d6450a-939c-4c92-bc03-6d4c5446292d" absoluteBounds="6.625, 1.625, 2, 0.5">
@@ -54,7 +54,7 @@
       <transitionMoniker Id="ce6f3cc5-6624-44e1-b1a4-65a21447e742" />
       <relativeChildShapes />
       <moveableDecoratorHostShapes>
-        <moveableDecoratorHostShape manuallyPlaced="true" absoluteBounds="2.2952880859375, 3.9375, 3.8813881874084473, 0.181884765625" shapeFieldName="Label" />
+        <moveableDecoratorHostShape manuallyPlaced="true" absoluteBounds="2.132537841796875, 3.9375, 4.2068886756896973, 0.181884765625" shapeFieldName="Label" />
       </moveableDecoratorHostShapes>
       <nodes>
         <stateShapeMoniker Id="dd2fa1be-edb4-42c5-9840-e8524df47c32" />

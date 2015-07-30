@@ -8,7 +8,7 @@
     <stateShape Id="b922573f-7da2-44a3-9577-51a896227b1d" absoluteBounds="1.625, 3, 1, 0.5">
       <stateMoniker name="/e9a61c51-ad65-41c0-bc7d-ba13db01c9a0/Wartend" />
     </stateShape>
-    <transitionConnector Id="8e760d35-3545-4578-a4de-cdb95858390f" edgePoints="[(0.75 : 3.1875); (1.625 : 3.1875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <transitionConnector Id="8e760d35-3545-4578-a4de-cdb95858390f" edgePoints="[(0.75 : 3.1875); (1.625 : 3.1875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <transitionMoniker Id="3f668baf-c6a4-410d-b461-ecb57e4cc03e" />
       <relativeChildShapes />
       <nodes>
@@ -19,18 +19,18 @@
     <stateShape Id="e714de15-452c-410d-930f-231140a06dbe" absoluteBounds="6.875, 1.875, 2, 0.5">
       <stateMoniker name="/e9a61c51-ad65-41c0-bc7d-ba13db01c9a0/SicherungsAnweisungGesendet" />
     </stateShape>
-    <transitionConnector Id="1b031614-ab1e-4240-aa3b-f6d01db4e964" edgePoints="[(2.625 : 3.25); (7.875 : 3.25); (7.875 : 2.375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <transitionConnector Id="1b031614-ab1e-4240-aa3b-f6d01db4e964" edgePoints="[(2.625 : 3.25); (7.875 : 3.25); (7.875 : 2.375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <transitionMoniker Id="fe72d7fe-1eaf-4fca-bd29-c4e8e5643304" />
       <relativeChildShapes />
       <moveableDecoratorHostShapes>
-        <moveableDecoratorHostShape manuallyPlaced="true" absoluteBounds="2.8125, 3, 4.9230141639709473, 0.181884765625" shapeFieldName="Label" />
+        <moveableDecoratorHostShape manuallyPlaced="true" absoluteBounds="2.796295166015625, 3.0000000000000049, 4.9554238319396973, 0.181884765625" shapeFieldName="Label" />
       </moveableDecoratorHostShapes>
       <nodes>
         <stateShapeMoniker Id="b922573f-7da2-44a3-9577-51a896227b1d" />
         <stateShapeMoniker Id="e714de15-452c-410d-930f-231140a06dbe" />
       </nodes>
     </transitionConnector>
-    <transitionConnector Id="c371e1b0-7b37-44e3-851a-c3fe26ef75c6" edgePoints="[(6.875 : 2.125); (2.125 : 2.125); (2.125 : 3)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <transitionConnector Id="c371e1b0-7b37-44e3-851a-c3fe26ef75c6" edgePoints="[(6.875 : 2.125); (2.125 : 2.125); (2.125 : 3)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <transitionMoniker Id="fc00c5eb-c15e-4955-926e-64e9d243fb91" />
       <relativeChildShapes />
       <nodes>
@@ -41,18 +41,18 @@
     <stateShape Id="9c4deda8-8b4f-49d7-b05a-626c8e5abdae" absoluteBounds="7.125, 4.25, 1.5, 0.5">
       <stateMoniker name="/e9a61c51-ad65-41c0-bc7d-ba13db01c9a0/AnfrageGesendet" />
     </stateShape>
-    <transitionConnector Id="5660fb82-999c-4a54-b587-8c46fae0e87b" edgePoints="[(2.625 : 3.4062525); (7.88306451612903 : 3.4062525); (7.88306451612903 : 4.25)]" fixedFrom="Algorithm" fixedTo="Caller">
+    <transitionConnector Id="5660fb82-999c-4a54-b587-8c46fae0e87b" edgePoints="[(2.625 : 3.4062525); (7.88306451612903 : 3.4062525); (7.88306451612903 : 4.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <transitionMoniker Id="fae65b11-9f26-4eb5-8336-73b1fd063bb0" />
       <relativeChildShapes />
       <moveableDecoratorHostShapes>
-        <moveableDecoratorHostShape manuallyPlaced="true" absoluteBounds="2.875, 3.4375, 4.1287636756896973, 0.181884765625" shapeFieldName="Label" />
+        <moveableDecoratorHostShape manuallyPlaced="true" absoluteBounds="2.858795166015625, 3.4374999999999973, 4.1611733436584473, 0.181884765625" shapeFieldName="Label" />
       </moveableDecoratorHostShapes>
       <nodes>
         <stateShapeMoniker Id="b922573f-7da2-44a3-9577-51a896227b1d" />
         <stateShapeMoniker Id="9c4deda8-8b4f-49d7-b05a-626c8e5abdae" />
       </nodes>
     </transitionConnector>
-    <transitionConnector Id="2f4f3b72-20e0-46e8-918c-999080514ef3" edgePoints="[(7.125 : 4.5); (2.125 : 4.5); (2.125 : 3.5)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <transitionConnector Id="2f4f3b72-20e0-46e8-918c-999080514ef3" edgePoints="[(7.125 : 4.5); (2.125 : 4.5); (2.125 : 3.5)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <transitionMoniker Id="f5c1b2d9-f095-4ed1-aec4-94fd4fa2d791" />
       <relativeChildShapes />
       <nodes>

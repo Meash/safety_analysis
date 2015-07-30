@@ -10,10 +10,10 @@
     </initialNode>
     <state Id="814bfba5-102b-4abe-bd5e-62535a2a0f6d" name="Wartend">
       <successors>
-        <transition Id="fe72d7fe-1eaf-4fca-bd29-c4e8e5643304" guard="Zugpositionsbestimmung == EinschaltpunktErreicht" label="Zugpositionsbestimmung == EinschaltpunktErreicht">
+        <transition Id="fe72d7fe-1eaf-4fca-bd29-c4e8e5643304" guard="ZugPunktpositionsbestimmung == EinschaltpunktErreicht" label="ZugPunktpositionsbestimmung == EinschaltpunktErreicht">
           <stateMoniker name="/e9a61c51-ad65-41c0-bc7d-ba13db01c9a0/SendeSicherungsAnweisung" />
         </transition>
-        <transition Id="fae65b11-9f26-4eb5-8336-73b1fd063bb0" guard="Zugpositionsbestimmung == AnfragepunktErreicht" label="Zugpositionsbestimmung == AnfragepunktErreicht">
+        <transition Id="fae65b11-9f26-4eb5-8336-73b1fd063bb0" guard="ZugPunktpositionsbestimmung == AnfragepunktErreicht" label="ZugPunktpositionsbestimmung == AnfragepunktErreicht">
           <stateMoniker name="/e9a61c51-ad65-41c0-bc7d-ba13db01c9a0/SendeAnfrage" />
         </transition>
       </successors>
@@ -35,7 +35,7 @@
   </states>
   <importedVariables>
     <programGraphHasImportedVariables Id="795827d2-73b2-4e62-9af9-b820cb706168">
-      <importedVariable Id="b7090aef-b0a1-4118-86a5-9bcf41c925ee" name="Zugpositionsbestimmung" range="AufFreierStrecke, EinschaltpunktErreicht, AnfragepunktErreicht, GefahrenpunktErreicht, BremseinsatzpunktErreicht, Ende, NachEinschaltpunkt, NachAnfragepunkt, NachBremseinsatzpunkt, NachGefahrenpunkt" />
+      <importedVariable Id="b7090aef-b0a1-4118-86a5-9bcf41c925ee" name="ZugPunktpositionsbestimmung" range="AufFreierStrecke, EinschaltpunktErreicht, AnfragepunktErreicht, GefahrenpunktErreicht, BremseinsatzpunktErreicht, Ende, NachEinschaltpunkt, NachAnfragepunkt, NachBremseinsatzpunkt" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

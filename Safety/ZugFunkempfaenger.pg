@@ -23,6 +23,11 @@
       </successors>
     </state>
   </states>
+  <comments>
+    <programGraphHasComments Id="47e8957a-0fae-4c9b-8c3d-bde0157c5fb3">
+      <comment Id="19b41616-2719-4ea6-824d-32e81450b6dc" text="Bei uns kein Funkkanal" />
+    </programGraphHasComments>
+  </comments>
   <importedVariables>
     <programGraphHasImportedVariables Id="8c175170-85db-4598-ab17-d5c287e326d9">
       <importedVariable Id="f71dfb18-76cd-4978-8caa-a5e3a094ec23" name="BahnuebergangFunksender" range="Wartend, BestaetigungsNachrichtGesendet, SendeBestaetigungsNachricht" />

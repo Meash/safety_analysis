@@ -33,6 +33,11 @@
       </successors>
     </state>
   </states>
+  <comments>
+    <programGraphHasComments Id="ac2a4aaa-6a14-41ed-929d-26a81506a5ae">
+      <comment Id="5955dbd8-4418-43f2-9690-3a2e8bfb94b3" text="Bei uns kein Funkkanal" />
+    </programGraphHasComments>
+  </comments>
   <importedVariables>
     <programGraphHasImportedVariables Id="d0278ead-41ec-46f9-ad2c-9fe664c0bd2c">
       <importedVariable Id="aa35942d-2163-4567-a524-73cfd259ec57" name="ZugFunksender" range="Wartend, SicherungsAnweisungGesendet, AnfrageGesendet" />
