@@ -10,7 +10,10 @@
     </initialNode>
     <state Id="30021519-0998-41c3-a21c-bcc56501ae68" name="Wartend">
       <successors>
-        <transition Id="50cce472-a84e-4586-9c5c-27d1e357f152" guard="BahnuebergangFunkSteuerung == SendeBestaetigungsNachricht || BahnuebergangFunksender_Stoerung != No" label="BahnuebergangFunkSteuerung == SendeBestaetigungsNachricht || BahnuebergangFunksender_Stoerung != No">
+        <transition Id="50cce472-a84e-4586-9c5c-27d1e357f152" guard="BahnuebergangFunkSteuerung == SendeBestaetigungsNachricht &amp;&amp; BahnuebergangFunksender_Stoerung == No" label="BahnuebergangFunkSteuerung == SendeBestaetigungsNachricht &amp;&amp; BahnuebergangFunksender_Stoerung == No">
+          <stateMoniker name="/bb58c7c5-e45b-431f-85a2-f4d69b8095af/SendeBestaetigungsNachricht" />
+        </transition>
+        <transition Id="ad1df7cf-5d47-4cad-8d78-34844926ec9e" guard="BahnuebergangFunksender_Stoerung != No" label="BahnuebergangFunksender_Stoerung != No">
           <stateMoniker name="/bb58c7c5-e45b-431f-85a2-f4d69b8095af/SendeBestaetigungsNachricht" />
         </transition>
       </successors>
