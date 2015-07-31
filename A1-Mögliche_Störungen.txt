@@ -1,0 +1,16 @@
+﻿Zug sendet Nachricht nicht an Bahnübergang
+Lichtsignalanlagen werden nicht aktiviert
+Schranken werden nicht geschlossen
+Kommunikation zwischen Steuerungssoftware und Bahnübergang schlägt fehl (AP)
+Zwangsbremsung schlägt fehl
+Messung der Zuggeschwindigkeit falsch
+Messung der Zugposition falsch
+Berechnung von AP geschieht nicht unverzüglich
+Zug braucht zu lange bis zum Öffnen-Sensor -> verfrühtes Öffnen
+Schranken sind nicht geschlossen, obwohl sie geschlossen sein müssen
+Fehlerhafte Erkennung des Zustands des BÜ
+Sensor meldet Passieren des Zugs, obwohl dieser noch nicht (vollständig) passiert ist
+Sensor meldet kein Passieren, obwohl Zug bereits passiert ist
+Hodometer liefert falsche Daten bzgl. Geschwindigkeit
+Hodometer liefert falsche Daten bzgl. Position
+Übertragungsverzögerung höher als max. Kommunikationsverzögerung
