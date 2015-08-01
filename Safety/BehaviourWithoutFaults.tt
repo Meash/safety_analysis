@@ -32,7 +32,7 @@ LTLSPEC G KeinFehler -> (G (SchrankeZu -> F SchrankeOffen))
 LTLSPEC G KeinFehler -> (G (v.V_ZugPunktpositionsbestimmung = L_AufFreierStrecke -> SchrankeOffen))
 
 ---- Schranke
-LTLSPEC G v.V_Schrankenmotor_Ausfall = L_No -> (G F SchrankeOffen)
+--LTLSPEC G v.V_Schrankenmotor_Ausfall = L_No -> (G F SchrankeOffen)
 
 ------ Schrankensensor
 LTLSPEC G KeinFehler -> (G (SchrankeZu -> X v.V_Schrankensensor = L_Geschlossen)) -- X due to state machine timing

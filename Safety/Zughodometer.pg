@@ -3,14 +3,14 @@
   <states>
     <initialNode Id="a63c328a-4b56-40cb-a6fc-cbbb2c309726" name="InitialNode1">
       <successors>
-        <transition Id="71bc4c5c-b2da-4e1b-b060-43dd6d99ea8d">
+        <transition Id="71bc4c5c-b2da-4e1b-b060-43dd6d99ea8d" guard="Position == -120 &amp;&amp; v == 5" label="Position == -120 &amp;&amp; v == 5">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/_" />
         </transition>
       </successors>
     </initialNode>
     <state Id="86813711-8391-45f3-9af9-ba8ed78d5d55" name="_">
       <successors>
-        <transition Id="147edf8a-50be-49f9-9b17-0e89e756fb2f" action="Position := PositionReal | v := vReal" label="// Position := PositionReal | v := vReal" precondition="PositionReal &gt;= -100 &amp;&amp; PositionReal &lt;= 50 &amp;&amp; vReal &gt;= 0 &amp;&amp; vReal &lt;= 3">
+        <transition Id="147edf8a-50be-49f9-9b17-0e89e756fb2f" action="Position := PositionReal | v := vReal" label="// Position := PositionReal | v := vReal" precondition="PositionReal &gt;= -120 &amp;&amp; PositionReal &lt;= 50 &amp;&amp; vReal &gt;= 0 &amp;&amp; vReal &lt;= 5">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/_" />
         </transition>
       </successors>
@@ -18,18 +18,18 @@
   </states>
   <variables>
     <programGraphHasVariables Id="72457577-7479-4011-b95b-6eba5706119c">
-      <variable Id="c63edc1e-904c-4c33-ad63-cd49dea0a4b4" name="Position" range="-100..50" />
+      <variable Id="c63edc1e-904c-4c33-ad63-cd49dea0a4b4" name="Position" range="-120..50" />
     </programGraphHasVariables>
     <programGraphHasVariables Id="345bec90-d444-47d3-bed6-7dd9dfe2e470">
-      <variable Id="238b5e60-a7f3-441b-904a-cb4af0d750ef" name="v" range="0..3" />
+      <variable Id="238b5e60-a7f3-441b-904a-cb4af0d750ef" name="v" range="0..5" />
     </programGraphHasVariables>
   </variables>
   <importedVariables>
     <programGraphHasImportedVariables Id="3185a34f-706a-40fc-aa50-cca2570fb6ac">
-      <importedVariable Id="8bddb3a2-2937-4d37-99e0-16c0a1b53516" name="Zugposition.PositionReal" range="-100..50" />
+      <importedVariable Id="8bddb3a2-2937-4d37-99e0-16c0a1b53516" name="Zugposition.PositionReal" range="-120..50" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="0faa63a3-b162-479a-a744-db2320228420">
-      <importedVariable Id="223a3cb9-b5e0-4c95-a8ab-27cb7051ba0d" name="Zuggeschwindigkeit.vReal" range="0..3" />
+      <importedVariable Id="223a3cb9-b5e0-4c95-a8ab-27cb7051ba0d" name="Zuggeschwindigkeit.vReal" range="0..5" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

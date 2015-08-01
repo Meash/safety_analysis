@@ -3,14 +3,14 @@
   <states>
     <initialNode Id="a63c328a-4b56-40cb-a6fc-cbbb2c309726" name="InitialNode1">
       <successors>
-        <transition Id="71bc4c5c-b2da-4e1b-b060-43dd6d99ea8d" guard="PositionReal == -100" label="PositionReal == -100">
+        <transition Id="71bc4c5c-b2da-4e1b-b060-43dd6d99ea8d" guard="PositionReal == -120" label="PositionReal == -120">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/_" />
         </transition>
       </successors>
     </initialNode>
     <state Id="86813711-8391-45f3-9af9-ba8ed78d5d55" name="_">
       <successors>
-        <transition Id="ac127002-948f-486e-8398-a6d66a55e46e" action="PositionReal := PositionReal + vReal" label="// PositionReal := PositionReal + vReal" precondition="PositionReal + vReal &lt;= 50 &amp;&amp; PositionReal + vReal &gt;= -200">
+        <transition Id="ac127002-948f-486e-8398-a6d66a55e46e" action="PositionReal := PositionReal + vReal" label="// PositionReal := PositionReal + vReal" precondition="PositionReal + vReal &lt;= 50 &amp;&amp; PositionReal + vReal &gt;= -120">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/_" />
         </transition>
       </successors>
@@ -18,12 +18,12 @@
   </states>
   <variables>
     <programGraphHasVariables Id="fd76164e-0c79-41e5-94a3-955a9305e5f3">
-      <variable Id="00645e92-a698-4f4a-96b7-84cd3b05c193" name="PositionReal" range="-100..50" />
+      <variable Id="00645e92-a698-4f4a-96b7-84cd3b05c193" name="PositionReal" range="-120..50" />
     </programGraphHasVariables>
   </variables>
   <importedVariables>
     <programGraphHasImportedVariables Id="d45ec324-4102-4999-93cf-4a719a66d1c2">
-      <importedVariable Id="5176b7ba-d4ce-4f67-a1a1-e9321b5150df" name="Zuggeschwindigkeit.vReal" range="0..3" />
+      <importedVariable Id="5176b7ba-d4ce-4f67-a1a1-e9321b5150df" name="Zuggeschwindigkeit.vReal" range="0..5" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

@@ -41,7 +41,7 @@
   </macros>
   <importedVariables>
     <programGraphHasImportedVariables Id="7630a6c1-858f-463b-978c-8bbddfc5c038">
-      <importedVariable Id="a696361b-69f2-400b-8957-249afa960c86" name="Zugposition.PositionReal" range="-100..50" />
+      <importedVariable Id="a696361b-69f2-400b-8957-249afa960c86" name="Zugposition.PositionReal" range="-120..50" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="5039e6e8-ecd0-4989-adb6-9cdb9af8c5a7">
       <importedVariable Id="90016be4-4f09-44ee-bf0f-47d612699607" name="Sensor_Stoerung" range="No, ErkenntImmerZug" />
