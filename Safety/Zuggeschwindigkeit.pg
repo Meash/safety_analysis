@@ -3,17 +3,17 @@
   <states>
     <initialNode Id="a63c328a-4b56-40cb-a6fc-cbbb2c309726" name="InitialNode1">
       <successors>
-        <transition Id="71bc4c5c-b2da-4e1b-b060-43dd6d99ea8d" guard="vReal == 5" label="vReal == 5">
+        <transition Id="71bc4c5c-b2da-4e1b-b060-43dd6d99ea8d" guard="vReal == 3" label="vReal == 3">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/_" />
         </transition>
       </successors>
     </initialNode>
     <state Id="86813711-8391-45f3-9af9-ba8ed78d5d55" name="_">
       <successors>
-        <transition Id="ac127002-948f-486e-8398-a6d66a55e46e" guard="vReal &gt; 0" action="vReal := vReal + Antriebswirkung + Bremswirkung + Reibungswirkung" label="vReal &gt; 0 // vReal := vReal + Antriebswirkung + Bremswirkung + Reibungswirkung" precondition="vReal + Antriebswirkung + Bremswirkung + Reibungswirkung &lt;= 5 &amp;&amp; vReal + Antriebswirkung + Bremswirkung + Reibungswirkung &gt;= 0">
+        <transition Id="ac127002-948f-486e-8398-a6d66a55e46e" guard="vReal &gt; 0" action="vReal := vReal + Antriebswirkung + Bremswirkung + Reibungswirkung" label="vReal &gt; 0 // vReal := vReal + Antriebswirkung + Bremswirkung + Reibungswirkung" precondition="vReal + Antriebswirkung + Bremswirkung + Reibungswirkung &lt;= 3 &amp;&amp; vReal + Antriebswirkung + Bremswirkung + Reibungswirkung &gt;= 0">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/_" />
         </transition>
-        <transition Id="fd5c9409-508b-4d2e-bfa0-af721cd460cd" guard="vReal == 1 &amp;&amp; Bremswirkung == -1 &amp;&amp; Antriebswirkung == 0" action="vReal := 0" label="vReal == 1 &amp;&amp; Bremswirkung == -1 &amp;&amp; Antriebswirkung == 0 // vReal := 0" precondition="0 &gt;= 0">
+        <transition Id="fd5c9409-508b-4d2e-bfa0-af721cd460cd" guard="vReal == 1 &amp;&amp; Bremswirkung == -1 &amp;&amp; Antriebswirkung == 0" action="vReal := 0" label="vReal == 1 &amp;&amp; Bremswirkung == -1 &amp;&amp; Antriebswirkung == 0 // vReal := 0" precondition="true">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/_" />
         </transition>
       </successors>
@@ -21,7 +21,7 @@
   </states>
   <variables>
     <programGraphHasVariables Id="2bdbc1c9-983e-4a9f-aba9-be969ca1ff8e">
-      <variable Id="5e9654e6-172f-4a9b-948b-f75205773433" name="vReal" range="0..5" />
+      <variable Id="5e9654e6-172f-4a9b-948b-f75205773433" name="vReal" range="0..3" />
     </programGraphHasVariables>
   </variables>
   <macros>

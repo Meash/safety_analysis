@@ -120,10 +120,10 @@
   </macros>
   <importedVariables>
     <programGraphHasImportedVariables Id="3185a34f-706a-40fc-aa50-cca2570fb6ac">
-      <importedVariable Id="8bddb3a2-2937-4d37-99e0-16c0a1b53516" name="Zughodometer.Position" range="-200..100" />
+      <importedVariable Id="8bddb3a2-2937-4d37-99e0-16c0a1b53516" name="Zughodometer.Position" range="-100..50" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="0d32b0c0-89e5-44b5-b0d9-f9074f4a4acd">
-      <importedVariable Id="409133ee-a570-4eb0-85c2-2cf0a1effde4" name="Zughodometer.v" range="0..5" />
+      <importedVariable Id="409133ee-a570-4eb0-85c2-2cf0a1effde4" name="Zughodometer.v" range="0..3" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="2dcb0672-4cd1-4aa5-a668-3bce7a97e525">
       <importedVariable Id="36c20eb2-9dec-477a-b7a5-381de3990047" name="ZugPunktpositionsbestimmung_Stoerung" range="No, Yes" />
