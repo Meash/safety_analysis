@@ -47,8 +47,8 @@ Auch der Sensor kommuniziert direkt mit dem Bahnübergang, ohne die kabelbasiert
 
 **Zustandsverringerung**
 
-Um die Model-Checking-Zeit ertragbarer zu machen, haben wir uns entschieden, im Zughodometer die Geschwindigkeit und Position nicht auszulesen.
-Dies führt dazu, dass die ZugPunktpositionsbestimmung und der Zugmotor direkt von der realen Position bzw. Geschwindigkeit lesen. (Auch so kommen wir noch auf 3,6 Millionen BDDs beim LTL Model-Checking)
+Ursprünglich wollten wir das Zughodometer ausklammern, um den Zustandsraum zu verkleinern. Dadurch hat sich aber unsere DCCA verändert und wir haben es wieder reingenommen.
+Wenn du die kleine Inkonsistenz für eine deutlich höhere Performanz in Kauf nimmst, verwende bitte commit 06fbe16b8870056b6488a4280dfaaec7c1b3f02f.
 
 
 ####A8 Störungen
