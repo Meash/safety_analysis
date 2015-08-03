@@ -69,6 +69,15 @@
     <None Include="BahnuebergangFunksender.pg.diagram">
       <DependentUpon>BahnuebergangFunksender.pg</DependentUpon>
     </None>
+    <None Include="BehaviourWithFaults.smv">
+      <DependentUpon>BehaviourWithFaults.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </None>
+    <None Include="BehaviourWithFaults.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BehaviourWithFaults.smv</LastGenOutput>
+    </None>
     <None Include="BehaviourWithoutFaults.smv">
       <DependentUpon>BehaviourWithoutFaults.tt</DependentUpon>
       <AutoGen>True</AutoGen>
