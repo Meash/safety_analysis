@@ -33,8 +33,6 @@ MODULE _VARS
 		V_vReal : 0..5;
 		V_Antriebswirkung : 0..2;
 		V_Zughodometer : {L__};
-		V_Position : -120..50;
-		V_v : 0..5;
 		V_Zugmotor : {L_Aus, L_Beschleunigen, L_GeschwindigkeitHalten};
 		V_Zugmotor_Ausfall : {L_No, L_Yes};
 		V_Zugposition : {L__};
@@ -243,30 +241,29 @@ MODULE _P_Zuggeschwindigkeit(v)
 	INIT
 		(v.V_Zuggeschwindigkeit = L__) & ((v.V_vReal = 5))
 	TRANS
-		 ( v.V_Zuggeschwindigkeit = L__ & next(v.V_Zuggeschwindigkeit) = L__ & ((v.V_vReal > 0) & (((((v.V_vReal + v.V_Antriebswirkung) + v.V_Bremswirkung) + -1) <= 3) & ((((v.V_vReal + v.V_Antriebswirkung) + v.V_Bremswirkung) + -1) >= 0))) & (next(v.V_vReal) = (((v.V_vReal + v.V_Antriebswirkung) + v.V_Bremswirkung) + -1)))  |
+		 ( v.V_Zuggeschwindigkeit = L__ & next(v.V_Zuggeschwindigkeit) = L__ & ((v.V_vReal > 0) & (((((v.V_vReal + v.V_Antriebswirkung) + v.V_Bremswirkung) + -1) <= 5) & ((((v.V_vReal + v.V_Antriebswirkung) + v.V_Bremswirkung) + -1) >= 0))) & (next(v.V_vReal) = (((v.V_vReal + v.V_Antriebswirkung) + v.V_Bremswirkung) + -1)))  |
 		 ( v.V_Zuggeschwindigkeit = L__ & next(v.V_Zuggeschwindigkeit) = L__ & (((v.V_vReal = 1) & (v.V_Bremswirkung = -1)) & (v.V_Antriebswirkung = 0)) & (next(v.V_vReal) = 0))  |
-		 ( v.V_Zuggeschwindigkeit = L__ & next(v.V_Zuggeschwindigkeit) = L__ & (!((v.V_vReal > 0) & (((((v.V_vReal + v.V_Antriebswirkung) + v.V_Bremswirkung) + -1) <= 3) & ((((v.V_vReal + v.V_Antriebswirkung) + v.V_Bremswirkung) + -1) >= 0))) & !(((v.V_vReal = 1) & (v.V_Bremswirkung = -1)) & (v.V_Antriebswirkung = 0))) & (next(v.V_vReal) = v.V_vReal));
+		 ( v.V_Zuggeschwindigkeit = L__ & next(v.V_Zuggeschwindigkeit) = L__ & (!((v.V_vReal > 0) & (((((v.V_vReal + v.V_Antriebswirkung) + v.V_Bremswirkung) + -1) <= 5) & ((((v.V_vReal + v.V_Antriebswirkung) + v.V_Bremswirkung) + -1) >= 0))) & !(((v.V_vReal = 1) & (v.V_Bremswirkung = -1)) & (v.V_Antriebswirkung = 0))) & (next(v.V_vReal) = v.V_vReal));
 MODULE _P_Zughodometer(v)
 	INIT
-		(v.V_Zughodometer = L__) & (((v.V_Position = -120) & (v.V_v = 5)))
+		(v.V_Zughodometer = L__) & (TRUE)
 	TRANS
-		 ( v.V_Zughodometer = L__ & next(v.V_Zughodometer) = L__ & ((((v.V_PositionReal >= -120) & (v.V_PositionReal <= 50)) & (v.V_vReal >= 0)) & (v.V_vReal <= 5)) & (next(v.V_v) = v.V_vReal & next(v.V_Position) = v.V_PositionReal))  |
-		 ( v.V_Zughodometer = L__ & next(v.V_Zughodometer) = L__ & !((((v.V_PositionReal >= -120) & (v.V_PositionReal <= 50)) & (v.V_vReal >= 0)) & (v.V_vReal <= 5)) & (next(v.V_Position) = v.V_Position & next(v.V_v) = v.V_v));
+		 ( v.V_Zughodometer = L__ & next(v.V_Zughodometer) = L__ & TRUE & (TRUE));
 MODULE _P_Zugmotor(v)
 	INIT
 		(v.V_Zugmotor = L_GeschwindigkeitHalten) & (TRUE)
 	TRANS
-		 ( v.V_Zugmotor = L_Aus & next(v.V_Zugmotor) = L_Beschleunigen & ((((v.V_Zugsteuerung = L_Fahren) & (v.V_v < 5)) & (v.V_Zugmotor_Ausfall = L_No)) & (2 <= 2)) & (next(v.V_Antriebswirkung) = 2))  |
-		 ( v.V_Zugmotor = L_Aus & next(v.V_Zugmotor) = L_GeschwindigkeitHalten & ((((v.V_Zugsteuerung = L_Fahren) & (v.V_v = 5)) & (v.V_Zugmotor_Ausfall = L_No)) & ((1 >= 0) & (1 <= 2))) & (next(v.V_Antriebswirkung) = 1))  |
-		 ( v.V_Zugmotor = L_Beschleunigen & next(v.V_Zugmotor) = L_Aus & (((v.V_Zugsteuerung = L_Zwangsbremsung) & (v.V_Zugmotor_Ausfall = L_No)) & (0 >= 0)) & (next(v.V_Antriebswirkung) = 0))  |
-		 ( v.V_Zugmotor = L_Beschleunigen & next(v.V_Zugmotor) = L_GeschwindigkeitHalten & ((((v.V_Zugsteuerung = L_Fahren) & (v.V_v = 5)) & (v.V_Zugmotor_Ausfall = L_No)) & ((1 >= 0) & (1 <= 2))) & (next(v.V_Antriebswirkung) = 1))  |
+		 ( v.V_Zugmotor = L_Aus & next(v.V_Zugmotor) = L_Beschleunigen & (((v.V_Zugsteuerung = L_Fahren) & (v.V_vReal < 5)) & (v.V_Zugmotor_Ausfall = L_No)) & (next(v.V_Antriebswirkung) = 2))  |
+		 ( v.V_Zugmotor = L_Aus & next(v.V_Zugmotor) = L_GeschwindigkeitHalten & (((v.V_Zugsteuerung = L_Fahren) & (v.V_vReal = 5)) & (v.V_Zugmotor_Ausfall = L_No)) & (next(v.V_Antriebswirkung) = 1))  |
+		 ( v.V_Zugmotor = L_Beschleunigen & next(v.V_Zugmotor) = L_Aus & ((v.V_Zugsteuerung = L_Zwangsbremsung) & (v.V_Zugmotor_Ausfall = L_No)) & (next(v.V_Antriebswirkung) = 0))  |
+		 ( v.V_Zugmotor = L_Beschleunigen & next(v.V_Zugmotor) = L_GeschwindigkeitHalten & (((v.V_Zugsteuerung = L_Fahren) & (v.V_vReal = 5)) & (v.V_Zugmotor_Ausfall = L_No)) & (next(v.V_Antriebswirkung) = 1))  |
 		 ( v.V_Zugmotor = L_Beschleunigen & next(v.V_Zugmotor) = L_Aus & (v.V_Zugmotor_Ausfall != L_No) & (next(v.V_Antriebswirkung) = 0))  |
-		 ( v.V_Zugmotor = L_GeschwindigkeitHalten & next(v.V_Zugmotor) = L_Aus & (((v.V_Zugsteuerung = L_Zwangsbremsung) & (v.V_Zugmotor_Ausfall = L_No)) & (0 >= 0)) & (next(v.V_Antriebswirkung) = 0))  |
-		 ( v.V_Zugmotor = L_GeschwindigkeitHalten & next(v.V_Zugmotor) = L_Beschleunigen & ((((v.V_Zugsteuerung = L_Fahren) & (v.V_v < 5)) & (v.V_Zugmotor_Ausfall = L_No)) & ((2 <= 2) & (2 >= 0))) & (next(v.V_Antriebswirkung) = 2))  |
+		 ( v.V_Zugmotor = L_GeschwindigkeitHalten & next(v.V_Zugmotor) = L_Aus & ((v.V_Zugsteuerung = L_Zwangsbremsung) & (v.V_Zugmotor_Ausfall = L_No)) & (next(v.V_Antriebswirkung) = 0))  |
+		 ( v.V_Zugmotor = L_GeschwindigkeitHalten & next(v.V_Zugmotor) = L_Beschleunigen & (((v.V_Zugsteuerung = L_Fahren) & (v.V_vReal < 5)) & (v.V_Zugmotor_Ausfall = L_No)) & (next(v.V_Antriebswirkung) = 2))  |
 		 ( v.V_Zugmotor = L_GeschwindigkeitHalten & next(v.V_Zugmotor) = L_Aus & (v.V_Zugmotor_Ausfall != L_No) & (next(v.V_Antriebswirkung) = 0))  |
-		 ( v.V_Zugmotor = L_Aus & next(v.V_Zugmotor) = L_Aus & (!((((v.V_Zugsteuerung = L_Fahren) & (v.V_v < 5)) & (v.V_Zugmotor_Ausfall = L_No)) & (2 <= 2)) & !((((v.V_Zugsteuerung = L_Fahren) & (v.V_v = 5)) & (v.V_Zugmotor_Ausfall = L_No)) & ((1 >= 0) & (1 <= 2)))) & (next(v.V_Antriebswirkung) = v.V_Antriebswirkung))  |
-		 ( v.V_Zugmotor = L_Beschleunigen & next(v.V_Zugmotor) = L_Beschleunigen & (!(((v.V_Zugsteuerung = L_Zwangsbremsung) & (v.V_Zugmotor_Ausfall = L_No)) & (0 >= 0)) & (!((((v.V_Zugsteuerung = L_Fahren) & (v.V_v = 5)) & (v.V_Zugmotor_Ausfall = L_No)) & ((1 >= 0) & (1 <= 2))) & !(v.V_Zugmotor_Ausfall != L_No))) & (next(v.V_Antriebswirkung) = v.V_Antriebswirkung))  |
-		 ( v.V_Zugmotor = L_GeschwindigkeitHalten & next(v.V_Zugmotor) = L_GeschwindigkeitHalten & (!(((v.V_Zugsteuerung = L_Zwangsbremsung) & (v.V_Zugmotor_Ausfall = L_No)) & (0 >= 0)) & (!((((v.V_Zugsteuerung = L_Fahren) & (v.V_v < 5)) & (v.V_Zugmotor_Ausfall = L_No)) & ((2 <= 2) & (2 >= 0))) & !(v.V_Zugmotor_Ausfall != L_No))) & (next(v.V_Antriebswirkung) = v.V_Antriebswirkung));
+		 ( v.V_Zugmotor = L_Aus & next(v.V_Zugmotor) = L_Aus & (!(((v.V_Zugsteuerung = L_Fahren) & (v.V_vReal < 5)) & (v.V_Zugmotor_Ausfall = L_No)) & !(((v.V_Zugsteuerung = L_Fahren) & (v.V_vReal = 5)) & (v.V_Zugmotor_Ausfall = L_No))) & (next(v.V_Antriebswirkung) = v.V_Antriebswirkung))  |
+		 ( v.V_Zugmotor = L_Beschleunigen & next(v.V_Zugmotor) = L_Beschleunigen & (!((v.V_Zugsteuerung = L_Zwangsbremsung) & (v.V_Zugmotor_Ausfall = L_No)) & (!(((v.V_Zugsteuerung = L_Fahren) & (v.V_vReal = 5)) & (v.V_Zugmotor_Ausfall = L_No)) & !(v.V_Zugmotor_Ausfall != L_No))) & (next(v.V_Antriebswirkung) = v.V_Antriebswirkung))  |
+		 ( v.V_Zugmotor = L_GeschwindigkeitHalten & next(v.V_Zugmotor) = L_GeschwindigkeitHalten & (!((v.V_Zugsteuerung = L_Zwangsbremsung) & (v.V_Zugmotor_Ausfall = L_No)) & (!(((v.V_Zugsteuerung = L_Fahren) & (v.V_vReal < 5)) & (v.V_Zugmotor_Ausfall = L_No)) & !(v.V_Zugmotor_Ausfall != L_No))) & (next(v.V_Antriebswirkung) = v.V_Antriebswirkung));
 MODULE _P_Zugmotor_Ausfall(v)
 	INIT
 		(v.V_Zugmotor_Ausfall = L_No) & (TRUE)
@@ -279,13 +276,13 @@ MODULE _P_Zugposition(v)
 	INIT
 		(v.V_Zugposition = L__) & ((v.V_PositionReal = -120))
 	TRANS
-		 ( v.V_Zugposition = L__ & next(v.V_Zugposition) = L__ & (((v.V_PositionReal + v.V_vReal) <= 50) & ((v.V_PositionReal + v.V_vReal) >= -200)) & (next(v.V_PositionReal) = (v.V_PositionReal + v.V_vReal)))  |
-		 ( v.V_Zugposition = L__ & next(v.V_Zugposition) = L__ & !(((v.V_PositionReal + v.V_vReal) <= 50) & ((v.V_PositionReal + v.V_vReal) >= -200)) & (next(v.V_PositionReal) = v.V_PositionReal));
+		 ( v.V_Zugposition = L__ & next(v.V_Zugposition) = L__ & (((v.V_PositionReal + v.V_vReal) <= 50) & ((v.V_PositionReal + v.V_vReal) >= -120)) & (next(v.V_PositionReal) = (v.V_PositionReal + v.V_vReal)))  |
+		 ( v.V_Zugposition = L__ & next(v.V_Zugposition) = L__ & !(((v.V_PositionReal + v.V_vReal) <= 50) & ((v.V_PositionReal + v.V_vReal) >= -120)) & (next(v.V_PositionReal) = v.V_PositionReal));
 MODULE _P_ZugPunktpositionsbestimmung(v)
 	INIT
 		(v.V_ZugPunktpositionsbestimmung = L_AufFreierStrecke) & (TRUE)
 	TRANS
-		 ( v.V_ZugPunktpositionsbestimmung = L_AufFreierStrecke & next(v.V_ZugPunktpositionsbestimmung) = L_EinschaltpunktErreicht & ((v.V_Position >= ((((0 - 22) - ((v.V_v * v.V_v) / (2 * 1))) - ((2 * 5) * v.V_v)) - (v.V_v * ((2 / 1) + 5)))) & (v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)) & (TRUE))  |
+		 ( v.V_ZugPunktpositionsbestimmung = L_AufFreierStrecke & next(v.V_ZugPunktpositionsbestimmung) = L_EinschaltpunktErreicht & ((v.V_PositionReal >= ((((0 - 22) - ((v.V_vReal * v.V_vReal) / (2 * 1))) - ((2 * 5) * v.V_vReal)) - (v.V_vReal * ((2 / 1) + 5)))) & (v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)) & (TRUE))  |
 		 ( v.V_ZugPunktpositionsbestimmung = L_EinschaltpunktErreicht & next(v.V_ZugPunktpositionsbestimmung) = L_NachEinschaltpunkt & TRUE & (TRUE))  |
 		 ( v.V_ZugPunktpositionsbestimmung = L_EinschaltpunktErreicht & next(v.V_ZugPunktpositionsbestimmung) = L_AufFreierStrecke & (v.V_ZugPunktpositionsbestimmung_Stoerung != L_No) & (TRUE))  |
 		 ( v.V_ZugPunktpositionsbestimmung = L_AnfragepunktErreicht & next(v.V_ZugPunktpositionsbestimmung) = L_AufFreierStrecke & (v.V_ZugPunktpositionsbestimmung_Stoerung != L_No) & (TRUE))  |
@@ -294,17 +291,17 @@ MODULE _P_ZugPunktpositionsbestimmung(v)
 		 ( v.V_ZugPunktpositionsbestimmung = L_GefahrenpunktErreicht & next(v.V_ZugPunktpositionsbestimmung) = L_Ende & TRUE & (TRUE))  |
 		 ( v.V_ZugPunktpositionsbestimmung = L_BremseinsatzpunktErreicht & next(v.V_ZugPunktpositionsbestimmung) = L_AufFreierStrecke & (v.V_ZugPunktpositionsbestimmung_Stoerung != L_No) & (TRUE))  |
 		 ( v.V_ZugPunktpositionsbestimmung = L_BremseinsatzpunktErreicht & next(v.V_ZugPunktpositionsbestimmung) = L_NachBremseinsatzpunkt & TRUE & (TRUE))  |
-		 ( v.V_ZugPunktpositionsbestimmung = L_NachEinschaltpunkt & next(v.V_ZugPunktpositionsbestimmung) = L_AnfragepunktErreicht & ((v.V_Position >= (((0 - 22) - ((v.V_v * v.V_v) / (2 * 1))) - ((2 * 5) * v.V_v))) & (v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)) & (TRUE))  |
+		 ( v.V_ZugPunktpositionsbestimmung = L_NachEinschaltpunkt & next(v.V_ZugPunktpositionsbestimmung) = L_AnfragepunktErreicht & ((v.V_PositionReal >= (((0 - 22) - ((v.V_vReal * v.V_vReal) / (2 * 1))) - ((2 * 5) * v.V_vReal))) & (v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)) & (TRUE))  |
 		 ( v.V_ZugPunktpositionsbestimmung = L_NachEinschaltpunkt & next(v.V_ZugPunktpositionsbestimmung) = L_AufFreierStrecke & (v.V_ZugPunktpositionsbestimmung_Stoerung != L_No) & (TRUE))  |
-		 ( v.V_ZugPunktpositionsbestimmung = L_NachAnfragepunkt & next(v.V_ZugPunktpositionsbestimmung) = L_BremseinsatzpunktErreicht & ((v.V_Position >= ((0 - 22) - ((v.V_v * v.V_v) / (2 * 1)))) & (v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)) & (TRUE))  |
+		 ( v.V_ZugPunktpositionsbestimmung = L_NachAnfragepunkt & next(v.V_ZugPunktpositionsbestimmung) = L_BremseinsatzpunktErreicht & ((v.V_PositionReal >= ((0 - 22) - ((v.V_vReal * v.V_vReal) / (2 * 1)))) & (v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)) & (TRUE))  |
 		 ( v.V_ZugPunktpositionsbestimmung = L_NachAnfragepunkt & next(v.V_ZugPunktpositionsbestimmung) = L_AufFreierStrecke & (v.V_ZugPunktpositionsbestimmung_Stoerung != L_No) & (TRUE))  |
-		 ( v.V_ZugPunktpositionsbestimmung = L_NachBremseinsatzpunkt & next(v.V_ZugPunktpositionsbestimmung) = L_GefahrenpunktErreicht & ((v.V_Position >= 0) & (v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)) & (TRUE))  |
+		 ( v.V_ZugPunktpositionsbestimmung = L_NachBremseinsatzpunkt & next(v.V_ZugPunktpositionsbestimmung) = L_GefahrenpunktErreicht & ((v.V_PositionReal >= 0) & (v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)) & (TRUE))  |
 		 ( v.V_ZugPunktpositionsbestimmung = L_NachBremseinsatzpunkt & next(v.V_ZugPunktpositionsbestimmung) = L_AufFreierStrecke & (v.V_ZugPunktpositionsbestimmung_Stoerung != L_No) & (TRUE))  |
-		 ( v.V_ZugPunktpositionsbestimmung = L_AufFreierStrecke & next(v.V_ZugPunktpositionsbestimmung) = L_AufFreierStrecke & !((v.V_Position >= ((((0 - 22) - ((v.V_v * v.V_v) / (2 * 1))) - ((2 * 5) * v.V_v)) - (v.V_v * ((2 / 1) + 5)))) & (v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)) & (TRUE))  |
+		 ( v.V_ZugPunktpositionsbestimmung = L_AufFreierStrecke & next(v.V_ZugPunktpositionsbestimmung) = L_AufFreierStrecke & !((v.V_PositionReal >= ((((0 - 22) - ((v.V_vReal * v.V_vReal) / (2 * 1))) - ((2 * 5) * v.V_vReal)) - (v.V_vReal * ((2 / 1) + 5)))) & (v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)) & (TRUE))  |
 		 ( v.V_ZugPunktpositionsbestimmung = L_Ende & next(v.V_ZugPunktpositionsbestimmung) = L_Ende & TRUE & (TRUE))  |
-		 ( v.V_ZugPunktpositionsbestimmung = L_NachEinschaltpunkt & next(v.V_ZugPunktpositionsbestimmung) = L_NachEinschaltpunkt & (!((v.V_Position >= (((0 - 22) - ((v.V_v * v.V_v) / (2 * 1))) - ((2 * 5) * v.V_v))) & (v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)) & !(v.V_ZugPunktpositionsbestimmung_Stoerung != L_No)) & (TRUE))  |
-		 ( v.V_ZugPunktpositionsbestimmung = L_NachAnfragepunkt & next(v.V_ZugPunktpositionsbestimmung) = L_NachAnfragepunkt & (!((v.V_Position >= ((0 - 22) - ((v.V_v * v.V_v) / (2 * 1)))) & (v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)) & !(v.V_ZugPunktpositionsbestimmung_Stoerung != L_No)) & (TRUE))  |
-		 ( v.V_ZugPunktpositionsbestimmung = L_NachBremseinsatzpunkt & next(v.V_ZugPunktpositionsbestimmung) = L_NachBremseinsatzpunkt & (!((v.V_Position >= 0) & (v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)) & !(v.V_ZugPunktpositionsbestimmung_Stoerung != L_No)) & (TRUE));
+		 ( v.V_ZugPunktpositionsbestimmung = L_NachEinschaltpunkt & next(v.V_ZugPunktpositionsbestimmung) = L_NachEinschaltpunkt & (!((v.V_PositionReal >= (((0 - 22) - ((v.V_vReal * v.V_vReal) / (2 * 1))) - ((2 * 5) * v.V_vReal))) & (v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)) & !(v.V_ZugPunktpositionsbestimmung_Stoerung != L_No)) & (TRUE))  |
+		 ( v.V_ZugPunktpositionsbestimmung = L_NachAnfragepunkt & next(v.V_ZugPunktpositionsbestimmung) = L_NachAnfragepunkt & (!((v.V_PositionReal >= ((0 - 22) - ((v.V_vReal * v.V_vReal) / (2 * 1)))) & (v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)) & !(v.V_ZugPunktpositionsbestimmung_Stoerung != L_No)) & (TRUE))  |
+		 ( v.V_ZugPunktpositionsbestimmung = L_NachBremseinsatzpunkt & next(v.V_ZugPunktpositionsbestimmung) = L_NachBremseinsatzpunkt & (!((v.V_PositionReal >= 0) & (v.V_ZugPunktpositionsbestimmung_Stoerung = L_No)) & !(v.V_ZugPunktpositionsbestimmung_Stoerung != L_No)) & (TRUE));
 MODULE _P_ZugPunktpositionsbestimmung_Stoerung(v)
 	INIT
 		(v.V_ZugPunktpositionsbestimmung_Stoerung = L_No) & (TRUE)
@@ -386,7 +383,7 @@ LTLSPEC G KeinFehler -> (G (SchrankeZu -> F SchrankeOffen))
 LTLSPEC G KeinFehler -> (G (v.V_ZugPunktpositionsbestimmung = L_AufFreierStrecke -> SchrankeOffen))
 
 ---- Schranke
---LTLSPEC G v.V_Schrankenmotor_Ausfall = L_No -> (G F SchrankeOffen)
+-- LTLSPEC (G v.V_Schrankenmotor_Ausfall = L_No) -> (G F SchrankeOffen) -- NuSMV braucht bei dieser Spezifikation ewig
 
 ------ Schrankensensor
 LTLSPEC G KeinFehler -> (G (SchrankeZu -> X v.V_Schrankensensor = L_Geschlossen)) -- X due to state machine timing

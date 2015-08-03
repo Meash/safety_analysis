@@ -10,7 +10,7 @@
     </initialNode>
     <state Id="86813711-8391-45f3-9af9-ba8ed78d5d55" name="AufFreierStrecke">
       <successors>
-        <transition Id="b01a5bbf-9ebc-4051-941b-47524a7eee26" guard="Position &gt;= _EP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No" label="Position &gt;= _EP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No">
+        <transition Id="b01a5bbf-9ebc-4051-941b-47524a7eee26" guard="PositionReal &gt;= _EP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No" label="PositionReal &gt;= _EP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/EinschaltpunktErreicht" />
         </transition>
       </successors>
@@ -58,7 +58,7 @@
     <state Id="963b959a-69c8-47bd-8e0f-ababc50569e2" name="Ende" />
     <state Id="53005e5a-13a2-43f4-969e-b465d3de611c" name="NachEinschaltpunkt">
       <successors>
-        <transition Id="553756bc-010f-4779-ba84-688d2ffdf78a" guard="Position &gt;= _AP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No" label="Position &gt;= _AP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No">
+        <transition Id="553756bc-010f-4779-ba84-688d2ffdf78a" guard="PositionReal &gt;= _AP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No" label="PositionReal &gt;= _AP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/AnfragepunktErreicht" />
         </transition>
         <transition Id="e6e7d810-eedb-4db9-b7a4-128cf5d65a65" guard="ZugPunktpositionsbestimmung_Stoerung != No" label="ZugPunktpositionsbestimmung_Stoerung != No">
@@ -68,7 +68,7 @@
     </state>
     <state Id="3a350ee5-03e1-4467-a793-0d6950c79c72" name="NachAnfragepunkt">
       <successors>
-        <transition Id="70956767-f48a-494d-9f10-c4db6b8ed535" guard="Position &gt;= _BEP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No" label="Position &gt;= _BEP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No">
+        <transition Id="70956767-f48a-494d-9f10-c4db6b8ed535" guard="PositionReal &gt;= _BEP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No" label="PositionReal &gt;= _BEP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/BremseinsatzpunktErreicht" />
         </transition>
         <transition Id="5e0f22ef-cdc9-4f5f-9d6e-4ba0e93fd2b3" guard="ZugPunktpositionsbestimmung_Stoerung != No" label="ZugPunktpositionsbestimmung_Stoerung != No">
@@ -78,7 +78,7 @@
     </state>
     <state Id="4b741c2a-2da9-451c-b248-855487bedbab" name="NachBremseinsatzpunkt">
       <successors>
-        <transition Id="e282f216-80ae-463d-a87a-25afd71ae4a8" guard="Position &gt;= _GP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No" label="Position &gt;= _GP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No">
+        <transition Id="e282f216-80ae-463d-a87a-25afd71ae4a8" guard="PositionReal &gt;= _GP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No" label="PositionReal &gt;= _GP &amp;&amp; ZugPunktpositionsbestimmung_Stoerung == No">
           <stateMoniker name="/288248bd-3e03-4eda-a54d-6d89134c2093/GefahrenpunktErreicht" />
         </transition>
         <transition Id="9b133047-b15f-492e-ba43-4d11d0554eaf" guard="ZugPunktpositionsbestimmung_Stoerung != No" label="ZugPunktpositionsbestimmung_Stoerung != No">
@@ -94,13 +94,13 @@
   </comments>
   <macros>
     <programGraphHasMacros Id="f8583c99-1e05-43bb-8098-2fe705f9416b">
-      <macro Id="01ea6f13-17be-432f-983c-e2887fa09829" name="_EP" body="_AP - v * (_t + _c)" />
+      <macro Id="01ea6f13-17be-432f-983c-e2887fa09829" name="_EP" body="_AP - vReal * (_t + _c)" />
     </programGraphHasMacros>
     <programGraphHasMacros Id="70b8f385-c0ae-4e55-bf9c-db5050e5ee64">
-      <macro Id="5958b145-d51c-40ad-a392-a3a741170cfa" name="_AP" body="_BEP - 2 * _c * v" />
+      <macro Id="5958b145-d51c-40ad-a392-a3a741170cfa" name="_AP" body="_BEP - 2 * _c * vReal" />
     </programGraphHasMacros>
     <programGraphHasMacros Id="c399aed7-0090-4d09-969c-c00da5309ed6">
-      <macro Id="bf1c40bd-73d1-41cf-9f83-d7b088f9387e" name="_BEP" body="_GP - _z - ((v * v) / ( 2 * _a))" />
+      <macro Id="bf1c40bd-73d1-41cf-9f83-d7b088f9387e" name="_BEP" body="_GP - _z - ((vReal * vReal) / ( 2 * _a))" />
     </programGraphHasMacros>
     <programGraphHasMacros Id="84c44bb0-cd01-4a24-9b21-153a89973a84">
       <macro Id="2b6bd770-eed9-4792-a085-f1f4ddf6fe35" name="_GP" body="0" />
@@ -119,14 +119,14 @@
     </programGraphHasMacros>
   </macros>
   <importedVariables>
-    <programGraphHasImportedVariables Id="3185a34f-706a-40fc-aa50-cca2570fb6ac">
-      <importedVariable Id="8bddb3a2-2937-4d37-99e0-16c0a1b53516" name="Zughodometer.Position" range="-120..50" />
-    </programGraphHasImportedVariables>
-    <programGraphHasImportedVariables Id="0d32b0c0-89e5-44b5-b0d9-f9074f4a4acd">
-      <importedVariable Id="409133ee-a570-4eb0-85c2-2cf0a1effde4" name="Zughodometer.v" range="0..5" />
-    </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="2dcb0672-4cd1-4aa5-a668-3bce7a97e525">
       <importedVariable Id="36c20eb2-9dec-477a-b7a5-381de3990047" name="ZugPunktpositionsbestimmung_Stoerung" range="No, Yes" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="c355d9f4-a1cd-4470-8743-55e002d798ec">
+      <importedVariable Id="c1720807-8878-48d5-b2c2-a43c04b4bdfb" name="Zugposition.PositionReal" range="-120..50" />
+    </programGraphHasImportedVariables>
+    <programGraphHasImportedVariables Id="ee6debd1-2673-4460-9bf1-0044919b2d2c">
+      <importedVariable Id="3106520a-7e65-4f35-a59d-2d7d3d835f7e" name="Zuggeschwindigkeit.vReal" range="0..5" />
     </programGraphHasImportedVariables>
   </importedVariables>
 </programGraph>

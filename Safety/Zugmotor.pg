@@ -10,20 +10,20 @@
     </initialNode>
     <state Id="369d03b7-0080-4323-9037-03bafdf7cf22" name="Aus">
       <successors>
-        <transition Id="32a0c604-06d9-4cab-a256-9bdfa086234b" guard="Zugsteuerung == Fahren &amp;&amp; v &lt; Zielgeschwindigkeit &amp;&amp; Zugmotor_Ausfall == No" action="Antriebswirkung := 2" label="Zugsteuerung == Fahren &amp;&amp; v &lt; Zielgeschwindigkeit &amp;&amp; Zugmotor_Ausfall == No // Antriebswirkung := 2" precondition="2 &lt;= 2">
+        <transition Id="32a0c604-06d9-4cab-a256-9bdfa086234b" guard="Zugsteuerung == Fahren &amp;&amp; vReal &lt; Zielgeschwindigkeit &amp;&amp; Zugmotor_Ausfall == No" action="Antriebswirkung := 2" label="Zugsteuerung == Fahren &amp;&amp; vReal &lt; Zielgeschwindigkeit &amp;&amp; Zugmotor_Ausfall == No // Antriebswirkung := 2" precondition="true">
           <stateMoniker name="/e28d0bc5-b160-46b5-b76d-de9238a3230a/Beschleunigen" />
         </transition>
-        <transition Id="1210b0d2-1a88-49d5-bb2a-7cd09ede0394" guard="Zugsteuerung == Fahren &amp;&amp; v == Zielgeschwindigkeit &amp;&amp; Zugmotor_Ausfall == No" action="Antriebswirkung := 1" label="Zugsteuerung == Fahren &amp;&amp; v == Zielgeschwindigkeit &amp;&amp; Zugmotor_Ausfall == No // Antriebswirkung := 1" precondition="1 &gt;= 0 &amp;&amp; 1 &lt;= 2">
+        <transition Id="1210b0d2-1a88-49d5-bb2a-7cd09ede0394" guard="Zugsteuerung == Fahren &amp;&amp; vReal == Zielgeschwindigkeit &amp;&amp; Zugmotor_Ausfall == No" action="Antriebswirkung := 1" label="Zugsteuerung == Fahren &amp;&amp; vReal == Zielgeschwindigkeit &amp;&amp; Zugmotor_Ausfall == No // Antriebswirkung := 1" precondition="true">
           <stateMoniker name="/e28d0bc5-b160-46b5-b76d-de9238a3230a/GeschwindigkeitHalten" />
         </transition>
       </successors>
     </state>
     <state Id="a2a6663d-726d-4e49-90de-0079060bb6cd" name="Beschleunigen">
       <successors>
-        <transition Id="e6612b6a-619e-4242-8b26-36471c5eb63c" guard="Zugsteuerung == Zwangsbremsung &amp;&amp; Zugmotor_Ausfall == No" action="Antriebswirkung := 0" label="Zugsteuerung == Zwangsbremsung &amp;&amp; Zugmotor_Ausfall == No // Antriebswirkung := 0" precondition="0 &gt;= 0">
+        <transition Id="e6612b6a-619e-4242-8b26-36471c5eb63c" guard="Zugsteuerung == Zwangsbremsung &amp;&amp; Zugmotor_Ausfall == No" action="Antriebswirkung := 0" label="Zugsteuerung == Zwangsbremsung &amp;&amp; Zugmotor_Ausfall == No // Antriebswirkung := 0" precondition="true">
           <stateMoniker name="/e28d0bc5-b160-46b5-b76d-de9238a3230a/Aus" />
         </transition>
-        <transition Id="001ebb1c-b14f-4fac-adac-5ad7d893c721" guard="Zugsteuerung == Fahren &amp;&amp; v == Zielgeschwindigkeit &amp;&amp; Zugmotor_Ausfall == No" action="Antriebswirkung := 1" label="Zugsteuerung == Fahren &amp;&amp; v == Zielgeschwindigkeit &amp;&amp; Zugmotor_Ausfall == No // Antriebswirkung := 1" precondition="1 &gt;= 0 &amp;&amp; 1 &lt;= 2">
+        <transition Id="001ebb1c-b14f-4fac-adac-5ad7d893c721" guard="Zugsteuerung == Fahren &amp;&amp; vReal == Zielgeschwindigkeit &amp;&amp; Zugmotor_Ausfall == No" action="Antriebswirkung := 1" label="Zugsteuerung == Fahren &amp;&amp; vReal == Zielgeschwindigkeit &amp;&amp; Zugmotor_Ausfall == No // Antriebswirkung := 1" precondition="true">
           <stateMoniker name="/e28d0bc5-b160-46b5-b76d-de9238a3230a/GeschwindigkeitHalten" />
         </transition>
         <transition Id="8a13781c-2655-41d8-946a-66afa30bd26e" guard="Zugmotor_Ausfall != No" action="Antriebswirkung := 0" label="Zugmotor_Ausfall != No // Antriebswirkung := 0" precondition="true">
@@ -33,10 +33,10 @@
     </state>
     <state Id="83eb3de3-47a8-4013-9b8b-d3e059c05d05" name="GeschwindigkeitHalten">
       <successors>
-        <transition Id="84be55f1-749e-473f-ab17-972fa9946239" guard="Zugsteuerung == Zwangsbremsung &amp;&amp; Zugmotor_Ausfall == No" action="Antriebswirkung := 0" label="Zugsteuerung == Zwangsbremsung &amp;&amp; Zugmotor_Ausfall == No // Antriebswirkung := 0" precondition="0 &gt;= 0">
+        <transition Id="84be55f1-749e-473f-ab17-972fa9946239" guard="Zugsteuerung == Zwangsbremsung &amp;&amp; Zugmotor_Ausfall == No" action="Antriebswirkung := 0" label="Zugsteuerung == Zwangsbremsung &amp;&amp; Zugmotor_Ausfall == No // Antriebswirkung := 0" precondition="true">
           <stateMoniker name="/e28d0bc5-b160-46b5-b76d-de9238a3230a/Aus" />
         </transition>
-        <transition Id="8b434bd8-7a64-4982-9a31-77663f5ed37d" guard="Zugsteuerung == Fahren &amp;&amp; v &lt; Zielgeschwindigkeit &amp;&amp; Zugmotor_Ausfall == No" action="Antriebswirkung := 2" label="Zugsteuerung == Fahren &amp;&amp; v &lt; Zielgeschwindigkeit &amp;&amp; Zugmotor_Ausfall == No // Antriebswirkung := 2" precondition="2 &lt;= 2 &amp;&amp; 2 &gt;= 0">
+        <transition Id="8b434bd8-7a64-4982-9a31-77663f5ed37d" guard="Zugsteuerung == Fahren &amp;&amp; vReal &lt; Zielgeschwindigkeit &amp;&amp; Zugmotor_Ausfall == No" action="Antriebswirkung := 2" label="Zugsteuerung == Fahren &amp;&amp; vReal &lt; Zielgeschwindigkeit &amp;&amp; Zugmotor_Ausfall == No // Antriebswirkung := 2" precondition="true">
           <stateMoniker name="/e28d0bc5-b160-46b5-b76d-de9238a3230a/Beschleunigen" />
         </transition>
         <transition Id="e0fcc0fa-f8a7-45cc-9aa1-b49606b411dd" guard="Zugmotor_Ausfall != No" action="Antriebswirkung := 0" label="Zugmotor_Ausfall != No // Antriebswirkung := 0" precondition="true">
@@ -65,7 +65,7 @@
       <importedVariable Id="52fbf55b-e172-4db4-8a49-e27f467bcb9b" name="Zugsteuerung" range="Fahren, Zwangsbremsung" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="28d123f9-f3d8-41fa-a4ec-b33a7bf15bf0">
-      <importedVariable Id="3254f92f-4b1f-4c06-b6f7-41b0a39913fd" name="Zughodometer.v" range="0..5" />
+      <importedVariable Id="3254f92f-4b1f-4c06-b6f7-41b0a39913fd" name="Zuggeschwindigkeit.vReal" range="0..5" />
     </programGraphHasImportedVariables>
     <programGraphHasImportedVariables Id="6bcce609-42d8-4a33-94f4-39146e265877">
       <importedVariable Id="59b4a2dd-ee73-41f4-ab1b-f86325c8708b" name="Zugmotor_Ausfall" range="No, Yes" />
