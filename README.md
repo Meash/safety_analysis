@@ -14,12 +14,4 @@ We also perform a DCCA and find all minimally critical sets of failures.
 
 
 ##Solutions for the exercises
-The solutions for tasks 1 and 2 from the first sheet (*Failures* and *Fault Tree Analysis*) and for task 3 from the second sheet (*FMEA*) can be found in the repository's root folder.
-
-**Note**: use the Adobe Reader to open the PDF files, the Windows Reader doesn't show some parts of the text.
-
-The program graphs and NuSMV specifications can be found in a VisualStudio project which is located in the root directory.
-Simply clone this repository and open the VisualStudio solution.
-
-**Note**: you need an *F# 2.0 runtime* as well as the *Safety* plugin provided by the University of Augsburg to open the program graphs and transform them to a NuSMV module specification.
-Obviousy, you also need the symbolic model-checker *NuSMV*.
+See the file *Exercises_Solutions.md* for an overview of the solutions and their locations in the project.
