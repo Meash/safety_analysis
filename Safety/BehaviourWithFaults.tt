@@ -5,44 +5,57 @@
 <#=  TransformToNuSMV() #>
 
 DEFINE 
-	GP := 0;
 	SP := 35;
 	SchrankeZu := v.V_Winkel = 0;
 	SchrankeInDerBewegung := v.V_Winkel = 1;
 	SchrankeOffen := v.V_Winkel = 2;
-	ZugAmGefahrenpunkt := v.V_PositionReal >= GP & v.V_PositionReal < GP + v.V_vReal; -- Interval
 	ZugAmSensorpunkt := v.V_PositionReal >= SP & v.V_PositionReal < SP + v.V_vReal; -- Interval
 	ZugSteht := v.V_vReal = 0;
-	KeinFehler := (v.V_Sensor_Stoerung = L_No 
-				& v.V_BahnuebergangFunksender_Stoerung = L_No 
-				& v.V_Zugbremse_Ausfall = L_No
-				& v.V_Schrankenmotor_Ausfall = L_No
-				& v.V_Schrankensensor_Stoerung = L_No
-				& v.V_ZugFunksender_Ausfall = L_No
-				& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No
-				& v.V_Zugmotor_Ausfall = L_No);
 
+-- Viele dieser Spezifikationen brauchen sehr lange zum Pruefen, wir haben leider nicht herausgefunden warum
+-- (BehaviourWithoutFaults.smv läuft im Gegensatz sehr schnell durch).
 
--- Zugbremse_Ausfall: Zug kommt nie zum Stehen
-LTLSPEC G v.V_ZugbremseAusfall != L_No -> (! F ZugSteht)
-
--- Schrankenmotor_Ausfall: Schrankenwinkel ändert sich danach nie mehr
-LTLSPEC G (v.V_Schrankenmotor_Ausfall != L_No & SchrankeZu -> G SchrankeZu)
-LTLSPEC G (v.V_Schrankenmotor_Ausfall != L_No & SchrankeInDerBewegung -> G SchrankeInDerBewegung)
-LTLSPEC G (v.V_Schrankenmotor_Ausfall != L_No & SchrankeOffen -> G SchrankeOffen)
-
--- Sensor_Stoerung: Zug wird mehrfach erkannt
-CTLSPEC EF (v.V_Sensor_Stoerung != L_No -> v.V_Sensor = L_ZugFaehrtDurch & v.V_Sensor = L_KeinZug EU v.V_Sensor = L_ZugFaehrtDurch)
-
--- ZugFunksender_Ausfall: keine Nachricht verschickt
-LTLSPEC G (v.V_ZugFunksender_Ausfall != L_No 
-				& v.V_ZugFunksteuerung = L_SendeSicherungsAnweisung 
-			-> X v.V_ZugFunksender = L_SicherungsAnweisungGesendet)
 
 -- BahnuebergangFunksender_Stoerung: trotzdem Nachricht verschickt
 LTLSPEC G (v.V_BahnuebergangFunksender_Stoerung != L_No 
 				& v.V_BahnuebergangFunkSteuerung != L_SendeBestaetigungsNachricht 
 			-> X v.V_BahnuebergangFunkSteuerung = L_SendeBestaetigungsNachricht)
 
+-- Schrankenmotor_Ausfall: Schrankenwinkel ändert sich danach nie mehr
+LTLSPEC G (v.V_Schrankenmotor_Ausfall != L_No 
+				& SchrankeZu 
+			-> G SchrankeZu)
+LTLSPEC G (v.V_Schrankenmotor_Ausfall != L_No 
+				& SchrankeInDerBewegung 
+			-> G SchrankeInDerBewegung)
+LTLSPEC G (v.V_Schrankenmotor_Ausfall != L_No 
+				& SchrankeOffen 
+			-> G SchrankeOffen)
+
 -- Schrankensensor_Stoerung: Schranke wird falsch erkannt
-LTLSPEC F (v.V_Schrankensensor_Stoerung != L_No & SchrankeZu -> v.V_Schrankensensor = Offen)
+LTLSPEC F (v.V_Schrankensensor_Stoerung != L_No 
+				& SchrankeZu 
+			-> v.V_Schrankensensor = L_Offen)
+
+-- Sensor_Stoerung: Zug wird mehrfach erkannt
+CTLSPEC EF (v.V_Sensor_Stoerung != L_No 
+		-> v.V_Sensor = L_ZugFaehrtDurch 
+		& E [v.V_Sensor = L_KeinZug U v.V_Sensor = L_ZugFaehrtDurch])
+
+-- Zugbremse_Ausfall: Zug kommt nie zum Stehen
+LTLSPEC G (v.V_Zugbremse_Ausfall != L_No -> (! F ZugSteht))
+
+-- ZugFunksender_Ausfall: keine Nachricht verschickt
+LTLSPEC G (v.V_ZugFunksender_Ausfall != L_No 
+				& v.V_ZugFunksteuerung = L_SendeSicherungsAnweisung 
+			-> X v.V_ZugFunksender = L_SicherungsAnweisungGesendet)
+
+-- Zugmotor_Ausfall: Zug wird langsamer, obwohl Bremse nicht aktiv
+CTLSPEC AG (v.V_Zugmotor_Ausfall != L_No 
+			& v.V_Zugbremse = L_NichtBremsend 
+		-> EF v.V_vReal < 5)
+
+-- ZugPunktpositionsbestimmung_Stoerung: Zug ist bspw. nach dem Anfragepunkt wieder auf freier Strecke
+LTLSPEC G (v.V_ZugPunktpositionsbestimmung_Stoerung != L_No 
+				& v.V_ZugPunktpositionsbestimmung = L_EinschaltpunktErreicht
+			-> F v.V_ZugPunktpositionsbestimmung = L_AufFreierStrecke)
