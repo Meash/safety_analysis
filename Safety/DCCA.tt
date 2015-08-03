@@ -89,7 +89,7 @@ LTLSPEC ! ((v.V_BahnuebergangFunksender_Stoerung = L_No
 			& v.V_ZugFunksender_Ausfall = L_No
 			& v.V_Zugmotor_Ausfall = L_No)
 			U Hazard)
----- Zugmotor_Ausfall -> kritisch (?)
+---- Zugmotor_Ausfall -> kritisch
 LTLSPEC ! ((v.V_BahnuebergangFunksender_Stoerung = L_No 
 			& v.V_Zugbremse_Ausfall = L_No
 			& v.V_Sensor_Stoerung = L_No
