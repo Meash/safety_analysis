@@ -1,0 +1,48 @@
+﻿<#@ template inherits="Safety.ProgramGraphDsl.ProgramGraphTransformation" hostspecific="true" #>
+<#@ output encoding="us-ascii" extension=".smv" #>
+<#@ assembly Name="Safety.ProgramGraphDsl.dll" #>
+
+<#=  TransformToNuSMV() #>
+
+DEFINE 
+	GP := 0;
+	SP := 35;
+	SchrankeZu := v.V_Winkel = 0;
+	SchrankeInDerBewegung := v.V_Winkel = 1;
+	SchrankeOffen := v.V_Winkel = 2;
+	ZugAmGefahrenpunkt := v.V_PositionReal >= GP & v.V_PositionReal < GP + v.V_vReal; -- Interval
+	ZugAmSensorpunkt := v.V_PositionReal >= SP & v.V_PositionReal < SP + v.V_vReal; -- Interval
+	ZugSteht := v.V_vReal = 0;
+	KeinFehler := (v.V_Sensor_Stoerung = L_No 
+				& v.V_BahnuebergangFunksender_Stoerung = L_No 
+				& v.V_Zugbremse_Ausfall = L_No
+				& v.V_Schrankenmotor_Ausfall = L_No
+				& v.V_Schrankensensor_Stoerung = L_No
+				& v.V_ZugFunksender_Ausfall = L_No
+				& v.V_ZugPunktpositionsbestimmung_Stoerung = L_No
+				& v.V_Zugmotor_Ausfall = L_No);
+
+
+-- Zugbremse_Ausfall: Zug kommt nie zum Stehen
+LTLSPEC G v.V_ZugbremseAusfall != L_No -> (! F ZugSteht)
+
+-- Schrankenmotor_Ausfall: Schrankenwinkel ändert sich danach nie mehr
+LTLSPEC G (v.V_Schrankenmotor_Ausfall != L_No & SchrankeZu -> G SchrankeZu)
+LTLSPEC G (v.V_Schrankenmotor_Ausfall != L_No & SchrankeInDerBewegung -> G SchrankeInDerBewegung)
+LTLSPEC G (v.V_Schrankenmotor_Ausfall != L_No & SchrankeOffen -> G SchrankeOffen)
+
+-- Sensor_Stoerung: Zug wird mehrfach erkannt
+CTLSPEC EF (v.V_Sensor_Stoerung != L_No -> v.V_Sensor = L_ZugFaehrtDurch & v.V_Sensor = L_KeinZug EU v.V_Sensor = L_ZugFaehrtDurch)
+
+-- ZugFunksender_Ausfall: keine Nachricht verschickt
+LTLSPEC G (v.V_ZugFunksender_Ausfall != L_No 
+				& v.V_ZugFunksteuerung = L_SendeSicherungsAnweisung 
+			-> X v.V_ZugFunksender = L_SicherungsAnweisungGesendet)
+
+-- BahnuebergangFunksender_Stoerung: trotzdem Nachricht verschickt
+LTLSPEC G (v.V_BahnuebergangFunksender_Stoerung != L_No 
+				& v.V_BahnuebergangFunkSteuerung != L_SendeBestaetigungsNachricht 
+			-> X v.V_BahnuebergangFunkSteuerung = L_SendeBestaetigungsNachricht)
+
+-- Schrankensensor_Stoerung: Schranke wird falsch erkannt
+LTLSPEC F (v.V_Schrankensensor_Stoerung != L_No & SchrankeZu -> v.V_Schrankensensor = Offen)
